@@ -1,8 +1,8 @@
 //Initial User Setup
 type User = {
-    username?: string;
-    password?: string;
-    privacy?: boolean;
+    username: string;
+    password: string;
+    privacy: boolean;
 };
 
 let usernames = ["Guled", "Chris", "Phil"];
