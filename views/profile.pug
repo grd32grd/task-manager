@@ -19,15 +19,15 @@ html
             input#createtaskdate(type='datetime-local' name='taskdate')
             button#createtask(type='button')='Create Task'
 
-            script(src='../clients/createtask.js')
+            script(src='../clients/profile.js')
 
         h3 Tasks:
         ul
             for t in tasks
                 if t.username == profile.username
                     li
-                        input(type="checkbox")
-                        a(href="/tasks/" + t._id)=t.name
+                        button(type="button") X
+                        a(href="/tasks/" + t._id id=t.name + "-id" class="taskremove")=t.name
                         p= "Due @ " + t.datetime
 
 

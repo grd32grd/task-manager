@@ -2,6 +2,7 @@
 let taskName: any = document.getElementById('createtaskname');
 let taskDate: any = document.getElementById('createtaskdate');
 let createTask: any = document.getElementById('createtask');
+let taskRemoveButtons: any = document.getElementsByClassName("taskremove")
 
 //Main Methods
 
@@ -32,9 +33,11 @@ createTask.onclick = () => {
             resetTaskInput();
         }
     }
-    
     x.open("PUT", "http://localhost:3000/createtask");
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify(newTask));
-    
+}
+
+taskRemoveButtons.onClick = () => {
+    console.log("Hi")
 }

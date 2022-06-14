@@ -20,7 +20,7 @@ html
         ul
             for t in tasks
                 li
-                    input(type="checkbox")
+                    button(type="button") X
                     a(href="/tasks/" + t._id)= t.name
                     p= "Assigned to: " + t.username
                     p= "Due @ " + t.datetime

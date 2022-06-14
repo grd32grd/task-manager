@@ -30,7 +30,7 @@ register.onclick = () =>{
         }
     }
     
-    x.open("GET", "http://localhost:3000/register");
+    x.open("PUT", "http://localhost:3000/register");
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify(newUser));
 }
