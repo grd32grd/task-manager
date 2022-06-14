@@ -100,6 +100,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
+    //Route to get to a task's page to see detailed info as well as it's subtasks.
     app.get('/tasks/:taskid', function (req: any, res: any) {
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
@@ -233,7 +234,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             });  
         });
  
-        
     });
 });
 
