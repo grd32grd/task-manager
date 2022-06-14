@@ -1,0 +1,22 @@
+html 
+    head
+        title= "Site / " + profile.username + "'s Profile"
+        include ../includes/css.pug
+    body
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug    
+        else
+            p(style="font-weight: bold")= "User: " + session.username
+            include ../includes/loggedin.pug
+        hr
+        h1= profile.username + "'s Profile"
+
+        if (session.username == profile.username)
+            h3 Create Task:
+            label(for='taskname')= 'Task Name:'
+            input#createtaskname(type='text' name='taskname')
+            label(for='taskdate')= 'Task Date:'
+            input#createtaskdate(type='datetime-local' name='taskdate')
+            button#createtask(type='button')='Create Task'
+
+            script(src='../clients/createtask.js')

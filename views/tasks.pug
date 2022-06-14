@@ -1,0 +1,24 @@
+html
+    head
+        title Task Manager / Users
+        include ../includes/css.pug
+    body
+        //Header info changes depending on session logged in/out status
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug
+        else
+            p(style="font-weight: bold")= "User: " + session.username
+            include ../includes/loggedin.pug
+        hr
+
+        h1 Tasks
+        ul
+            for u in users
+                li 
+                    if (u.tasks)
+                        ul
+                            for t in u.tasks
+                                li
+                                    p= "Task: " + t.name 
+                                    p= "Due @ " + t.datetime
+                                    p= "Assigned to: " + u.username

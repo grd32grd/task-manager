@@ -1,11 +1,12 @@
-
 //HTML Variables
 let loginUsernameInput:any = document.getElementById('loginusername');
 let loginPasswordInput:any = document.getElementById('loginpassword');
 let login:any = document.getElementById('login');
 
 //Main Methods
-function reset(){
+
+//Function that'll clear the input fields
+function resetLoginInput(){
     loginUsernameInput.value = "";
     loginPasswordInput.value = "";  
 }
@@ -15,7 +16,7 @@ login.onclick = () => {
     let user:User = {
         username: "",
         password: "",
-        privacy: false
+        tasks: []
     };
     user.username = loginUsernameInput.value;
     user.password = loginPasswordInput.value;
@@ -24,7 +25,7 @@ login.onclick = () => {
     x.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             alert(user.username + " has been logged in");
-            reset();
+            resetLoginInput();
             let id = (JSON.parse(x.responseText));
             window.location.assign("http://localhost:3000/users/" + id);
         }

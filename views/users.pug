@@ -1,15 +1,18 @@
 html
     head
-        title Task Manager / Home
+        title Task Manager / Users
         include ../includes/css.pug
     body
         //Header info changes depending on session logged in/out status
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
-            p(style="font-weight: bold")= "Hello " + session.username + "!"
+            p(style="font-weight: bold")= "User: " + session.username
             include ../includes/loggedin.pug
         hr
 
-        h1 Home
-        p Welcome to the Task Manager!
+        h1 Users
+        ul
+            for u in users
+                li
+                    a(href='/users/' + u._id)=u.username

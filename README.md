@@ -7,9 +7,6 @@ task-manager
 - To install these dependencies, run the following commands:
     "npm i --save-dev typescript && npm i pug && npm i mongodb && npm i connect-mongodb-session && npm i express && npm i express-session"
 
-- Run this command to firstly setup the tsconfig.json file:
-    "npx tsc --init"
-
 - Run this command to convert all .ts files to .js files:
     "npx tsc"
 
