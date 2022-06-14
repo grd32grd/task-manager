@@ -1,17 +1,23 @@
 //Initial User Setup
 type Task = {
+	username?: string;
     name: string;
     datetime: string;
+	subtasks?: Task[]
 };
 type User = {
     username: string;
     password: string;
-	_id?: string;
-	tasks?: Task[];
+	_id?: string
 };
 
 let usernames = ["Guled", "Chris", "Phil"];
 let users: User[] = [];
+let tasks = [
+	{username: "Guled", name: "Finish Task Manager Demo", datetime:"2022-06-14T14:00"},
+	{username: "Chris", name: "Anaylze Task Manager Demo Code", datetime:"2022-06-14T14:30"},
+	{username: "Phil", name: "Critique Task Manager Demo", datetime:"2022-06-14T14:30"}
+]
 
 usernames.forEach(name => {
 	let u:User = {
@@ -22,14 +28,14 @@ usernames.forEach(name => {
 });
 
 //MongoDB Setup
-let mongo = require('mongodb');
+let mongo = require("mongodb");
 let MongoClient = mongo.MongoClient;
 let db: any;
 
 MongoClient.connect("mongodb://localhost:27017/", function(err: any, client: any) {
 	if(err) throw err;	
 
-	db = client.db('taskmanager');
+	db = client.db("taskmanager");
   
 	db.listCollections().toArray(function(err: any, result: any){
 		if(result.length == 0){
@@ -41,6 +47,15 @@ MongoClient.connect("mongodb://localhost:27017/", function(err: any, client: any
 				console.log(result.insertedCount + " initial users were added (should be 3).");
 				client.close();
 			});
+			db.collection("tasks").insertMany(tasks, function(err: any, result: any){
+				if(err){
+					throw err;
+				}
+			
+				console.log(result.insertedCount + " initial tasks were added (should be 3).");
+				client.close();
+			});
+			
 			return;
 		}
 	 
@@ -61,11 +76,20 @@ MongoClient.connect("mongodb://localhost:27017/", function(err: any, client: any
 							throw err;
 						}
 					
-						console.log(result.insertedCount + " initial users were added to the database (should be 3).");
+						console.log(result.insertedCount + " initial users were added (should be 3).");
+						client.close();
+					});
+					db.collection("tasks").insertMany(tasks, function(err: any, result: any){
+						if(err){
+							throw err;
+						}
+					
+						console.log(result.insertedCount + " initial tasks were added (should be 3).");
 						client.close();
 					});
 				}
 			});		
 	 	});
   	});
+
 });

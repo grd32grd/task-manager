@@ -13,12 +13,8 @@ html
 
         h1 Tasks
         ul
-            for u in users
-                li 
-                    if (u.tasks)
-                        ul
-                            for t in u.tasks
-                                li
-                                    p= "Task: " + t.name 
-                                    p= "Due @ " + t.datetime
-                                    p= "Assigned to: " + u.username
+            for t in tasks
+                li
+                    p=t.name 
+                    p= "Due @ " + t.datetime
+                    p= "Assigned to: " + t.username

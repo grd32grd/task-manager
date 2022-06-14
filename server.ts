@@ -36,6 +36,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 	}
 
     let users = client.db('taskmanager').collection('users');
+    let tasks = client.db('taskmanager').collection('tasks');
     let sessions = client.db('taskmanager').collection('sessions');
 
     //Front Page
@@ -54,23 +55,15 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     userprofiles.push(u);                
                 }
             });
-
             res.render('users.pug', { users : userprofiles, session : req.session });
         });
     });
 
+    //Tasks Page
     app.get('/tasks', function(req: any, res: any){
-        users.find().toArray(function(err: any, docs : any){
+        tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
-
-            let userprofiles : User[] = [];
-            docs.forEach((u : User) => {
-                if (req.query.name == undefined || u.username.toLowerCase().includes(req.query.name.toLowerCase())){
-                    userprofiles.push(u);                
-                }
-            });
-
-            res.render('tasks.pug', { users : userprofiles, session : req.session });
+            res.render('tasks.pug', { tasks : docs, session : req.session });
         });
     });
 
@@ -101,7 +94,11 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Route to a user's profile page.
     app.get('/users/:profileid', function (req: any, res: any) {
-        res.render('profile.pug', {profile: res.userprofile, session: req.session});
+        tasks.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+            res.render('profile.pug', {profile: res.userprofile, tasks: docs, session: req.session});
+        });
+        
     });
 
     //Route to get a user logged in
@@ -121,43 +118,77 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
+    //Route to get a user logged out of their account
+    app.get('/logout', function(req: any, res: any){
+
+        req.session.loggedin = false;
+        req.session.username = undefined;
+        req.session.password = undefined;
+        req.session._id = undefined;
+        res.render('frontpage.pug', {session : req.session});
+    });
+
     //Route to add assign newly created task to the logged in user.
     app.put('/createtask', function(req: any,res: any){
+
+        //Error checking to determine if date has already passed - only checks if year has passed for now.
+        let date:string = req.body.datetime.split("-");
+        if (parseInt(date[0]) < 2022) {res.status(404).send();}
+        else {
+            users.find().toArray(function(err: any, docs: any){
+                if (err) throw err;
+    
+                docs.forEach((u: User) => {
+                    if (u.username == req.session.username && u.password == req.session.password){
+                        tasks.insertOne({
+                            username: u.username,
+                            name: req.body.name,
+                            datetime: req.body.datetime
+                        });
+                        tasks[tasks.length] = req.body;
+                        res.status(200).send();
+                    }
+                });
+            });
+        }
+    }); 
+    
+    //Register page
+    app.get('/register', function(req: any, res: any){
+        res.render('register.pug');
+    });
+    
+    //Route to register a new user.
+    app.put('/register', function(req: any, res: any, next: any){
+
+        //Logins in newly registered user.
+        req.session.loggedin = true;
+        req.session.username = req.body.username;
+        req.session.password = req.body.password;
+    
+        //Insert's newly registered user to the databas.
+        users.insertOne({
+            username: req.body.username,
+            password: req.body.password,
+            privacy: false
+        });
+
+        //Set's session's _id parameter to the newly created ObjectID
         users.find().toArray(function(err: any, docs: any){
             if (err) throw err;
 
-            docs.forEach((u: User) => {
-                if (u.username == req.session.username && u.password == req.session.password){
-                    let userTasks: Task[] = [];
-                    let taskId: number;
-
-                    //Adds the new task to the user's tasklist.
-                    if (!u.tasks){
-                        taskId = 0;
-                    } else {
-                        userTasks = u.tasks;
-                        taskId = Object.keys(u.tasks).length;
+            docs.forEach((u: { username: any; _id: any; }) => {
+                if (u.username == req.body.username){
+                    req.session._id = u._id;
+                    if (!res.headersSent){
+                        res.status(200).send(JSON.stringify(req.session._id));
                     }
-
-                    //Updates the logged in user's tasklist in the database.
-                    userTasks[taskId] = req.body;
-                    users.updateOne({ _id: u._id },{
-                        $set: {
-                            username: u.username,
-                            password: u.password,
-                            tasks: userTasks
-                        }
-                    });
-
-                    res.status(200).send();
                 }
-            });
+            });  
         });
-    });
-    
-    
-
+ 
         
+    });
 });
 
 

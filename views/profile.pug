@@ -20,3 +20,14 @@ html
             button#createtask(type='button')='Create Task'
 
             script(src='../clients/createtask.js')
+
+        h3 Tasks:
+        ul
+            for t in tasks
+                if t.username == profile.username
+                    li
+                        p=t.name 
+                        p= "Due @ " + t.datetime
+                        p= "Assigned to: " + t.username
+
+

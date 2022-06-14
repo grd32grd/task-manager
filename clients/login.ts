@@ -16,7 +16,6 @@ login.onclick = () => {
     let user:User = {
         username: "",
         password: "",
-        tasks: []
     };
     user.username = loginUsernameInput.value;
     user.password = loginPasswordInput.value;
