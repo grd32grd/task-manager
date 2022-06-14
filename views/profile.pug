@@ -26,8 +26,8 @@ html
             for t in tasks
                 if t.username == profile.username
                     li
-                        p=t.name 
+                        input(type="checkbox")
+                        a(href="/tasks/" + t._id)=t.name
                         p= "Due @ " + t.datetime
-                        p= "Assigned to: " + t.username
 
 

@@ -98,7 +98,19 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             if (err) throw err;
             res.render('profile.pug', {profile: res.userprofile, tasks: docs, session: req.session});
         });
-        
+    });
+
+    app.get('/tasks/:taskid', function (req: any, res: any) {
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+
+            //Iterates over the database to find the task with the given ID
+            docs.forEach((t: { _id: any; }) => {
+                if (t._id == req.params.taskid) {
+                    res.render('task.pug', {task: t, session: req.session});
+                }
+            });
+        });
     });
 
     //Route to get a user logged in
@@ -146,7 +158,41 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                             datetime: req.body.datetime
                         });
                         tasks[tasks.length] = req.body;
-                        res.status(200).send();
+                        res.sendStatus(200);
+                    }
+                });
+            });
+        }
+    }); 
+
+    //Route to add assign newly created sub task to a parent task.
+    app.put('/createsubtask', function(req: any,res: any){
+
+        //Error checking to determine if date has already passed - only checks if year has passed for now.
+        let date:string = req.body.subtask.datetime.split("-");
+        if (parseInt(date[0]) < 2022) {res.status(404).send();}
+        else {
+            tasks.find().toArray(function(err: any, docs: any){
+                if (err) throw err;
+    
+                //Finds the parent task.
+                docs.forEach((t: Task) => {
+                    if (t.name == req.body.parenttask){
+                        let subtasks: Task[];
+                        if (!t.subtasks){
+                            subtasks = [];
+                        } else {
+                            subtasks = t.subtasks
+                        }
+                        subtasks[subtasks.length] = req.body.subtask
+                        tasks.updateOne({ name: t.name },{
+                            $set: {
+                                name: t.name,
+                                datetime: t.datetime,
+                                subtasks: subtasks
+                            }
+                        });
+                        res.sendStatus(200);
                     }
                 });
             });
