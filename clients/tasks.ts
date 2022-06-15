@@ -1,5 +1,4 @@
 let taskSearch: any = document.getElementById('tasksearch');
-taskSearch.value = "Demo";
 
 taskSearch.oninput = () => {
     let x = new XMLHttpRequest();
