@@ -67,6 +67,22 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
+    //Tasks Page
+    app.get('/tasks/:tasksearch', function(req: any, res: any){
+        let searchedTasks : Task[] = [];
+        console.log(req.params.tasksearch);
+
+        tasks.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+            docs.forEach((t: Task) => {
+                if (t.username?.includes(req.params.tasksearch)) {
+                    searchedTasks.push(t)
+                }
+            });
+            res.render('tasks.pug', { tasks : searchedTasks, session : req.session });
+        });
+    });
+
     //Route to log a logged in user out.
     app.get('/logout', function(req: any, res: any){
 
@@ -101,7 +117,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     });
 
     //Route to get to a task's page to see detailed info as well as it's subtasks.
-    app.get('/tasks/:taskid', function (req: any, res: any) {
+    app.get('/:taskid', function (req: any, res: any) {
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
 
@@ -113,6 +129,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             });
         });
     });
+
+
 
     //Route to get a user logged in
     app.put('/login', function(req: any,res: any){

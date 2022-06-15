@@ -14,14 +14,13 @@ html
 
         label(for='task-search')= "Search for Tasks: "
         input#tasksearch(type='text' name='task-search')
-        button#tasksearchbutton(type="button")= "Search"
         script(src='../clients/tasks.js')
        
         ul
             for t in tasks
                 li
                     button(type="button") X
-                    a(href="/tasks/" + t._id)= t.name
+                    a(href="/" + t._id)= t.name
                     p= "Assigned to: " + t.username
                     p= "Due @ " + t.datetime
 
