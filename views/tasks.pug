@@ -19,9 +19,25 @@ html
         ul
             for t in tasks
                 li
+                    //Lists all tasks
                     button(type="button") X
                     a(href="/" + t._id)= t.name
                     p= "Assigned to: " + t.username
                     p= "Due @ " + t.datetime
+
+                    //Lists all subtasks
+                    if (t.subtasks)
+                        - for (let i = 0; i < t.subtasks.length; i++){
+                            if (i == 3 )
+                                p
+                                small=" ... "
+                                - break
+                            p
+                            small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                        - }
+                hr
+ 
+                                
+
 
     
