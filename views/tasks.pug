@@ -3,6 +3,7 @@ html
         title Task Manager / Users
         include ../includes/css.pug
     body
+        
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
@@ -14,8 +15,10 @@ html
 
         label(for='task-search')= "Search for Tasks: "
         input#tasksearch(type='text' name='task-search')
-        script(src='../clients/tasks.js')
-       
+        button#tasksearchbutton(type='button')= "Search"
+        if (tasks.length == 0)
+            p No tasks found...
+        
         ul
             for t in tasks
                 li
@@ -36,8 +39,13 @@ html
                             small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
                         - }
                 hr
+        
+        script.
+            document.getElementById('tasksearchbutton').addEventListener("click", function(){
+                let link = "http://localhost:3000/tasks/" + document.getElementById("tasksearch").value;
+                window.location.assign(link);
+            });
+        
  
-                                
-
-
+                
     

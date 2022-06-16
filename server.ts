@@ -39,6 +39,14 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     let tasks = client.db('taskmanager').collection('tasks');
     let sessions = client.db('taskmanager').collection('sessions');
 
+    //Prints Routes - for testing purposes
+    /*
+    app.all("*", (req: any, res: any, next: any) => {
+        console.log(req.params);
+        next();
+    });
+    */
+
     //Front Page
     app.get('/', function(req: any, res: any){
         res.render('frontpage.pug', {session : req.session});
@@ -63,24 +71,29 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.get('/tasks', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
+
             res.render('tasks.pug', { tasks : docs, session : req.session });
         });
     });
 
-    //Tasks Page
-    app.get('/tasks/:tasksearch', function(req: any, res: any){
-        let searchedTasks : Task[] = [];
-        console.log(req.params.tasksearch);
-
-        tasks.find().toArray(function(err: any, docs : any){
+    //Parameter used to search for specific tasks
+    app.param('tasksearch', function(req: any, res: any, next: any, value: any) {
+        let searchedTasks: Task[] = [];
+        tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
+
             docs.forEach((t: Task) => {
-                if (t.username?.includes(req.params.tasksearch)) {
+                if (t.name.includes(value)) {
                     searchedTasks.push(t)
                 }
             });
-            res.render('tasks.pug', { tasks : searchedTasks, session : req.session });
+            res.searchedTasks = searchedTasks;
+            next();
         });
+    });
+
+    app.get('/tasks/:tasksearch', function(req: any, res: any){
+        res.render('tasks.pug', { tasks : res.searchedTasks, session : req.session });
     });
 
     //Route to log a logged in user out.
@@ -90,7 +103,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         req.session.username = undefined;
         req.session.password = undefined;
         req.session._id = undefined;
-
         res.render('frontpage.pug', {session : req.session});
     });
 
@@ -129,8 +141,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             });
         });
     });
-
-
 
     //Route to get a user logged in
     app.put('/login', function(req: any,res: any){
@@ -220,7 +230,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     
     //Register page
     app.get('/register', function(req: any, res: any){
-        res.render('register.pug');
+        res.render('/register.pug', { session : req.session });
     });
     
     //Route to register a new user.
