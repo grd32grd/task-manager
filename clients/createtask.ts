@@ -26,8 +26,7 @@ createTask.onclick = () => {
         newTaskPriority = 'medium';
     } else{
         newTaskPriority = 'high'
-    }
-    console.log(newTaskPriority)
+    } 
 
     let newTask:Task = {
         username: assignedUser.value,
@@ -35,6 +34,9 @@ createTask.onclick = () => {
         datetime: taskDate.value,
         priority: newTaskPriority
     };
+
+    let privacy: any = document.getElementById('private');
+    newTask.privacy = privacy.checked;
 
     let x = new XMLHttpRequest();
     x.onreadystatechange = function() {

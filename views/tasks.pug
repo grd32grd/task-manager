@@ -24,54 +24,55 @@ html
             p No tasks found...
         
         for t in tasks
-            if (t.priority == 'high')
-                div.taskcard(style="background-color:#ebafa0")
-                    button(type="button") X
-                    a(href="/" + t._id)= t.name
-                    p= "Assigned to: " + t.username
-                    p= "Due @ " + t.datetime
+            if (session.username == t.username || !t.privacy)
+                if (t.priority == 'high')
+                    div.taskcard(style="background-color:#ebafa0")
+                        button(type="button") X
+                        a(href="/" + t._id)= t.name
+                        p= "Assigned to: " + t.username
+                        p= "Due @ " + t.datetime
 
-                    //Lists all subtasks
-                    if (t.subtasks)
-                        - for (let i = 0; i < t.subtasks.length; i++){
-                            if (i == 3 )
-                                p
-                                small=" ... "
-                                - break
-                            p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
-                        - }
-            else if (t.priority == 'medium')
-                div.taskcard(style="background-color:#ebe1a0")
-                    button(type="button") X
-                    a(href="/" + t._id)= t.name
-                    p= "Assigned to: " + t.username
-                    p= "Due @ " + t.datetime
+                        //Lists all subtasks
+                        if (t.subtasks)
+                            - for (let i = 0; i < t.subtasks.length; i++){
+                                if (i == 3 )
+                                    p
+                                    small=" ... "
+                                    - break
+                                p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                            - }
+                else if (t.priority == 'medium')
+                    div.taskcard(style="background-color:#ebe1a0")
+                        button(type="button") X
+                        a(href="/" + t._id)= t.name
+                        p= "Assigned to: " + t.username
+                        p= "Due @ " + t.datetime
 
-                    //Lists all subtasks
-                    if (t.subtasks)
-                        - for (let i = 0; i < t.subtasks.length; i++){
-                            if (i == 3 )
-                                p
-                                small=" ... "
-                                - break
-                            p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
-                        - }
-            else
-                div.taskcard(style="background-color:#a0eba4")
-                    button(type="button") X
-                    a(href="/" + t._id)= t.name
-                    p= "Assigned to: " + t.username
-                    p= "Due @ " + t.datetime
+                        //Lists all subtasks
+                        if (t.subtasks)
+                            - for (let i = 0; i < t.subtasks.length; i++){
+                                if (i == 3 )
+                                    p
+                                    small=" ... "
+                                    - break
+                                p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                            - }
+                else
+                    div.taskcard(style="background-color:#a0eba4")
+                        button(type="button") X
+                        a(href="/" + t._id)= t.name
+                        p= "Assigned to: " + t.username
+                        p= "Due @ " + t.datetime
 
-                    //Lists all subtasks
-                    if (t.subtasks)
-                        - for (let i = 0; i < t.subtasks.length; i++){
-                            if (i == 3 )
-                                p
-                                small=" ... "
-                                - break
-                            p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
-                        - }
+                        //Lists all subtasks
+                        if (t.subtasks)
+                            - for (let i = 0; i < t.subtasks.length; i++){
+                                if (i == 3 )
+                                    p
+                                    small=" ... "
+                                    - break
+                                p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                            - }
 
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){

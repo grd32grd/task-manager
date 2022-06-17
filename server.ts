@@ -177,7 +177,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                             username: req.body.username,
                             name: req.body.name,
                             datetime: req.body.datetime,
-                            priority: req.body.priority
+                            priority: req.body.priority,
+                            privacy: req.body.privacy
                         });
                         tasks[tasks.length] = req.body;
                         res.sendStatus(200);

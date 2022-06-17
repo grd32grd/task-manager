@@ -29,6 +29,12 @@ html
             input(type='radio' id='high' name='priority' value='HIGH')
             label(for='high')='High'
         
+        p Privacy:
+            input(type='radio' id='public' name='privacy' value='PUBLIC' checked='true')
+            label(for='public')='Public'
+            input(type='radio' id='private' name='privacy' value='PRIVATE')
+            label(for='private')='Private'
+        
         p 
             label(for='userselect')='Assigned To:'
             select(id='userselect')
