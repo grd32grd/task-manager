@@ -59,6 +59,11 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         res.render('frontpage.pug', {session : req.session});
     });
 
+    app.post('/switchmode', function(req: any, res: any){
+        req.session.lightmode = !req.session.lightmode
+        res.render('frontpage.pug', {session : req.session});
+    });
+
     //Tasks Page
     app.get('/tasks', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs : any){
@@ -244,8 +249,9 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                 }
             });  
         });
- 
     });
+
+
 });
 
 

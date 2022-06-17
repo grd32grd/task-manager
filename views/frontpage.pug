@@ -16,3 +16,16 @@ html
 
         h1 Home
         p Welcome to the Task Manager!
+
+        br
+    
+        p Light Mode
+            button#switchmode(type='button')
+            span Dark Mode
+        
+        script.
+            document.getElementById('switchmode').addEventListener("click", function(){
+                let z = new XMLHttpRequest();
+                z.open("POST", "http://localhost:3000/switchmode");
+                z.setRequestHeader("Content-Type", "application/json");
+            });

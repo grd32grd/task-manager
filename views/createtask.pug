@@ -14,7 +14,7 @@ html
             p(style="font-weight: bold")= "User: " + session.username
             include ../includes/loggedin.pug
         
-        h3 Create Task:
+        h1 Create Task:
         label(for='taskname')= 'Task Name:'
         input#createtaskname(type='text' name='taskname')
         label(for='taskdate')= 'Task Date:'
