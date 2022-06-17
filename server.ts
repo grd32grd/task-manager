@@ -70,7 +70,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Register page
     app.get('/register', function(req: any, res: any){
-        res.render('/register.pug', { session : req.session });
+        res.render('register.pug', { session : req.session });
     });
 
     //Route to log a logged in user out.
