@@ -1,8 +1,11 @@
 html
     head
         title Site / Register
-        include ../includes/css.pug
     body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
         a(href='/')= 'Home'
         br
         a(href='/users')= 'Users'
@@ -11,7 +14,7 @@ html
         br
         a(href='/register')= 'Register'
         
-        hr
+        
         h1 Register
         label(for='username')= 'Username:'
         input#username(type='text' name='username')

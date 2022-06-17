@@ -15,7 +15,8 @@ function resetSubTaskInput(){
 createSubTask.onclick = () => {
     let newSubTask:Task = {
         name: "",
-        datetime: ""
+        datetime: "",
+        priority: "medium"
     };
     newSubTask.name = subTaskName.value;
     newSubTask.datetime = subTaskDate.value;

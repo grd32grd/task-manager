@@ -1,9 +1,10 @@
-a(href='/')= 'Home'
-br
-a(href='/users')= 'Users'
-br
-a(href='/tasks')= 'Tasks'
-br
-a(href='/users/' + session._id)= 'Profile'
-br
-a(href="/logout")= 'Log Out'
+div.menu
+    a.menulinks(href='/')= 'Home'
+    
+    a.menulinks(href='/users')= 'Users'
+    
+    a.menulinks(href='/tasks')= 'Tasks'
+    
+    a.menulinks(href='/users/' + session._id)= 'Profile'
+    
+    a.menulinks(href="/logout")= 'Log Out'

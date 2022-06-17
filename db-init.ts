@@ -3,6 +3,7 @@ type Task = {
 	username?: string;
     name: string;
     datetime: string;
+	priority: string;
 	subtasks?: Task[]
 };
 type User = {
@@ -15,9 +16,9 @@ let usernames = ["Guled", "Chris", "Phil"];
 let users: User[] = [];
 
 let tasks = [
-	{username: "Guled", name: "Finish Task Manager Demo", datetime:"2022-06-14T14:00"},
-	{username: "Chris", name: "Anaylze Task Manager Demo Code", datetime:"2022-06-14T14:30"},
-	{username: "Phil", name: "Critique Task Manager Demo", datetime:"2022-06-14T14:30"}
+	{username: "Guled", name: "Finish Task Manager Demo", datetime:"2022-06-14T14:00", priority:"high"},
+	{username: "Chris", name: "Anaylze Task Manager Demo Code", datetime:"2022-06-14T14:30", priority:"medium"},
+	{username: "Phil", name: "Critique Task Manager Demo", datetime:"2022-06-14T14:30", priority:"medium"}
 ]
 
 usernames.forEach(name => {

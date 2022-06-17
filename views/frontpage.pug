@@ -1,15 +1,18 @@
 html
     head
         title Task Manager / Home
-        include ../includes/css.pug
     body
-        //Header info changes depending on session logged in/out status
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
             p(style="font-weight: bold")= "Hello " + session.username + "!"
             include ../includes/loggedin.pug
-        hr
+        
 
         h1 Home
         p Welcome to the Task Manager!

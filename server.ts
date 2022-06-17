@@ -49,6 +49,13 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Front Page
     app.get('/', function(req: any, res: any){
+        if (req.session.loggedin != true){
+            req.session.loggedin = false;
+            req.session.username = undefined;
+            req.session.password = undefined;
+            req.session._id = undefined;
+            req.session.lightmode = true;
+        }
         res.render('frontpage.pug', {session : req.session});
     });
 
@@ -83,7 +90,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             if (err) throw err;
 
             docs.forEach((t: Task) => {
-                if (t.name.includes(value)) {
+                if (t.name.toUpperCase().includes(value.toUpperCase())) {
                     searchedTasks.push(t)
                 }
             });
@@ -94,16 +101,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     app.get('/tasks/:tasksearch', function(req: any, res: any){
         res.render('tasks.pug', { tasks : res.searchedTasks, session : req.session });
-    });
-
-    //Route to log a logged in user out.
-    app.get('/logout', function(req: any, res: any){
-
-        req.session.loggedin = false;
-        req.session.username = undefined;
-        req.session.password = undefined;
-        req.session._id = undefined;
-        res.render('frontpage.pug', {session : req.session});
     });
 
     //Parameter used by a number of routes needing the id of a user's profile.
@@ -159,9 +156,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
-    //Route to get a user logged out of their account
+    //Route to log a logged in user out.
     app.get('/logout', function(req: any, res: any){
-
         req.session.loggedin = false;
         req.session.username = undefined;
         req.session.password = undefined;
@@ -184,7 +180,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                         tasks.insertOne({
                             username: u.username,
                             name: req.body.name,
-                            datetime: req.body.datetime
+                            datetime: req.body.datetime,
+                            priority: req.body.priority
                         });
                         tasks[tasks.length] = req.body;
                         res.sendStatus(200);
@@ -268,4 +265,3 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
 app.listen(3000);
 console.log("Listening on port 3000");
-

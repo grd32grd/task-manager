@@ -1,14 +1,19 @@
 html 
     head
         title= "Site / " + profile.username + "'s Profile"
-        include ../includes/css.pug
+        
     body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+        
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug    
         else
             p(style="font-weight: bold")= "User: " + session.username
             include ../includes/loggedin.pug
-        hr
+        
         h1= profile.username + "'s Profile"
 
         if (session.username == profile.username)
@@ -18,16 +23,67 @@ html
             label(for='taskdate')= 'Task Date:'
             input#createtaskdate(type='datetime-local' name='taskdate')
             button#createtask(type='button')='Create Task'
-
+            
+            p Priority:
+            div
+                input(type='radio' id='low' name='priority' value='LOW' checked='true')
+                label(for='low')='Low'
+                input(type='radio' id='medium' name='priority' value='MEDIUM')
+                label(for='medium')='Medium'
+                input(type='radio' id='high' name='priority' value='HIGH')
+                label(for='high')='High'
             script(src='../clients/profile.js')
 
         h3 Tasks:
-        ul
-            for t in tasks
-                if t.username == profile.username
-                    li
+        for t in tasks
+            if (t.username == profile.username)
+                if (t.priority == 'high')
+                    div.taskcard(style="background-color:#ebafa0")
                         button(type="button") X
-                        a(href="/" + t._id id=t.name + "-id" class="taskremove")=t.name
+                        a(href="/" + t._id)= t.name
+                        p= "Assigned to: " + t.username
                         p= "Due @ " + t.datetime
+
+                        //Lists all subtasks
+                        if (t.subtasks)
+                            - for (let i = 0; i < t.subtasks.length; i++){
+                                if (i == 3 )
+                                    p
+                                    small=" ... "
+                                    - break
+                                p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                            - }
+                else if (t.priority == 'medium')
+                    div.taskcard(style="background-color:#ebe1a0")
+                        button(type="button") X
+                        a(href="/" + t._id)= t.name
+                        p= "Assigned to: " + t.username
+                        p= "Due @ " + t.datetime
+
+                        //Lists all subtasks
+                        if (t.subtasks)
+                            - for (let i = 0; i < t.subtasks.length; i++){
+                                if (i == 3 )
+                                    p
+                                    small=" ... "
+                                    - break
+                                p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                            - }
+                else
+                    div.taskcard(style="background-color:#a0eba4")
+                        button(type="button") X
+                        a(href="/" + t._id)= t.name
+                        p= "Assigned to: " + t.username
+                        p= "Due @ " + t.datetime
+
+                        //Lists all subtasks
+                        if (t.subtasks)
+                            - for (let i = 0; i < t.subtasks.length; i++){
+                                if (i == 3 )
+                                    p
+                                    small=" ... "
+                                    - break
+                                p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                            - }
 
 

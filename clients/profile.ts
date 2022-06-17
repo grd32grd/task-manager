@@ -14,12 +14,25 @@ function resetTaskInput(){
 
 //Function that'll create a task for the user who is logged in
 createTask.onclick = () => {
+    let newTaskPriority: string;
+    let low: any = document.getElementById('low');
+    let medium: any = document.getElementById('medium');
+    let high: any = document.getElementById('high');
+
+    if (low.checked){
+        newTaskPriority = 'low';
+    } else if (medium.checked){
+        newTaskPriority = 'medium';
+    } else{
+        newTaskPriority = 'high'
+    }
+    console.log(newTaskPriority)
+
     let newTask:Task = {
-        name: "",
-        datetime: ""
+        name: taskName.value,
+        datetime: taskDate.value,
+        priority: newTaskPriority
     };
-    newTask.name = taskName.value;
-    newTask.datetime = taskDate.value;
 
     let x = new XMLHttpRequest();
     x.onreadystatechange = function() {

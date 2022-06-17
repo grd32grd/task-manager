@@ -1,28 +1,31 @@
 html
     head
         title Task Manager / Users
-        include ../includes/css.pug
     body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
         
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
             p(style="font-weight: bold")= "User: " + session.username
             include ../includes/loggedin.pug
-        hr
+        
 
         h1 Tasks
 
         label(for='task-search')= "Search for Tasks: "
         input#tasksearch(type='text' name='task-search')
         button#tasksearchbutton(type='button')= "Search"
+        hr
         if (tasks.length == 0)
             p No tasks found...
         
-        ul
-            for t in tasks
-                li
-                    //Lists all tasks
+        for t in tasks
+            if (t.priority == 'high')
+                div.taskcard(style="background-color:#ebafa0")
                     button(type="button") X
                     a(href="/" + t._id)= t.name
                     p= "Assigned to: " + t.username
@@ -35,11 +38,41 @@ html
                                 p
                                 small=" ... "
                                 - break
-                            p
-                            small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                            p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
                         - }
-                hr
-        
+            else if (t.priority == 'medium')
+                div.taskcard(style="background-color:#ebe1a0")
+                    button(type="button") X
+                    a(href="/" + t._id)= t.name
+                    p= "Assigned to: " + t.username
+                    p= "Due @ " + t.datetime
+
+                    //Lists all subtasks
+                    if (t.subtasks)
+                        - for (let i = 0; i < t.subtasks.length; i++){
+                            if (i == 3 )
+                                p
+                                small=" ... "
+                                - break
+                            p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                        - }
+            else
+                div.taskcard(style="background-color:#a0eba4")
+                    button(type="button") X
+                    a(href="/" + t._id)= t.name
+                    p= "Assigned to: " + t.username
+                    p= "Due @ " + t.datetime
+
+                    //Lists all subtasks
+                    if (t.subtasks)
+                        - for (let i = 0; i < t.subtasks.length; i++){
+                            if (i == 3 )
+                                p
+                                small=" ... "
+                                - break
+                            p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                        - }
+
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){
                 let link = "http://localhost:3000/tasks/" + document.getElementById("tasksearch").value;

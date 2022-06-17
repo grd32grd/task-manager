@@ -1,9 +1,12 @@
 html 
     head
         title= "Site / " + task.name
-        include ../includes/css.pug
     body
-        //Header info changes depending on session logged in/out status
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
@@ -12,7 +15,7 @@ html
 
         br
         a(href="/tasks") Back to Tasks
-        hr
+        
         h1#taskname= task.name
         h3= "Assigned to: " + task.username
         h3= "Due @ " + task.datetime
