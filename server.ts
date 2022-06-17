@@ -40,12 +40,12 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     let sessions = client.db('taskmanager').collection('sessions');
 
     //Prints Routes - for testing purposes
-    /*
+    
     app.all("*", (req: any, res: any, next: any) => {
         console.log(req.params);
         next();
     });
-    */
+    
 
     //Front Page
     app.get('/', function(req: any, res: any){
@@ -59,27 +59,35 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         res.render('frontpage.pug', {session : req.session});
     });
 
-    //Users Page
-    app.get('/users', function(req: any, res: any){
-        users.find().toArray(function(err: any, docs : any){
-            if (err) throw err;
-
-            let userprofiles : User[] = [];
-            docs.forEach((u : User) => {
-                if (req.query.name == undefined || u.username.toLowerCase().includes(req.query.name.toLowerCase())){
-                    userprofiles.push(u);                
-                }
-            });
-            res.render('users.pug', { users : userprofiles, session : req.session });
-        });
-    });
-
     //Tasks Page
     app.get('/tasks', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
 
             res.render('tasks.pug', { tasks : docs, session : req.session });
+        });
+    });
+
+    //Register page
+    app.get('/register', function(req: any, res: any){
+        res.render('/register.pug', { session : req.session });
+    });
+
+    //Route to log a logged in user out.
+    app.get('/logout', function(req: any, res: any){
+        req.session.loggedin = false;
+        req.session.username = undefined;
+        req.session.password = undefined;
+        req.session._id = undefined;
+        res.render('frontpage.pug', {session : req.session});
+    });
+
+    //Create Task Page
+    app.get('/createtask', function(req: any, res: any){
+        users.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+
+            res.render('createtask.pug', { users : docs, session : req.session });
         });
     });
 
@@ -117,14 +125,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
-    //Route to a user's profile page.
-    app.get('/users/:profileid', function (req: any, res: any) {
-        tasks.find().toArray(function(err: any, docs : any){
-            if (err) throw err;
-            res.render('profile.pug', {profile: res.userprofile, tasks: docs, session: req.session});
-        });
-    });
-
     //Route to get to a task's page to see detailed info as well as it's subtasks.
     app.get('/:taskid', function (req: any, res: any) {
         tasks.find().toArray(function(err: any, docs: any){
@@ -133,7 +133,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             //Iterates over the database to find the task with the given ID
             docs.forEach((t: { _id: any; }) => {
                 if (t._id == req.params.taskid) {
-                    res.render('task.pug', {task: t, session: req.session});
+                    res.render('createsubtask.pug', {task: t, session: req.session});
                 }
             });
         });
@@ -156,15 +156,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
-    //Route to log a logged in user out.
-    app.get('/logout', function(req: any, res: any){
-        req.session.loggedin = false;
-        req.session.username = undefined;
-        req.session.password = undefined;
-        req.session._id = undefined;
-        res.render('frontpage.pug', {session : req.session});
-    });
-
     //Route to add assign newly created task to the logged in user.
     app.put('/createtask', function(req: any,res: any){
 
@@ -178,7 +169,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                 docs.forEach((u: User) => {
                     if (u.username == req.session.username && u.password == req.session.password){
                         tasks.insertOne({
-                            username: u.username,
+                            username: req.body.username,
                             name: req.body.name,
                             datetime: req.body.datetime,
                             priority: req.body.priority
@@ -224,11 +215,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             });
         }
     }); 
-    
-    //Register page
-    app.get('/register', function(req: any, res: any){
-        res.render('/register.pug', { session : req.session });
-    });
     
     //Route to register a new user.
     app.put('/register', function(req: any, res: any, next: any){

@@ -1,0 +1,39 @@
+html 
+    head
+        title= "Site / Create Task"
+        
+    body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+        
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug    
+        else
+            p(style="font-weight: bold")= "User: " + session.username
+            include ../includes/loggedin.pug
+        
+        h3 Create Task:
+        label(for='taskname')= 'Task Name:'
+        input#createtaskname(type='text' name='taskname')
+        label(for='taskdate')= 'Task Date:'
+        input#createtaskdate(type='datetime-local' name='taskdate')
+        button#createtask(type='button')='Create Task'
+        
+        p Priority:
+            input(type='radio' id='low' name='priority' value='LOW' checked='true')
+            label(for='low')='Low'
+            input(type='radio' id='medium' name='priority' value='MEDIUM')
+            label(for='medium')='Medium'
+            input(type='radio' id='high' name='priority' value='HIGH')
+            label(for='high')='High'
+        
+        p 
+            label(for='userselect')='Assigned To:'
+            select(id='userselect')
+                for u in users
+                    option(id=u.username)= u.username
+
+        
+        script(src='../clients/createtask.js')

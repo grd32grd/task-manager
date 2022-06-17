@@ -1,25 +1,24 @@
-html
-    head
-        title Site / Register
-    body
-        if (session.lightmode)
-            include ../includes/csslight.pug
-        else 
-            include ../includes/cssdark.pug
-        a(href='/')= 'Home'
-        br
-        a(href='/users')= 'Users'
-        br
-        a(href='tasks')='Tasks'
-        br
-        a(href='/register')= 'Register'
+//- html
+//-     head
+//-         title Site / Register
+//-     body
+//-         if (session.lightmode)
+//-             include ../includes/csslight.pug
+//-         else 
+//-             include ../includes/cssdark.pug
+//-         a(href='/')= 'Home'
+//-         br
+//-         a(href='tasks')='Tasks'
+//-         br
+//-         a(href='/register')= 'Register'
         
         
-        h1 Register
-        label(for='username')= 'Username:'
-        input#username(type='text' name='username')
-        label(for='password')= ' Password:'
-        input#password(type='password' name='password')
-        br
-        button#register(type='button') Register 
-        script(src='../clients/register.js')
+//-         h1 Register
+//-         label(for='username')= 'Username:'
+//-         input#username(type='text' name='username')
+//-         label(for='password')= ' Password:'
+//-         input#password(type='password' name='password')
+//-         br
+//-         button#register(type='button') Register 
+//-         script(src='../clients/register.js')
+p Hi

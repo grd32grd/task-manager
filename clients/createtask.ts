@@ -3,6 +3,7 @@ let taskName: any = document.getElementById('createtaskname');
 let taskDate: any = document.getElementById('createtaskdate');
 let createTask: any = document.getElementById('createtask');
 let taskRemoveButtons: any = document.getElementsByClassName("taskremove")
+let assignedUser: any = document.getElementById('userselect')
 
 //Main Methods
 
@@ -29,6 +30,7 @@ createTask.onclick = () => {
     console.log(newTaskPriority)
 
     let newTask:Task = {
+        username: assignedUser.value,
         name: taskName.value,
         datetime: taskDate.value,
         priority: newTaskPriority

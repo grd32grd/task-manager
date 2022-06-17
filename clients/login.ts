@@ -26,7 +26,7 @@ login.onclick = () => {
             alert(user.username + " has been logged in");
             resetLoginInput();
             let id = (JSON.parse(x.responseText));
-            window.location.assign("http://localhost:3000/users/" + id);
+            window.location.reload();
         }
     }
     
