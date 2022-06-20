@@ -1,11 +1,13 @@
 //Section that'll allow user to login.
-label(for='username')= 'Username:'
-input#loginusername(type='text' name='username')
-label(for='password')= ' Password:'
-input#loginpassword(type='password' name='password')
-button#login(type='button') Login
-br
-hr
+div
+    label(for='username')= 'Username:'
+    input#loginusername(type='text' name='username')
+    label(for='password')= ' Password:'
+    input#loginpassword(type='password' name='password')
+    button#login(type='button') Login
+    br
+    hr
+
 script(src='../clients/login.js')
 
 div.menu

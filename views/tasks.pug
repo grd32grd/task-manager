@@ -28,7 +28,12 @@ html
                 if (t.priority == 'high')
                     div.taskcard(style="background-color:#ebafa0")
                         button(type="button") X
-                        a(href="/" + t._id)= t.name
+                        if (t.privacy)
+                            i
+                                a(href="/" + t._id)= t.name
+                        else
+                            a(href="/" + t._id)= t.name
+                            
                         p= "Assigned to: " + t.username
                         p= "Due @ " + t.datetime
 

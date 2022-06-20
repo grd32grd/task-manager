@@ -17,21 +17,29 @@ html
         
         h1#taskname= task.name
         h3= "Assigned to: " + task.username
-        h3= "Due @ " + task.datetime
+        h3= "Due @:"
+        h3#taskdate= task.datetime
+    
+        h4 Edit Task:
+        label(for='etaskname')= 'Task Name:'
+        input#etaskname(type='text' name='etaskname' value=task.name)
+        label(for='etaskdate')= 'Task Date:'
+        input#etaskdate(type='datetime-local' name='etaskdate' value=task.datetime)
+        button#edittask(type='button')='Edit'
         
-        if (session.username == task.username)
-            hr
-            h4 Create Sub Task:
-            label(for='subtaskname')= 'Sub Task Name:'
-            input#createsubtaskname(type='text' name='subtaskname')
-            label(for='subtaskdate')= 'Sub Task Date:'
-            input#createsubtaskdate(type='datetime-local' name='subtaskdate')
-            button#createsubtask(type='button')='Create Sub Task'
+        hr
+        h4 Create Sub Task:
+        label(for='subtaskname')= 'Sub Task Name:'
+        input#createsubtaskname(type='text' name='subtaskname')
+        label(for='subtaskdate')= 'Sub Task Date:'
+        input#createsubtaskdate(type='datetime-local' name='subtaskdate')
+        button#createsubtask(type='button')='Create'
 
-            script(src='../clients/createsubtask.js')
-            hr
+        script(src='../clients/createsubtask.js')
+        hr
         
-        h3 Sub Tasks:
+        
+        h4 Sub Tasks:
         if (task.subtasks)
             ul
                 for s in task.subtasks

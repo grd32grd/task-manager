@@ -40,12 +40,12 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     let sessions = client.db('taskmanager').collection('sessions');
 
     //Prints Routes - for testing purposes
-    
+    /*
     app.all("*", (req: any, res: any, next: any) => {
         console.log(req.params);
         next();
     });
-    
+    */
 
     //Front Page
     app.get('/', function(req: any, res: any){
@@ -54,7 +54,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             req.session.username = undefined;
             req.session.password = undefined;
             req.session._id = undefined;
-            req.session.lightmode = true;
+            req.session.lightmode = false;
         }
         res.render('frontpage.pug', {session : req.session});
     });
@@ -252,7 +252,33 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
+    //Route to edit a task.
+    app.post('/edittask', function(req: any,res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
 
+            //Finds the task to edit.
+            docs.forEach((t: Task) => {
+                if (t.name == req.body.oldname){
+                    let comments: String[];
+                    if (!t.comments){
+                        comments = [];
+                    } else {
+                        comments = t.comments;
+                    }
+                    for (var i = 0; i < req.body.comments.length; i++){
+                        comments.push(req.body.comments[i])
+                    }
+                    tasks.updateOne({ name: t.name },{ $set: {
+                        name: req.body.newname,
+                        datetime: req.body.newdate,
+                        comments: comments
+                    }});
+                    res.sendStatus(200);
+                }
+            });
+        });
+    }); 
 });
 
 

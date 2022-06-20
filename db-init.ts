@@ -5,6 +5,7 @@ type Task = {
     datetime: string;
 	priority: string;
 	privacy?: boolean;
+	comments?: string[];
 	subtasks?: Task[]
 };
 type User = {
