@@ -59,6 +59,11 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         res.render('frontpage.pug', {session : req.session});
     });
 
+    //Glossary Page
+    app.get('/glossary', function(req: any, res: any){
+        res.render('glossary.pug', {session : req.session});
+    });
+
     app.post('/switchmode', function(req: any, res: any){
         req.session.lightmode = !req.session.lightmode
         res.render('frontpage.pug', {session : req.session});
@@ -112,6 +117,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
+    //Tasks Page
     app.get('/tasks/:tasksearch', function(req: any, res: any){
         res.render('tasks.pug', { tasks : res.searchedTasks, session : req.session });
     });
@@ -301,7 +307,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                 }
             });
         });
-    }); 
+    });
 });
 
 
