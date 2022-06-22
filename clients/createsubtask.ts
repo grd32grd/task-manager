@@ -5,6 +5,8 @@ let createSubTask: any = document.getElementById('createsubtask');
 let etaskName: any = document.getElementById('etaskname');
 let etaskDate: any = document.getElementById('etaskdate');
 let editTask: any = document.getElementById('edittask');
+let comment: any = document.getElementById('comment');
+let addComment: any = document.getElementById('addcomment');
 
 //Main Methods
 
@@ -14,6 +16,7 @@ function resetInput(){
     subTaskDate.value = ""; 
     etaskName.value = "";
     etaskDate.value = ""; 
+    comment.value = "";
 }
 
 //Function that'll create a task for the user who is logged in
@@ -54,10 +57,10 @@ editTask.onclick = () => {
     let newComments: String[] = [];
 
     if (newTaskName != document.getElementById('taskname')?.innerHTML){
-        newComments.push("Changed Task Name from: " + document.getElementById('taskname')?.innerHTML)
+        newComments.push("Changed Task Name from: " + document.getElementById('taskname')?.innerHTML + " to " + newTaskName)
     }
     if (newTaskDate != document.getElementById('taskdate')?.innerHTML){
-        newComments.push("Changed Task Date from: " + document.getElementById('taskdate')?.innerHTML)
+        newComments.push("Changed Task Date from: " + document.getElementById('taskdate')?.innerHTML + " to " + newTaskDate)
     }
 
     
@@ -79,4 +82,26 @@ editTask.onclick = () => {
         newdate: newTaskDate,
         comments: newComments
     }))  
+}
+
+addComment.onclick = () => {
+    let z = new XMLHttpRequest();
+    z.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Comment has been added.");
+            resetInput();
+            window.location.assign("http://localhost:3000/tasks");
+        }
+        else {
+            console.log(this.readyState + this.status)
+        }
+    }
+    
+    z.open("POST", "http://localhost:3000/addcomment");
+    z.setRequestHeader("Content-Type", "application/json");    
+    z.send(JSON.stringify({
+        name: document.getElementById('taskname')?.innerHTML,
+        comment: comment.value
+    }))  
+
 }

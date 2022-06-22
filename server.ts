@@ -279,6 +279,29 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             });
         });
     }); 
+
+    app.post('/addcomment', function(req: any,res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+
+            //Finds the task to add the comment to.
+            docs.forEach((t: Task) => {
+                if (t.name == req.body.name){
+                    let comments: String[];
+                    if (!t.comments){
+                        comments = [];
+                    } else {
+                        comments = t.comments;
+                    }
+                    comments.push(req.body.comment)
+                    tasks.updateOne({ name: t.name },{ $set: {
+                        comments: comments
+                    }});
+                    res.sendStatus(200);
+                }
+            });
+        });
+    }); 
 });
 
 

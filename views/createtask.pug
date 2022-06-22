@@ -14,7 +14,10 @@ html
             p(style="font-weight: bold")= "User: " + session.username
             include ../includes/loggedin.pug
         
+        hr
         h1 Create Task:
+        hr
+
         label(for='taskname')= 'Task Name:'
         input#createtaskname(type='text' name='taskname')
         label(for='taskdate')= 'Task Date:'
@@ -35,11 +38,10 @@ html
             input(type='radio' id='private' name='privacy' value='PRIVATE')
             label(for='private')='Private'
         
-        p 
-            label(for='userselect')='Assigned To:'
-            select(id='userselect')
-                for u in users
-                    option(id=u.username)= u.username
+        label(for='userselect')='Assigned To:'
+        select(id='userselect')
+            for u in users
+                option(id=u.username)= u.username
 
         
         script(src='../clients/createtask.js')

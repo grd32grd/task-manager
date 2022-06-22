@@ -15,19 +15,26 @@ html
 
         br
         
+        hr
         h1#taskname= task.name
-        h3= "Assigned to: " + task.username
-        h3= "Due @:"
-        h3#taskdate= task.datetime
+        
+        h3
+            span= "Assigned to: " + task.username
+            span= " / Due on "
+            span#taskdate= task.datetime
+        hr
     
         h4 Edit Task:
         label(for='etaskname')= 'Task Name:'
         input#etaskname(type='text' name='etaskname' value=task.name)
         label(for='etaskdate')= 'Task Date:'
         input#etaskdate(type='datetime-local' name='etaskdate' value=task.datetime)
-        button#edittask(type='button')='Edit'
+        button#edittask(type='button')='Submit'
+
+        h4 Add Comment:
+        textarea#comment(style='margin-left: 7px' rows='5' cols='68')
+        button#addcomment(type='button')='Add'
         
-        hr
         h4 Create Sub Task:
         label(for='subtaskname')= 'Sub Task Name:'
         input#createsubtaskname(type='text' name='subtaskname')
@@ -35,15 +42,19 @@ html
         input#createsubtaskdate(type='datetime-local' name='subtaskdate')
         button#createsubtask(type='button')='Create'
 
-        script(src='../clients/createsubtask.js')
         hr
-        
+
+        if (task.comments)
+            h4 Comments: 
+            ul
+                for c in task.comments
+                    p='- ' + c
         
         h4 Sub Tasks:
         if (task.subtasks)
             ul
                 for s in task.subtasks
-                    li
-                        input(type="checkbox")
-                        label= s.name
-                        p= "Due @ " + s.datetime
+                    input(type="checkbox")
+                    span= ' ' + s.name + ' / Due on ' + s.datetime
+        
+        script(src='../clients/createsubtask.js')

@@ -10,18 +10,18 @@ html
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
-            p(style="font-weight: bold")= "Hello " + session.username + "!"
+            p(style='font-weight: bold')= "Hello " + session.username + "!"
             include ../includes/loggedin.pug
         
-
+        hr
         h1 Home
+        hr
+        
         p Welcome to the Task Manager!
-
         br
-    
         p Light Mode
             button#switchmode(type='button')
-            span Dark Mode
+            span(style='margin-left: 7px') Dark Mode
         
         script.
             document.getElementById('switchmode').addEventListener("click", function(){
