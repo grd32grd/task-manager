@@ -13,10 +13,16 @@ html
             p(style='font-weight: bold')= "Hello " + session.username + "!"
             include ../includes/loggedin.pug
         
-        div#main
+        div#main(style='width: 85%; float: left; transition: 0.5s')
             h1 Glossary
 
             ul  
                 for g in glossaryentries
-                    h4= g.acronym
-                    i= g.definition
+                    h4= g.name + " (" + g.acronym + ")"
+                    i(style='font-size: 12px')= g.definition
+        
+        div#alpha(style='float: left; width: 5%; transition: 0.5s')
+            -const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+            for a in alpha.map((x) => String.fromCharCode(x))
+                p
+                    a(style='text-decoration: underline')= a

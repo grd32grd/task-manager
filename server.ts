@@ -305,7 +305,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     } else {
                         comments = t.comments;
                     }
-                    comments.push(req.body.comment)
+                    comments.push(req.body.comment + " - made by " + req.session.username)
                     tasks.updateOne({ name: t.name },{ $set: {
                         comments: comments
                     }});

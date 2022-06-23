@@ -14,8 +14,10 @@ type User = {
 	_id?: string
 };
 type GlossaryEntry = {
+	name: string;
 	acronym: string;
 	defintion: string;
+	category?: string;
 }
 
 let tasks = [
@@ -25,7 +27,11 @@ let tasks = [
 ]
 
 let glossaryentries = [
-	{acronym: 'DSP', definition: 'Digital Service Platform'}
+	{acronym: 'AG', name: 'Access Governance', definition: 'An aspect of information technology security management that seeks to reduce the risks associated with end users who have unnecessary access privileges.'},
+	{acronym: 'DMZ', name: 'Demilitarized Zone', definition: 'A part of the network that is located between any two policy-enforcing components of the network and that enables an organization to host its own Internet services.'},
+	{acronym: 'DOM', name: 'Document Object Model', definition: 'A programming interface specification that lets a programmer create and modify HTML pages and XML documents as program elements.'},
+	{acronym: 'IBS', name: 'Internal Boundary System', definition: 'A gateway that connects two or more Internetworks within a Network Security Zone.'},
+	{acronym: 'PaaS', name: 'Platform as a Service', definition: 'A cloud computing model where a third-party provider delivers hardware and software tools to users over the internet.'}
 ]
 
 let usernames = ["Guled", "Chris", "Phil"];
@@ -72,7 +78,7 @@ MongoClient.connect("mongodb://localhost:27017/", function(err: any, client: any
 					throw err;
 				}
 			
-				console.log(result.insertedCount + " initial glossary entries were added (should be 1).");
+				console.log(result.insertedCount + " initial glossary entries were added (should be 5).");
 				client.close();
 			});
 			
@@ -112,7 +118,7 @@ MongoClient.connect("mongodb://localhost:27017/", function(err: any, client: any
 							throw err;
 						}
 					
-						console.log(result.insertedCount + " initial glossary entries were added (should be 1).");
+						console.log(result.insertedCount + " initial glossary entries were added (should be 5).");
 						client.close();
 					});
 				}

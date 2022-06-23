@@ -1,5 +1,5 @@
-p#openmenu(onclick='openNav()' style='text-decoration: underline') Open Menu
-div#menu(style= 'border-top: 1.5px solid black; width: 10%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s')
+p#openmenu(onclick='openNav()' style='text-decoration: underline') Menu
+div#menu(style= 'width: 10%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s')
     a(onclick='closeNav()' style='margin-left: 7px; text-decoration: none') X
     p
         a(href='/')= 'Home'
@@ -15,10 +15,10 @@ div#menu(style= 'border-top: 1.5px solid black; width: 10%; height: 100%; float:
 script.
     function openNav() {
         document.getElementById("menu").style.width = '10%';
-        document.getElementById("main").style.marginLeft = '10%';
+        document.getElementById("main").style.width = '85%';
     }
     function closeNav() {
         document.getElementById("menu").style.width = '0';
-        document.getElementById("main").style.marginLeft= '0';
+        document.getElementById("main").style.width = '95%';
     }
 
