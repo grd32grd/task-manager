@@ -269,7 +269,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                 if (u.username == req.body.username){
                     req.session._id = u._id;
                     if (!res.headersSent){
-                        res.status(200).send(JSON.stringify(req.session._id));
+                        res.sendStatus(200);
                     }
                 }
             });  

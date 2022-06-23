@@ -21,8 +21,7 @@ register.onclick = () =>{
         if (this.readyState == 4 && this.status == 200) {
             alert(newUser.username + " has been added as a user.");
             reset();
-            let id = (JSON.parse(x.responseText));
-            window.location.assign("http://localhost:3000/users/" + id);
+            window.location.assign("http://localhost:3000/tasks");
 
         //Error message sent from server
         } else if (this.readyState == 4 && this.status == 404) {
