@@ -16,14 +16,12 @@ html
         br
         
         div#main
-            hr
             h1#taskname= task.name
             
             h3
                 span= "Assigned to: " + task.username
                 span= " / Due on "
                 span#taskdate= task.datetime
-            hr
         
             h4 Edit Task:
             label(for='etaskname')= 'Task Name:'
@@ -42,8 +40,6 @@ html
             label(for='subtaskdate')= 'Sub Task Date:'
             input#createsubtaskdate(type='datetime-local' name='subtaskdate')
             button#createsubtask(type='button')='Create'
-
-            hr
 
             if (task.comments)
                 h4 Comments: 

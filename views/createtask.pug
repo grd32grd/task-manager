@@ -15,9 +15,7 @@ html
             include ../includes/loggedin.pug
         
         div#main
-            hr
             h1 Create Task:
-            hr
 
             label(for='taskname')= 'Task Name:'
             input#createtaskname(type='text' name='taskname')
@@ -27,15 +25,15 @@ html
             
             p Priority:
                 input(type='radio' id='low' name='priority' value='LOW' checked='true')
-                label(for='low')='Low'
+                label(for='low' style='margin-right: 7px')='Low'
                 input(type='radio' id='medium' name='priority' value='MEDIUM')
-                label(for='medium')='Medium'
+                label(for='medium' style='margin-right: 7px' )='Medium'
                 input(type='radio' id='high' name='priority' value='HIGH')
                 label(for='high')='High'
             
             p Privacy:
                 input(type='radio' id='public' name='privacy' value='PUBLIC' checked='true')
-                label(for='public')='Public'
+                label(for='public' style='margin-right: 7px')='Public'
                 input(type='radio' id='private' name='privacy' value='PRIVATE')
                 label(for='private')='Private'
             

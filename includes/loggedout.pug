@@ -6,15 +6,27 @@ div
     input#loginpassword(type='password' name='password')
     button#login(type='button') Login
     br
-    hr
 
 script(src='../clients/login.js')
 
-div.menu
-    a(href='/')= 'Home'
-
-    a(href='glossary')='Glossary'
+p#openmenu(onclick='openNav()' style='text-decoration: underline') Open Menu
+div#menu(style= 'border-top: 1.5px solid black; width: 10%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s')
+    a(onclick='closeNav()' style='margin-left: 7px; text-decoration: none') X
+    p
+        a(href='/')= 'Home'
+    p
+        a(href='/glossary')= 'Glossary'
+    p
+        a(href='/tasks')= 'Tasks'
+    p
+        a(href='/register')= 'Register'
     
-    a(href='/tasks')='Tasks'
-    
-    a(href='/register')= 'Register'
+script.
+    function openNav() {
+        document.getElementById("menu").style.width = '10%';
+        document.getElementById("main").style.marginLeft = '10%';
+    }
+    function closeNav() {
+        document.getElementById("menu").style.width = '0';
+        document.getElementById("main").style.marginLeft= '0';
+    }

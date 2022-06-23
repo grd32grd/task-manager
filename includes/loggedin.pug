@@ -1,27 +1,24 @@
-div#menu
-    a.closebtn(onclick='closeMenu()')= 'X'
-
-    a(href='/')= 'Home'
-
-    a(href='/glossary')= 'Glossary'
+p#openmenu(onclick='openNav()' style='text-decoration: underline') Open Menu
+div#menu(style= 'border-top: 1.5px solid black; width: 10%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s')
+    a(onclick='closeNav()' style='margin-left: 7px; text-decoration: none') X
+    p
+        a(href='/')= 'Home'
+    p
+        a(href='/glossary')= 'Glossary'
+    p
+        a(href='/tasks')= 'Tasks'
+    p
+        a(href='/createtask')= 'Create Task'
+    p
+        a(href='/logout')= 'Log Out'
     
-    a(href='/tasks')= 'Tasks'
-    
-    a(href='/createtask')= 'Create Task'
-    
-    a(href="/logout")= 'Log Out'
-
-span(onclick='openMenu()') Open Menu
-
 script.
-    function openMenu() {
-        document.getElementById("menu").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
+    function openNav() {
+        document.getElementById("menu").style.width = '10%';
+        document.getElementById("main").style.marginLeft = '10%';
     }
-
-    function closeMenu() {
-        document.getElementById("menu").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
+    function closeNav() {
+        document.getElementById("menu").style.width = '0';
+        document.getElementById("main").style.marginLeft= '0';
     }
-
 

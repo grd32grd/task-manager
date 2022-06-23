@@ -23,7 +23,7 @@ login.onclick = () => {
     let x = new XMLHttpRequest();
     x.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            alert(user.username + " has been logged in");
+            alert(user.username + " has been logged in.");
             resetLoginInput();
             let id = (JSON.parse(x.responseText));
             window.location.reload();

@@ -55,7 +55,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             req.session.username = undefined;
             req.session.password = undefined;
             req.session._id = undefined;
-            req.session.lightmode = false;
+            req.session.lightmode = true;
         }
         res.render('frontpage.pug', {session : req.session});
     });
