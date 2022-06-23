@@ -5,6 +5,9 @@ const session = require('express-session');
 const MongoDBUsers = require('connect-mongodb-session')(session);
 const mc = require('mongodb').MongoClient;
 
+//Const Variables
+const monthNames: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 app.set('view engine', 'pug');
 app.set('title','taskmanager');
 
@@ -185,16 +188,22 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     
                 docs.forEach((u: User) => {
                     if (u.username == req.session.username && u.password == req.session.password){
+                        
+                        let datearray: string[] = req.body.datetime.split(/[-:T]+/);
+                        let datetimeformatted: string = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
+
                         tasks.insertOne({
                             username: req.body.username,
                             name: req.body.name,
                             datetime: req.body.datetime,
+                            datetimeformat: datetimeformatted,
                             priority: req.body.priority,
                             privacy: req.body.privacy
                         });
                         tasks[tasks.length] = req.body;
                         res.sendStatus(200);
-                    }
+
+                    }  
                 });
             });
         }
@@ -219,6 +228,9 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                         } else {
                             subtasks = t.subtasks
                         }
+
+                        let datearray: string[] = req.body.subtask.datetime.split(/[-:T]+/);
+                        req.body.subtask.datetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
                         subtasks[subtasks.length] = req.body.subtask
                         tasks.updateOne({ name: t.name },{
                             $set: {

@@ -53,6 +53,6 @@ html
                 if (task.subtasks)
                     ul
                         for s in task.subtasks
-                            p= ' ' + s.name + ' - Due on ' + s.datetime
+                            p= ' ' + s.name + ' - Due: ' + s.datetimeformat
         
         script(src='../clients/createsubtask.js')

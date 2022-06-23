@@ -30,7 +30,7 @@ html
                             div(style = 'float: left; width: 400px; height: 150px')
                                 a(href="/" + t._id)= t.name 
                                 p= "Assigned to: " + t.username
-                                p= "Due @ " + t.datetime
+                                p= "Due: " + t.datetimeformat
 
                             //Lists all subtasks
                             div(style = 'float: left; width: 400px; height: 150px')
@@ -41,7 +41,7 @@ html
                                             p
                                             small=" ... "
                                             - break
-                                        p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                                        p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetimeformat
                                     - }
                                 else
                                     small='None'
@@ -50,7 +50,7 @@ html
                             div(style = 'float: left; width: 400px; height: 150px')
                                 a(href="/" + t._id)= t.name 
                                 p= "Assigned to: " + t.username
-                                p= "Due @ " + t.datetime
+                                p= "Due: " + t.datetimeformat
 
                             //Lists all subtasks
                             div(style = 'float: left; width: 400px; height: 150px')
@@ -61,7 +61,7 @@ html
                                             p
                                             small=" ... "
                                             - break
-                                        p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                                        p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetimeformat
                                     - }
                                 else
                                     small='None'
@@ -70,7 +70,7 @@ html
                             div(style = 'float: left; width: 400px; height: 150px')
                                 a(href="/" + t._id)= t.name 
                                 p= "Assigned to: " + t.username
-                                p= "Due @ " + t.datetime
+                                p= "Due: " + t.datetimeformat
 
                             //Lists all subtasks
                             div(style = 'float: left; width: 400px; height: 150px')
@@ -81,7 +81,7 @@ html
                                             p
                                             small=" ... "
                                             - break
-                                        p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetime
+                                        p.small= t.subtasks[i].name + " - Due: " + t.subtasks[i].datetimeformat
                                     - }
                                 else
                                     small='None'
