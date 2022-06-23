@@ -37,6 +37,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     let users = client.db('taskmanager').collection('users');
     let tasks = client.db('taskmanager').collection('tasks');
+    let glossaryentries = client.db('taskmanager').collection('glossaryentries');
     let sessions = client.db('taskmanager').collection('sessions');
 
     //Prints Routes - for testing purposes
@@ -61,7 +62,12 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Glossary Page
     app.get('/glossary', function(req: any, res: any){
-        res.render('glossary.pug', {session : req.session});
+        glossaryentries.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+
+            res.render('glossary.pug', {session : req.session, glossaryentries : docs});
+        });
+        
     });
 
     app.post('/switchmode', function(req: any, res: any){

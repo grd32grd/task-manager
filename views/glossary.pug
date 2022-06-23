@@ -1,2 +1,24 @@
 html
-p Hi
+    head
+        title Site / Glossary
+    body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug
+        else
+            p(style='font-weight: bold')= "Hello " + session.username + "!"
+            include ../includes/loggedin.pug
+        
+        div#main
+            hr
+            h1 Glossary
+            hr
+
+            ul  
+                for g in glossaryentries
+                    h4= g.acronym
+                    i= g.definition

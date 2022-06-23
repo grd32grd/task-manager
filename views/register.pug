@@ -8,13 +8,14 @@ html
             include ../includes/cssdark.pug
         include ../includes/loggedout.pug
         
-        hr
-        h1 Register
-        hr
-        
-        label(for='username')= 'Username:'
-        input#username(type='text' name='username')
-        label(for='password')= ' Password:'
-        input#password(type='password' name='password')
-        button#register(type='button') Register 
-        script(src='../clients/register.js')
+        div#main
+            hr
+            h1 Register
+            hr
+            
+            label(for='username')= 'Username:'
+            input#username(type='text' name='username')
+            label(for='password')= ' Password:'
+            input#password(type='password' name='password')
+            button#register(type='button') Register 
+            script(src='../clients/register.js')

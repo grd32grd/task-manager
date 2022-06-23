@@ -13,19 +13,20 @@ html
             p(style='font-weight: bold')= "Hello " + session.username + "!"
             include ../includes/loggedin.pug
         
-        hr
-        h1 Home
-        hr
-        
-        h3 Welcome to the DSP Task Management System!
-        br
-        p Light Mode
-            button#switchmode(type='button')
-            span(style='margin-left: 7px') Dark Mode
-        
-        script.
-            document.getElementById('switchmode').addEventListener("click", function(){
-                let z = new XMLHttpRequest();
-                z.open("POST", "http://localhost:3000/switchmode");
-                z.setRequestHeader("Content-Type", "application/json");
-            });
+        div#main
+            hr
+            h1 Home
+            hr
+            
+            h3 Welcome to the DSP Task Management System!
+            br
+            p Light Mode
+                button#switchmode(type='button')
+                span(style='margin-left: 7px') Dark Mode
+            
+            script.
+                document.getElementById('switchmode').addEventListener("click", function(){
+                    let z = new XMLHttpRequest();
+                    z.open("POST", "http://localhost:3000/switchmode");
+                    z.setRequestHeader("Content-Type", "application/json");
+                });

@@ -14,34 +14,35 @@ html
             p(style="font-weight: bold")= "User: " + session.username
             include ../includes/loggedin.pug
         
-        hr
-        h1 Create Task:
-        hr
+        div#main
+            hr
+            h1 Create Task:
+            hr
 
-        label(for='taskname')= 'Task Name:'
-        input#createtaskname(type='text' name='taskname')
-        label(for='taskdate')= 'Task Date:'
-        input#createtaskdate(type='datetime-local' name='taskdate')
-        button#createtask(type='button')='Create Task'
-        
-        p Priority:
-            input(type='radio' id='low' name='priority' value='LOW' checked='true')
-            label(for='low')='Low'
-            input(type='radio' id='medium' name='priority' value='MEDIUM')
-            label(for='medium')='Medium'
-            input(type='radio' id='high' name='priority' value='HIGH')
-            label(for='high')='High'
-        
-        p Privacy:
-            input(type='radio' id='public' name='privacy' value='PUBLIC' checked='true')
-            label(for='public')='Public'
-            input(type='radio' id='private' name='privacy' value='PRIVATE')
-            label(for='private')='Private'
-        
-        label(for='userselect')='Assigned To:'
-        select(id='userselect')
-            for u in users
-                option(id=u.username)= u.username
+            label(for='taskname')= 'Task Name:'
+            input#createtaskname(type='text' name='taskname')
+            label(for='taskdate')= 'Task Date:'
+            input#createtaskdate(type='datetime-local' name='taskdate')
+            button#createtask(type='button')='Create Task'
+            
+            p Priority:
+                input(type='radio' id='low' name='priority' value='LOW' checked='true')
+                label(for='low')='Low'
+                input(type='radio' id='medium' name='priority' value='MEDIUM')
+                label(for='medium')='Medium'
+                input(type='radio' id='high' name='priority' value='HIGH')
+                label(for='high')='High'
+            
+            p Privacy:
+                input(type='radio' id='public' name='privacy' value='PUBLIC' checked='true')
+                label(for='public')='Public'
+                input(type='radio' id='private' name='privacy' value='PRIVATE')
+                label(for='private')='Private'
+            
+            label(for='userselect')='Assigned To:'
+            select(id='userselect')
+                for u in users
+                    option(id=u.username)= u.username
 
         
         script(src='../clients/createtask.js')

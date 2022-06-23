@@ -13,15 +13,23 @@ type User = {
     password: string;
 	_id?: string
 };
-
-let usernames = ["Guled", "Chris", "Phil"];
-let users: User[] = [];
+type GlossaryEntry = {
+	acronym: string;
+	defintion: string;
+}
 
 let tasks = [
 	{username: "Guled", name: "Finish Task Manager Demo", datetime:"2022-06-14T14:00", priority:"high"},
 	{username: "Chris", name: "Anaylze Task Manager Demo Code", datetime:"2022-06-14T14:30", priority:"medium"},
 	{username: "Phil", name: "Critique Task Manager Demo", datetime:"2022-06-14T14:30", priority:"medium"}
 ]
+
+let glossaryentries = [
+	{acronym: 'DSP', definition: 'Digital Service Platform'}
+]
+
+let usernames = ["Guled", "Chris", "Phil"];
+let users: User[] = [];
 
 usernames.forEach(name => {
 	let u:User = {
@@ -59,6 +67,14 @@ MongoClient.connect("mongodb://localhost:27017/", function(err: any, client: any
 				console.log(result.insertedCount + " initial tasks were added (should be 3).");
 				client.close();
 			});
+			db.collection("glossaryentries").insertMany(glossaryentries, function(err: any, result: any){
+				if(err){
+					throw err;
+				}
+			
+				console.log(result.insertedCount + " initial glossary entries were added (should be 1).");
+				client.close();
+			});
 			
 			return;
 		}
@@ -89,6 +105,14 @@ MongoClient.connect("mongodb://localhost:27017/", function(err: any, client: any
 						}
 					
 						console.log(result.insertedCount + " initial tasks were added (should be 3).");
+						client.close();
+					});
+					db.collection("glossaryentries").insertMany(glossaryentries, function(err: any, result: any){
+						if(err){
+							throw err;
+						}
+					
+						console.log(result.insertedCount + " initial glossary entries were added (should be 1).");
 						client.close();
 					});
 				}
