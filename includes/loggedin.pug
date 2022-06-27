@@ -6,6 +6,8 @@ div#menu(style= 'width: 10%; height: 100%; float: left; overflow-x: hidden; tran
     p
         a(href='/glossary')= 'Glossary'
     p
+        a(href='/createentry')= 'Create Entry'
+    p
         a(href='/tasks')= 'Tasks'
     p
         a(href='/createtask')= 'Create Task'
@@ -15,10 +17,10 @@ div#menu(style= 'width: 10%; height: 100%; float: left; overflow-x: hidden; tran
 script.
     function openNav() {
         document.getElementById("menu").style.width = '10%';
-        document.getElementById("main").style.width = '85%';
+        document.getElementById("main").style.width = '90%';
     }
     function closeNav() {
-        document.getElementById("menu").style.width = '0';
-        document.getElementById("main").style.width = '95%';
+        document.getElementById("menu").style.width = '0%';
+        document.getElementById("main").style.width = '100%';
     }
 

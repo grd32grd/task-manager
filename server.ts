@@ -11,6 +11,9 @@ const monthNames: string[] = ["January", "February", "March", "April", "May", "J
 app.set('view engine', 'pug');
 app.set('title','taskmanager');
 
+//Methods
+
+
 let mongoStore = new MongoDBUsers({
     uri: 'mongodb://localhost:27017/taskmanager',
     collection: 'sessions'
@@ -67,10 +70,18 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.get('/glossary', function(req: any, res: any){
         glossaryentries.find().toArray(function(err: any, docs : any){
             if (err) throw err;
-
-            res.render('glossary.pug', {session : req.session, glossaryentries : docs});
+            res.render('glossary.pug', {session : req.session, glossaryentries : docs.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)});
         });
         
+    });
+
+    //Create Glossary Entry Page
+    app.get('/createentry', function(req: any, res: any){
+        users.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+
+            res.render('createentry.pug', { users : docs, session : req.session });
+        });
     });
 
     app.post('/switchmode', function(req: any, res: any){
@@ -176,7 +187,19 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
-    //Route to add assign newly created task to the logged in user.
+    //Route to add an glossary entry to the glossary.
+    app.put('/createentry', function(req: any,res: any){
+        glossaryentries.insertOne({
+            name: req.body.name,
+            acronym: req.body.acronym,
+            definition: req.body.definition
+        });
+        console.log(req.body.definition);
+        console.log(req.body)
+        res.sendStatus(200);
+    }); 
+
+    //Route to add newly created task and assign it to the logged in user.
     app.put('/createtask', function(req: any,res: any){
 
         //Error checking to determine if date has already passed - only checks if year has passed for now.

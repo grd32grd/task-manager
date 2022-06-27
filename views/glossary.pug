@@ -13,16 +13,27 @@ html
             p(style='font-weight: bold')= "Hello " + session.username + "!"
             include ../includes/loggedin.pug
         
-        div#main(style='width: 85%; float: left; transition: 0.5s')
+        div#main
             h1 Glossary
 
             ul  
                 for g in glossaryentries
                     h4= g.name + " (" + g.acronym + ")"
                     i(style='font-size: 12px')= g.definition
-        
-        div#alpha(style='float: left; width: 5%; transition: 0.5s')
-            -const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-            for a in alpha.map((x) => String.fromCharCode(x))
-                p
-                    a(style='text-decoration: underline')= a
+                
+        script.
+            let line = document.createElement('p');
+            line.innerHTML = "__________________"
+            document.getElementById('menu').appendChild(line);
+            const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+            for (i = 0; i < 26; i++){
+                let line = document.createElement('hr');
+                let paragraph = document.createElement('p');
+                let letter = document.createElement('a');
+                letter.innerHTML = (i+10).toString(36).toUpperCase();
+                paragraph.style.fontWeight = 'bold'
+                paragraph.append(letter);
+                document.getElementById('menu').appendChild(paragraph);
+            }
+            
+

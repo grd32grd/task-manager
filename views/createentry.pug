@@ -1,0 +1,33 @@
+html 
+    head
+        title= "Site / Create Entry"
+        
+    body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+        
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug    
+        else
+            p(style="font-weight: bold")= "User: " + session.username
+            include ../includes/loggedin.pug
+        
+        div#main
+            h1 Create Entry:
+
+            label(for='entryname')= 'Entry Name:'
+            input#createentryname(type='text' name='entryname')
+            label(for='entryacronym')= 'Entry Acronym:'
+            input#createentryacronym(type='text' name='entryacronym')
+            br
+            br
+            label(for='entrydefinition')= 'Entry Definition:'
+            br
+            textarea#createentrydef(style='margin-left: 7px' name='entrydefinition' rows='5' cols='65')
+            br
+            br
+            button#createentry(type='button')='Create Glossary Entry'
+
+        script(src='../clients/createentry.js')

@@ -54,7 +54,3 @@ createTask.onclick = () => {
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify(newTask));
 }
-
-taskRemoveButtons.onClick = () => {
-    console.log("Hi")
-}
