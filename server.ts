@@ -156,6 +156,24 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
+    //Parameter used to find the glossary entry corresponding with the name
+    app.param('entryid', function(req: any, res: any, next: any, value: any) {
+        glossaryentries.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            docs.forEach((g: GlossaryEntry) => {
+                if (g._id == value) {
+                    res.glossaryentry = g;
+                    next();
+                }
+            });
+        });
+    });
+
+    //Route to get to a glossary entry's page to view it's content and modify it's info
+    app.get('/glossary/:entryid', function (req: any, res: any) {
+        res.render('editentry.pug', {glossaryentry: res.glossaryentry, session: req.session});
+    });
+
     //Route to get to a task's page to see detailed info as well as it's subtasks.
     app.get('/:taskid', function (req: any, res: any) {
         tasks.find().toArray(function(err: any, docs: any){
@@ -327,6 +345,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     }); 
 
+    //Route to add a comment.
     app.post('/addcomment', function(req: any,res: any){
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
@@ -340,7 +359,11 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     } else {
                         comments = t.comments;
                     }
-                    comments.push(req.body.comment + " - made by " + req.session.username)
+                    if (!req.session.username){
+                        comments.push(req.body.comment + " - made by anonymous.")
+                    } else {
+                        comments.push(req.body.comment + " - made by " + req.session.username + ".")
+                    }
                     tasks.updateOne({ name: t.name },{ $set: {
                         comments: comments
                     }});
@@ -349,6 +372,24 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             });
         });
     });
+
+    //Route to edit a glossary entry.
+    app.post('/editentry', function(req: any,res: any){
+        glossaryentries.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+
+            //Finds the glossary entry to edit.
+            docs.forEach((g: GlossaryEntry) => {
+                if (g.name == req.body.name){
+                    glossaryentries.updateOne({ name: g.name },{ $set: {
+                        acronym: req.body.acronym,
+                        definition: req.body.definition
+                    }});
+                    res.sendStatus(200);
+                }
+            });
+        });
+    }); 
 });
 
 

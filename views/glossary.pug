@@ -18,8 +18,9 @@ html
 
             ul  
                 for g in glossaryentries
-                    h4= g.name + " (" + g.acronym + ")"
-                    i(style='font-size: 12px')= g.definition
+                    a.glossarylink(href='glossary/' + g._id style='text-decoration: none')
+                        h4= g.name + " (" + g.acronym + ")"
+                        i(style='font-size: 12px')= g.definition
                 
         script.
             let line = document.createElement('p');

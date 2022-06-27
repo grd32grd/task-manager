@@ -10,11 +10,12 @@ type Task = {
 	subtasks?: Task[]
 };
 type User = {
+	_id?: string
     username: string;
     password: string;
-	_id?: string
 };
 type GlossaryEntry = {
+    _id?: any;
 	name: string;
 	acronym: string;
 	definition: string;

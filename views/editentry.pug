@@ -1,0 +1,31 @@
+html 
+    head
+        title= "Site / " + glossaryentry.name
+        
+    body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+        
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug    
+        else
+            p(style="font-weight: bold")= "User: " + session.username
+            include ../includes/loggedin.pug
+        
+        div#main
+            h1#gname= glossaryentry.name
+
+            label(for='entryacronym')= 'Entry Acronym:'
+            input#editentryacronym(type='text' name='entryacronym' value=glossaryentry.acronym)
+            br
+            br
+            label(for='entrydefinition')= 'Entry Definition:'
+            br
+            textarea#editentrydef(style='margin-left: 7px' name='entrydefinition' rows='5' cols='65')=glossaryentry.definition
+            br
+            br
+            button#editentry(type='button')='Submit'
+
+        script(src='../clients/editentry.js')
