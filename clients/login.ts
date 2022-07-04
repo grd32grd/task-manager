@@ -30,7 +30,7 @@ login.onclick = () => {
         }
     }
     
-    x.open("PUT", "http://localhost:3000/login");
+    x.open("PUT", "/login");
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify(user));
 }

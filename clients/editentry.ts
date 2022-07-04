@@ -10,10 +10,10 @@ editEntry.onclick = () => {
     x.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             alert("Glossary entry has been created.");
-            window.location.assign("http://localhost:3000/glossary");
+            window.location.assign("/glossary");
         }
     }
-    x.open("POST", "http://localhost:3000/editentry");
+    x.open("POST", "/editentry");
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify({
         name: document.getElementById('gname')?.innerHTML,

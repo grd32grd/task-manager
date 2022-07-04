@@ -26,10 +26,10 @@ createEntry.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("New glossary entry has been created.");
             resetEntryInput();
-            window.location.assign("http://localhost:3000/glossary");
+            window.location.assign("/glossary");
         }
     }
-    x.open("PUT", "http://localhost:3000/createentry");
+    x.open("PUT", "/createentry");
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify(newEntry));
 }

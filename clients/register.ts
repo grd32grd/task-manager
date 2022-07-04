@@ -21,7 +21,7 @@ register.onclick = () =>{
         if (this.readyState == 4 && this.status == 200) {
             alert(newUser.username + " has been added as a user.");
             reset();
-            window.location.assign("http://localhost:3000/tasks");
+            window.location.assign("/tasks");
 
         //Error message sent from server
         } else if (this.readyState == 4 && this.status == 404) {
@@ -29,7 +29,7 @@ register.onclick = () =>{
         }
     }
     
-    x.open("PUT", "http://localhost:3000/register");
+    x.open("PUT", "/register");
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify(newUser));
 }

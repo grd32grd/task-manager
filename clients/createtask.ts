@@ -43,14 +43,14 @@ createTask.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("New task has been created.");
             resetTaskInput();
-            window.location.assign("http://localhost:3000/tasks");
+            window.location.assign("/tasks");
         }
         else if (this.readyState == 4 && this.status == 404){
             alert("This date has already passed!")
             resetTaskInput();
         }
     }
-    x.open("PUT", "http://localhost:3000/createtask");
+    x.open("PUT", "/createtask");
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify(newTask));
 }

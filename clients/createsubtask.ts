@@ -34,7 +34,7 @@ createSubTask.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("New sub task has been created.");
             resetInput();
-            window.location.assign("http://localhost:3000/tasks");
+            window.location.assign("/tasks");
         }
         else if (this.readyState == 4 && this.status == 404){
             alert("This date has already passed!")
@@ -42,7 +42,7 @@ createSubTask.onclick = () => {
         }
     }
     
-    x.open("PUT", "http://localhost:3000/createsubtask");
+    x.open("PUT", "/createsubtask");
     x.setRequestHeader("Content-Type", "application/json");
     x.send(JSON.stringify({
         subtask: newSubTask,
@@ -69,11 +69,11 @@ editTask.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("Task info has been edited.");
             resetInput();
-            window.location.assign("http://localhost:3000/tasks");
+            window.location.assign("/tasks");
         }
     }
     
-    y.open("POST", "http://localhost:3000/edittask");
+    y.open("POST", "/edittask");
     y.setRequestHeader("Content-Type", "application/json");    
     y.send(JSON.stringify({
         oldname: document.getElementById('taskname')?.innerHTML,
@@ -90,14 +90,14 @@ addComment.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("Comment has been added.");
             resetInput();
-            window.location.assign("http://localhost:3000/tasks");
+            window.location.assign("/tasks");
         }
         else {
             console.log(this.readyState + this.status)
         }
     }
     
-    z.open("POST", "http://localhost:3000/addcomment");
+    z.open("POST", "/addcomment");
     z.setRequestHeader("Content-Type", "application/json");    
     z.send(JSON.stringify({
         name: document.getElementById('taskname')?.innerHTML,
