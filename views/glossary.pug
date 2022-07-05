@@ -16,6 +16,13 @@ html
         div#main
             h1 Glossary
 
+            label(for='glossary-search')= "Search for Entries: "
+            input#glossarysearch(type='text' name='glossary-search')
+            button#glossarysearchbutton(type='button')= "Search"
+
+            if (glossaryentries.length == 0)
+                p No glossary entries found...
+
             ul  
                 for g in glossaryentries
                     a.glossarylink(href='glossary/' + g._id style='text-decoration: none')
@@ -24,7 +31,7 @@ html
                 
         script.
             let line = document.createElement('p');
-            line.innerHTML = "__________________"
+            line.innerHTML = "________"
             document.getElementById('menu').appendChild(line);
             const alpha = Array.from(Array(26)).map((e, i) => i + 65);
             for (i = 0; i < 26; i++){
@@ -36,5 +43,10 @@ html
                 paragraph.append(letter);
                 document.getElementById('menu').appendChild(paragraph);
             }
+
+            document.getElementById('glossarysearchbutton').addEventListener("click", function(){
+                let link = "/glossary/" + document.getElementById("glossarysearch").value;
+                window.location.assign(link);
+            });
             
 

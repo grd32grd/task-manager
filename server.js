@@ -64,6 +64,24 @@ mc.connect("mongodb://localhost:27017", function (err, client) {
             res.render('glossary.pug', { session: req.session, glossaryentries: docs.sort((a, b) => (a.name > b.name) ? 1 : -1) });
         });
     });
+    //Parameter used to search for specific glossary entries
+    app.param('glossarysearch', function (req, res, next, value) {
+        let searchedEntries = [];
+        glossaryentries.find().toArray(function (err, docs) {
+            if (err)
+                throw err;
+            docs.forEach((g) => {
+                if (g.name.toUpperCase().includes(value.toUpperCase())) {
+                    searchedEntries.push(g);
+                }
+            });
+            res.searchedEntries = searchedEntries;
+            next();
+        });
+    });
+    app.get('/glossary/:glossarysearch', function (req, res) {
+        res.render('glossary.pug', { glossaryentries: res.searchedEntries.sort((a, b) => (a.name > b.name) ? 1 : -1), session: req.session });
+    });
     //Create Glossary Entry Page
     app.get('/createentry', function (req, res) {
         users.find().toArray(function (err, docs) {
@@ -75,14 +93,6 @@ mc.connect("mongodb://localhost:27017", function (err, client) {
     app.post('/switchmode', function (req, res) {
         req.session.lightmode = !req.session.lightmode;
         res.render('frontpage.pug', { session: req.session });
-    });
-    //Tasks Page
-    app.get('/tasks', function (req, res) {
-        tasks.find().toArray(function (err, docs) {
-            if (err)
-                throw err;
-            res.render('tasks.pug', { tasks: docs, session: req.session });
-        });
     });
     //Register page
     app.get('/register', function (req, res) {
@@ -104,6 +114,14 @@ mc.connect("mongodb://localhost:27017", function (err, client) {
             res.render('createtask.pug', { users: docs, session: req.session });
         });
     });
+    //Tasks Page
+    app.get('/tasks', function (req, res) {
+        tasks.find().toArray(function (err, docs) {
+            if (err)
+                throw err;
+            res.render('tasks.pug', { tasks: docs, session: req.session });
+        });
+    });
     //Parameter used to search for specific tasks
     app.param('tasksearch', function (req, res, next, value) {
         let searchedTasks = [];
@@ -119,7 +137,6 @@ mc.connect("mongodb://localhost:27017", function (err, client) {
             next();
         });
     });
-    //Tasks Page
     app.get('/tasks/:tasksearch', function (req, res) {
         res.render('tasks.pug', { tasks: res.searchedTasks, session: req.session });
     });

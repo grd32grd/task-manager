@@ -74,6 +74,24 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
         
     });
+    //Parameter used to search for specific glossary entries
+    app.param('glossarysearch', function(req: any, res: any, next: any, value: any) {
+        let searchedEntries: GlossaryEntry[] = [];
+        glossaryentries.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+
+            docs.forEach((g: GlossaryEntry) => {
+                if (g.name.toUpperCase().includes(value.toUpperCase())) {
+                    searchedEntries.push(g);
+                }
+            });
+            res.searchedEntries = searchedEntries;
+            next();
+        });
+    });
+    app.get('/glossary/:glossarysearch', function(req: any, res: any){
+        res.render('glossary.pug', { glossaryentries : res.searchedEntries.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1), session : req.session });
+    });
 
     //Create Glossary Entry Page
     app.get('/createentry', function(req: any, res: any){
@@ -87,15 +105,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.post('/switchmode', function(req: any, res: any){
         req.session.lightmode = !req.session.lightmode
         res.render('frontpage.pug', {session : req.session});
-    });
-
-    //Tasks Page
-    app.get('/tasks', function(req: any, res: any){
-        tasks.find().toArray(function(err: any, docs : any){
-            if (err) throw err;
-
-            res.render('tasks.pug', { tasks : docs, session : req.session });
-        });
     });
 
     //Register page
@@ -121,6 +130,15 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
+    //Tasks Page
+    app.get('/tasks', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+
+            res.render('tasks.pug', { tasks : docs, session : req.session });
+        });
+    });
+
     //Parameter used to search for specific tasks
     app.param('tasksearch', function(req: any, res: any, next: any, value: any) {
         let searchedTasks: Task[] = [];
@@ -136,8 +154,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             next();
         });
     });
-
-    //Tasks Page
     app.get('/tasks/:tasksearch', function(req: any, res: any){
         res.render('tasks.pug', { tasks : res.searchedTasks, session : req.session });
     });
