@@ -7,7 +7,8 @@ type Task = {
 	priority: string;
 	privacy?: boolean;
 	comments?: string[];
-	subtasks?: Task[]
+	subtasks?: Task[];
+	status: 'created' | 'active' | 'closed'
 };
 type User = {
 	_id?: string

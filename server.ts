@@ -186,7 +186,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     });
 
     //Route to get to a glossary entry's page to view it's content and modify it's info
-    app.get('/glossary/:entryid', function (req: any, res: any) {
+    app.get('/glossaryentry/:entryid', function (req: any, res: any) {
         res.render('editentry.pug', {glossaryentry: res.glossaryentry, session: req.session});
     });
 
@@ -255,7 +255,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                             datetime: req.body.datetime,
                             datetimeformat: datetimeformatted,
                             priority: req.body.priority,
-                            privacy: req.body.privacy
+                            privacy: req.body.privacy,
+                            status: req.body.status
                         });
                         tasks[tasks.length] = req.body;
                         res.sendStatus(200);
