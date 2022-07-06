@@ -13,7 +13,7 @@ html
             p(style="font-weight: bold; margin-left: 7px")= "User: " + session.username
             include ../includes/loggedin.pug
         
-        div#main
+        #main
             h1 Tasks
 
             label(for='task-search')= "Search for Tasks: "
@@ -23,69 +23,22 @@ html
             if (tasks.length == 0)
                 p No tasks found...
             
-            for t in tasks
-                if (session.username == t.username || !t.privacy)
-                    if (t.priority == 'high')
-                        div.taskcard(style = "background-color:#ebafa0; box-shadow: 0px 0px 4px 4px #ebafa0; width: 850px; height: 150px; margin-left: 15%;")
-                            div(style = 'float: left; width: 400px; height: 150px')
-                                a(href="/" + t._id style='text-decoration: none')= t.name 
-                                p= "Assigned to: " + t.username
-                                p= "Due: " + t.datetimeformat
 
-                            //Lists all subtasks
-                            div(style = 'float: left; width: 400px; height: 150px')
-                                p Subtasks:
-                                if (t.subtasks)
-                                    - for (let i = 0; i < t.subtasks.length; i++){
-                                        if (i == 3 )
-                                            p
-                                            small=" ... "
-                                            - break
-                                        p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetimeformat
-                                    - }
-                                else
-                                    small='None'
+            #tasksdiv
+                #created(style= "width:25%; float: left;")
+                    h4(style="text-align: center") Created
+                    for t in tasks.filter(function (task) {if (task.status == "Created" && (session.username == task.username || !task.privacy)) {return task}})
+                        p= t.name
+                #active(style= "margin-left: 7.5%; width:25%; float: left") 
+                    h4(style="text-align: center") Active
+                    for t in tasks.filter(function (task) {if (task.status == "Active" && (session.username == task.username || !task.privacy)) {return task}})
+                        p= t.name
+                #closed(style= "margin-left: 7.5%; width:25%; float: left")
+                    h4(style="text-align: center") Closed
+                    for t in tasks.filter(function (task) {if (task.status == "Closed" && (session.username == task.username || !task.privacy)) {return task}})
+                        p= t.name
+                
 
-                    else if (t.priority == 'medium')
-                        div.taskcard(style = "background-color:#ebe1a0; box-shadow: 0px 0px 4px 4px #ebe1a0; width: 850px; height: 150px; margin-left: 15%;")
-                            div(style = 'float: left; width: 400px; height: 150px')
-                                a(href="/" + t._id style='text-decoration: none')= t.name 
-                                p= "Assigned to: " + t.username
-                                p= "Due: " + t.datetimeformat
-
-                            //Lists all subtasks
-                            div(style = 'float: left; width: 400px; height: 150px')
-                                p Subtasks:
-                                if (t.subtasks)
-                                    - for (let i = 0; i < t.subtasks.length; i++){
-                                        if (i == 3 )
-                                            p
-                                            small=" ... "
-                                            - break
-                                        p.small= t.subtasks[i].name + " - Due @ " + t.subtasks[i].datetimeformat
-                                    - }
-                                else
-                                    small='None'
-                    else
-                        div.taskcard(style = "background-color:#a0eba4; box-shadow: 0px 0px 4px 4px #a0eba4; width: 850px; height: 150px; margin-left: 15%;")
-                            div(style = 'float: left; width: 400px; height: 150px')
-                                a(href="/" + t._id style='text-decoration: none')= t.name 
-                                p= "Assigned to: " + t.username
-                                p= "Due: " + t.datetimeformat
-
-                            //Lists all subtasks
-                            div(style = 'float: left; width: 400px; height: 150px')
-                                p Subtasks:
-                                if (t.subtasks)
-                                    - for (let i = 0; i < t.subtasks.length; i++){
-                                        if (i == 3 )
-                                            p
-                                            small=" ... "
-                                            - break
-                                        p.small= t.subtasks[i].name + " - Due: " + t.subtasks[i].datetimeformat
-                                    - }
-                                else
-                                    small='None'
 
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){

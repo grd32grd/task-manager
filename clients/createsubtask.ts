@@ -25,7 +25,7 @@ createSubTask.onclick = () => {
         name: "",
         datetime: "",
         priority: "medium",
-        status: "created"
+        status: "Created"
     };
     newSubTask.name = subTaskName.value;
     newSubTask.datetime = subTaskDate.value;

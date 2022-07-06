@@ -8,7 +8,7 @@ type Task = {
 	privacy?: boolean;
 	comments?: string[];
 	subtasks?: Task[];
-	status: 'created' | 'active' | 'closed'
+	status: 'Created' | 'Active' | 'Closed'
 };
 type User = {
 	_id?: string
@@ -24,9 +24,9 @@ type GlossaryEntry = {
 }
 
 let tasks = [
-	{username: "Guled", name: "Finish Task Manager Demo", datetime:"2022-06-14T14:00", datetimeformat: "June 14 2022 @ 14:00", priority:"high"},
-	{username: "Chris", name: "Anaylze Task Manager Demo Code", datetime:"2022-06-14T14:30", datetimeformat: "June 14 2022 @ 14:30", priority:"medium"},
-	{username: "Phil", name: "Critique Task Manager Demo", datetime:"2022-06-14T14:30", datetimeformat: "June 14 2022 @ 14:30", priority:"medium"}
+	{username: "Guled", name: "Finish Task Manager Demo", datetime:"2022-06-14T14:00", datetimeformat: "June 14 2022 @ 14:00", priority: "high", status: "Created" },
+	{username: "Chris", name: "Anaylze Task Manager Demo Code", datetime:"2022-06-14T14:30", datetimeformat: "June 14 2022 @ 14:30", priority: "medium", status: "Created"},
+	{username: "Phil", name: "Critique Task Manager Demo", datetime:"2022-06-14T14:30", datetimeformat: "June 14 2022 @ 14:30", priority: "medium", status: "Created"}
 ]
 
 let glossaryentries = [

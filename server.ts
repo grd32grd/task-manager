@@ -1,3 +1,6 @@
+//Const Variables
+const monthNames: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 //Setup
 const express = require('express');
 const app = express();
@@ -5,14 +8,8 @@ const session = require('express-session');
 const MongoDBUsers = require('connect-mongodb-session')(session);
 const mc = require('mongodb').MongoClient;
 
-//Const Variables
-const monthNames: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
 app.set('view engine', 'pug');
 app.set('title','taskmanager');
-
-//Methods
-
 
 let mongoStore = new MongoDBUsers({
     uri: 'mongodb://localhost:27017/taskmanager',

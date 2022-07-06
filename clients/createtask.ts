@@ -33,7 +33,7 @@ createTask.onclick = () => {
         name: taskName.value,
         datetime: taskDate.value,
         priority: newTaskPriority,
-        status: 'created'
+        status: 'Created'
     };
 
     let privacy: any = document.getElementById('private');

@@ -25,11 +25,5 @@ div#menu(style= 'width: 10%; height: 100%; float: left; overflow-x: hidden; tran
         a(href='/register')= 'Register'
     
 script.
-    function openNav() {
-        document.getElementById("menu").style.width = '10%';
-        document.getElementById("main").style.width = '90%';
-    }
-    function closeNav() {
-        document.getElementById("menu").style.width = '0%';
-        document.getElementById("main").style.width = '100%';
-    }
+    function openNav() {document.getElementById("menu").style.width = '10%';}
+    function closeNav() {document.getElementById("menu").style.width = '0%';}
