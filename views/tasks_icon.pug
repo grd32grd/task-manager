@@ -18,10 +18,10 @@ html
 
             label(for='task-search')= "Search for Tasks: "
             input#tasksearch(type='text' name='task-search')
-            button#tasksearchbutton(type='button')= "Search"
-            
-            if (tasks.length == 0)
-                p No tasks found...
+            span
+                button#tasksearchbutton(type='button')= "Search"
+                a(href="/tasks/icon" style="margin-left: 50%; color: grey")= "[ Icon View ]"
+                a(href="/tasks/list" style="margin-left: 1%")="[ List View ]" 
             
             #tasksdiv
                 #created(style= "width:25%; float: left;")
@@ -29,9 +29,9 @@ html
                     for t in tasks.filter(function (task) {if (task.status == "Created" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/" + t._id style="text-decoration: none; z-index: 0")
                             .taskcard
-                                if (t.priority == "high")
+                                if (t.priority == "High")
                                     p(style="background-color: #b31500; color: #b31500; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
-                                else if (t.priority == "medium")
+                                else if (t.priority == "Medium")
                                     p(style="background-color: #ffc800; color: #ffc800; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
                                 else
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
@@ -40,14 +40,14 @@ html
                                 p= "Due: " + t.datetimeformat
 
 
-                #active(style= "margin-left: 7.5%; width:25%; float: left") 
+                #active(style= "margin-left: 5%; width:25%; float: left") 
                     h4(style="text-align: center") Active
                     for t in tasks.filter(function (task) {if (task.status == "Active" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
-                                if (t.priority == "high")
+                                if (t.priority == "High")
                                     p(style="background-color: #b31500; color: #b31500; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
-                                else if (t.priority == "medium")
+                                else if (t.priority == "Medium")
                                     p(style="background-color: #ffc800; color: #ffc800; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
                                 else
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
@@ -55,14 +55,14 @@ html
                                 p= "Assigned to: " + t.username
                                 p= "Due: " + t.datetimeformat
                     
-                #closed(style= "margin-left: 7.5%; width:25%; float: left")
+                #closed(style= "margin-left: 5%; width:25%; float: left")
                     h4(style="text-align: center") Closed
                     for t in tasks.filter(function (task) {if (task.status == "Closed" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
-                                if (t.priority == "high")
+                                if (t.priority == "High")
                                     p(style="background-color: #b31500; color: #b31500; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
-                                else if (t.priority == "medium")
+                                else if (t.priority == "Medium")
                                     p(style="background-color: #ffc800; color: #ffc800; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
                                 else
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
@@ -74,7 +74,7 @@ html
 
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){
-                let link = "/tasks/" + document.getElementById("tasksearch").value;
+                let link = "/tasks/icon/" + document.getElementById("tasksearch").value;
                 window.location.assign(link);
             });
 

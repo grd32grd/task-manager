@@ -58,7 +58,7 @@ createSubTask.onclick = () => {
     let newSubTask:Task = {
         name: "",
         datetime: "",
-        priority: "medium",
+        priority: "Medium",
         status: "Created"
     };
     newSubTask.name = subTaskName.value;

@@ -118,12 +118,20 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
-    //Tasks Page
-    app.get('/tasks', function(req: any, res: any){
+    //Tasks Page - Icon View
+    app.get('/tasks/icon', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
 
-            res.render('tasks.pug', { tasks : docs, session : req.session });
+            res.render('tasks_icon.pug', { tasks : docs, session : req.session });
+        });
+    });
+    //Tasks Page - List View
+    app.get('/tasks/list', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+
+            res.render('tasks_list.pug', { tasks : docs, session : req.session });
         });
     });
 
@@ -142,8 +150,11 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             next();
         });
     });
-    app.get('/tasks/:tasksearch', function(req: any, res: any){
-        res.render('tasks.pug', { tasks : res.searchedTasks, session : req.session });
+    app.get('/tasks/icon/:tasksearch', function(req: any, res: any){
+        res.render('tasks_icon.pug', { tasks : res.searchedTasks, session : req.session });
+    });
+    app.get('/tasks/list/:tasksearch', function(req: any, res: any){
+        res.render('tasks_list.pug', { tasks : res.searchedTasks, session : req.session });
     });
 
     //Parameter used by a number of routes needing the id of a user's profile.

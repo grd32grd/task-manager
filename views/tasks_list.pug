@@ -1,0 +1,57 @@
+html
+    head
+        title Task Manager / Users
+    body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+        
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug
+        else
+            p(style="font-weight: bold; margin-left: 7px")= "User: " + session.username
+            include ../includes/loggedin.pug
+        
+        #main
+            h1 Tasks
+
+            label(for='task-search')= "Search for Tasks: "
+            input#tasksearch(type='text' name='task-search')
+            span
+                button#tasksearchbutton(type='button')= "Search"
+                a(href="/tasks/icon" style="margin-left: 50%")= "[ Icon View ]"
+                a(href="/tasks/list" style="margin-left: 1%; color: grey")="[ List View ]" 
+            
+            #name(style= "width:15%; float: left;")
+                h4 Name
+                for t in tasks
+                    p= t.name
+
+            #user(style= "width:15%; margin-left: 2.5%; float: left;")
+                h4 User
+                for t in tasks
+                    p= t.username
+
+            #date(style= "width:15%; margin-left: 2.5%; float: left;")
+                h4 Due Date
+                for t in tasks
+                    p= t.datetimeformat
+
+            #status(style= "width:15%; margin-left: 2.5%; float: left;")
+                h4 Status
+                for t in tasks
+                    p= t.status
+
+            #priority(style= "width:15%; margin-left: 2.5%; float: left;")
+                h4 Priority
+                for t in tasks
+                    p= t.priority
+                
+
+
+        script.
+            document.getElementById('tasksearchbutton').addEventListener("click", function(){
+                let link = "/tasks/icon/" + document.getElementById("tasksearch").value;
+                window.location.assign(link);
+            });
