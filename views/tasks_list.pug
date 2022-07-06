@@ -22,36 +22,23 @@ html
                 button#tasksearchbutton(type='button')= "Search"
                 a(href="/tasks/icon" style="margin-left: 50%")= "[ Icon View ]"
                 a(href="/tasks/list" style="margin-left: 1%; color: grey")="[ List View ]" 
-            
-            #name(style= "width:15%; float: left;")
-                h4 Name
-                for t in tasks
-                    p= t.name
 
-            #user(style= "width:15%; margin-left: 2.5%; float: left;")
-                h4 User
-                for t in tasks
-                    p= t.username
+            h4(style= "width: 15%; float: left;") Name
+            h4(style= "width: 15%; margin-left: 2.5%; float: left") Users
+            h4(style= "width: 15%; margin-left: 2.5%; float: left") Due Date
+            h4(style= "width: 15%; margin-left: 2.5%; float: left") Status
+            h4(style= "width: 15%; margin-left: 2.5%; float: left") Priority
 
-            #date(style= "width:15%; margin-left: 2.5%; float: left;")
-                h4 Due Date
-                for t in tasks
-                    p= t.datetimeformat
-
-            #status(style= "width:15%; margin-left: 2.5%; float: left;")
-                h4 Status
-                for t in tasks
-                    p= t.status
-
-            #priority(style= "width:15%; margin-left: 2.5%; float: left;")
-                h4 Priority
-                for t in tasks
-                    p= t.priority
-                
-
-
+            for t in tasks
+                span
+                    p(style= "height: 30px; width: 15%; float: left")= t.name
+                    p(style= "height: 30px; width: 15%; margin-left: 2.5%; float: left")= t.username
+                    p(style= "height: 30px; width: 15%; margin-left: 2.5%; float: left")= t.datetimeformat
+                    p(style= "height: 30px; width: 15%; margin-left: 2.5%; float: left")= t.status
+                    p(style= "height: 30px; width: 15%; margin-left: 2.5%; float: left")= t.priority
+    
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){
-                let link = "/tasks/icon/" + document.getElementById("tasksearch").value;
+                let link = "/tasks/list/" + document.getElementById("tasksearch").value;
                 window.location.assign(link);
             });
