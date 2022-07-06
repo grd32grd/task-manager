@@ -41,15 +41,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     let users = client.db('taskmanager').collection('users');
     let tasks = client.db('taskmanager').collection('tasks');
     let glossaryentries = client.db('taskmanager').collection('glossaryentries');
-    let sessions = client.db('taskmanager').collection('sessions');
-
-    //Prints Routes - for testing purposes
-    /*
-    app.all("*", (req: any, res: any, next: any) => {
-        console.log(req.params);
-        next();
-    });
-    */
 
     //Front Page
     app.get('/', function(req: any, res: any){
@@ -404,6 +395,41 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             });
         });
     }); 
+
+    //Route to change a task's status from created to active.
+    app.post('/starttask', function(req: any,res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+
+            //Finds the glossary entry to edit.
+            docs.forEach((t: Task) => {
+                if (t.name == req.body.name){
+                    tasks.updateOne({ name: t.name },{ $set: {
+                        status: 'Active'
+                    }});
+                    res.sendStatus(200);
+                }
+            });
+        });
+    }); 
+
+    //Route to change a task's status from active to closed.
+    app.post('/completetask', function(req: any,res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+
+            //Finds the glossary entry to edit.
+            docs.forEach((t: Task) => {
+                if (t.name == req.body.name){
+                    tasks.updateOne({ name: t.name },{ $set: {
+                        status: 'Closed'
+                    }});
+                    res.sendStatus(200);
+                }
+            });
+        });
+    }); 
+
 });
 
 
