@@ -18,7 +18,7 @@ startTask.onclick = () => {
     a.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             alert("Task has been started.");
-            window.location.assign("/tasks");
+            window.location.assign("/tasks-icon");
         }
     }
     a.open("POST", "/starttask");
@@ -34,7 +34,7 @@ completeTask.onclick = () => {
     b.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             alert("Task has been completed.");
-            window.location.assign("/tasks");
+            window.location.assign("/tasks-icon");
         }
     }
     b.open("POST", "/completetask");
@@ -69,7 +69,7 @@ createSubTask.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("New sub task has been created.");
             resetInput();
-            window.location.assign("/tasks");
+            window.location.assign("/tasks-icon");
         }
         else if (this.readyState == 4 && this.status == 404){
             alert("This date has already passed!")
@@ -104,7 +104,7 @@ editTask.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("Task info has been edited.");
             resetInput();
-            window.location.assign("/tasks");
+            window.location.assign("/tasks-icon");
         }
     }
     
@@ -126,7 +126,7 @@ addComment.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("Comment has been added.");
             resetInput();
-            window.location.assign("/tasks");
+            window.location.assign("/tasks-icon");
         }
     }
     
