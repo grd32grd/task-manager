@@ -1,11 +1,17 @@
 //Initial User Setup
+type CommentType = {
+	type: 'user-comment' | 'modification';
+	comment: string;
+	replies?: CommentType[];
+}
+
 type Task = {
 	username?: string;
     name: string;
     datetime: string;
 	datetimeformat?: string;
 	privacy?: boolean;
-	comments?: string[];
+	comments?: CommentType[];
 	subtasks?: Task[];
 	status: 'Created' | 'Active' | 'Closed',
 	priority: 'High' | 'Medium' | 'Low'

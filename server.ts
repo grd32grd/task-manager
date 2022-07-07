@@ -346,7 +346,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             //Finds the task to edit.
             docs.forEach((t: Task) => {
                 if (t.name == req.body.oldname){
-                    let comments: String[];
+                    let comments: CommentType[];
                     if (!t.comments){
                         comments = [];
                     } else {
@@ -374,17 +374,19 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             //Finds the task to add the comment to.
             docs.forEach((t: Task) => {
                 if (t.name == req.body.name){
-                    let comments: String[];
+                    let comments: CommentType[];
                     if (!t.comments){
                         comments = [];
                     } else {
                         comments = t.comments;
                     }
                     if (!req.session.username){
-                        comments.push(req.body.comment + " - made by anonymous.")
+                        req.body.comment.comment = req.body.comment.comment + " - made by anonymous."
+                        
                     } else {
-                        comments.push(req.body.comment + " - made by " + req.session.username + ".")
+                        req.body.comment.comment = req.body.comment.comment + " - made by " + req.session.username + "."
                     }
+                    comments.push(req.body.comment)
                     tasks.updateOne({ name: t.name },{ $set: {
                         comments: comments
                     }});

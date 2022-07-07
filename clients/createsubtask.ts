@@ -121,6 +121,10 @@ editTask.onclick = () => {
 
 //Function that'll let you add a comment.
 addComment.onclick = () => {
+    let newComment: CommentType = {
+        type: 'user-comment',
+        comment: comment.value
+    }
     let z = new XMLHttpRequest();
     z.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -134,6 +138,6 @@ addComment.onclick = () => {
     z.setRequestHeader("Content-Type", "application/json");    
     z.send(JSON.stringify({
         name: document.getElementById('taskname')?.innerHTML,
-        comment: comment.value
+        comment: newComment
     }))  
 }
