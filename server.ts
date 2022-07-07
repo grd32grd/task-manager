@@ -380,12 +380,12 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     } else {
                         comments = t.comments;
                     }
-                    if (!req.session.username){
-                        req.body.comment.comment = req.body.comment.comment + " - made by anonymous."
-                        
-                    } else {
-                        req.body.comment.comment = req.body.comment.comment + " - made by " + req.session.username + "."
-                    }
+
+                    let author = "Anonymous";
+                    if (req.session.username){ author = req.session.username}
+                    req.body.comment.author = author;
+                    console.log(req.body.comment)
+
                     comments.push(req.body.comment)
                     tasks.updateOne({ name: t.name },{ $set: {
                         comments: comments

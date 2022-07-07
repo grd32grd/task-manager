@@ -53,7 +53,7 @@ html
                     ul
                         for c in task.comments
                             - if (i < 3)
-                                p=c.comment
+                                p= '"' + c.comment + '" - made by ' + c.author
                             - i++
                             - if (i == 3)
                                 p= "..."

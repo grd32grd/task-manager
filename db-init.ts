@@ -3,6 +3,7 @@ type CommentType = {
 	type: 'user-comment' | 'modification';
 	comment: string;
 	replies?: CommentType[];
+	author?: string
 }
 
 type Task = {
@@ -13,20 +14,20 @@ type Task = {
 	privacy?: boolean;
 	comments?: CommentType[];
 	subtasks?: Task[];
-	status: 'Created' | 'Active' | 'Closed',
+	status: 'Created' | 'Active' | 'Closed';
 	priority: 'High' | 'Medium' | 'Low'
 };
 type User = {
 	_id?: string
     username: string;
-    password: string;
+    password: string
 };
 type GlossaryEntry = {
     _id?: any;
 	name: string;
 	acronym: string;
 	definition: string;
-	category?: string;
+	category?: string
 }
 
 let tasks = [
