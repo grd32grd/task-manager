@@ -47,10 +47,17 @@ html
 
             div#show(style='float: left; width: 400px; overflow: hidden;')
                 if (task.comments)
-                    h4 Comments: 
+                    label(style="font-size: 16px; font-weight: bold") Comments: 
+                    button(onclick="window.location.assign('/comments')")#allcomments See All Comments
+                    - let i = 0;
                     ul
                         for c in task.comments
-                            p= " " + c
+                            - if (i < 3)
+                                p=c
+                            - i++
+                            - if (i == 3)
+                                p= "..."
+
                 
                 h4 Sub Tasks:
                 if (task.subtasks)

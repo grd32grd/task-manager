@@ -1,0 +1,17 @@
+html
+    head
+        title Task Manager / Comments
+    body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug
+        else
+            p(style='font-weight: bold')= "Hello " + session.username + "!"
+            include ../includes/loggedin.pug
+        
+        div#main
+            h1 Comments

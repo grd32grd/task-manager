@@ -54,14 +54,19 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         res.render('frontpage.pug', {session : req.session});
     });
 
+    //Route to get to a full comments page.
+    app.get('/comments', function(req: any, res: any){
+            res.render('comments.pug', {session : req.session});
+    });
+
     //Glossary Page
     app.get('/glossary', function(req: any, res: any){
         glossaryentries.find().toArray(function(err: any, docs : any){
             if (err) throw err;
             res.render('glossary.pug', {session : req.session, glossaryentries : docs.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)});
-        });
-        
+        }); 
     });
+
     //Parameter used to search for specific glossary entries
     app.param('glossarysearch', function(req: any, res: any, next: any, value: any) {
         let searchedEntries: GlossaryEntry[] = [];
@@ -405,7 +410,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                 }
             });
         });
-    }); 
+    });
 
     //Route to change a task's status from created to active.
     app.post('/starttask', function(req: any,res: any){
@@ -425,7 +430,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     }); 
 
     //Route to change a task's status from active to closed.
-    app.post('/completetask', function(req: any,res: any){
+    app.post('/completetask', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
 
@@ -439,7 +444,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                 }
             });
         });
-    }); 
+    });
 
 });
 
