@@ -251,7 +251,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     if (u.username == req.session.username && u.password == req.session.password){
                         
                         let datearray: string[] = req.body.datetime.split(/[-:T]+/);
-                        let datetimeformatted: string = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
+                        let datetimeformatted = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
 
                         tasks.insertOne({
                             username: req.body.username,
@@ -353,6 +353,9 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                         comments = t.comments;
                     }
                     for (var i = 0; i < req.body.comments.length; i++){
+                        let author = "Anonymous";
+                        if (req.session.username){ author = req.session.username}
+                        req.body.comments[i].author = author;
                         comments.push(req.body.comments[i])
                     }
                     tasks.updateOne({ name: t.name },{ $set: {

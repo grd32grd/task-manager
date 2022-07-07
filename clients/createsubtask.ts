@@ -87,15 +87,30 @@ createSubTask.onclick = () => {
 
 //Function that'll let you edit a task
 editTask.onclick = () => {
+    
+    // let datearray: string[] = req.body.datetime.split(/[-:T]+/);
+    // let datetimeformatted: string = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
+
     let newTaskName = etaskName.value;
-    let newTaskDate = etaskDate.value;
-    let newComments: String[] = [];
+
+    let datearray: string[] = etaskDate.value.split(/[-:T]+/);
+    let newTaskDate = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
+    
+    let newComments: CommentType[] = [];
 
     if (newTaskName != document.getElementById('taskname')?.innerHTML){
-        newComments.push("Changed Task Name from: " + document.getElementById('taskname')?.innerHTML + " to " + newTaskName)
+        let nameChange: CommentType = {
+            type: 'modification',
+            comment: "Task's name changed from: " + document.getElementById('taskname')?.innerHTML + " to " + newTaskName + "."
+        }
+        newComments.push(nameChange);
     }
     if (newTaskDate != document.getElementById('taskdate')?.innerHTML){
-        newComments.push("Changed Task Date from: " + document.getElementById('taskdate')?.innerHTML + " to " + newTaskDate)
+        let dateChange: CommentType = {
+            type: 'modification',
+            comment: "Task's due date changed from: " + document.getElementById('taskdate')?.innerHTML + " to " + newTaskDate + "."
+        }
+        newComments.push(dateChange);
     }
 
     
