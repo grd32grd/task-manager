@@ -292,7 +292,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                         }
 
                         let datearray: string[] = req.body.subtask.datetime.split(/[-:T]+/);
-                        req.body.subtask.datetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
+                        req.body.subtask.datetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
                         subtasks[subtasks.length] = req.body.subtask
                         tasks.updateOne({ name: t.name },{
                             $set: {
@@ -347,20 +347,23 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             docs.forEach((t: Task) => {
                 if (t.name == req.body.oldname){
                     let comments: CommentType[];
-                    if (!t.comments){
-                        comments = [];
-                    } else {
-                        comments = t.comments;
-                    }
+                    if (!t.comments){ comments = []} 
+                    else { comments = t.comments}
+
                     for (var i = 0; i < req.body.comments.length; i++){
                         let author = "Anonymous";
                         if (req.session.username){ author = req.session.username}
                         req.body.comments[i].author = author;
                         comments.push(req.body.comments[i])
                     }
+                    
+                    let datearray: string[] = req.body.newdate.split(/[-:T]+/);
+                    let newDatetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
+
                     tasks.updateOne({ name: t.name },{ $set: {
                         name: req.body.newname,
                         datetime: req.body.newdate,
+                        datetimeformat: newDatetimeformat,
                         comments: comments
                     }});
                     res.sendStatus(200);
@@ -378,11 +381,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             docs.forEach((t: Task) => {
                 if (t.name == req.body.name){
                     let comments: CommentType[];
-                    if (!t.comments){
-                        comments = [];
-                    } else {
-                        comments = t.comments;
-                    }
+                    if (!t.comments){ comments = []} 
+                    else { comments = t.comments}
 
                     let author = "Anonymous";
                     if (req.session.username){ author = req.session.username}

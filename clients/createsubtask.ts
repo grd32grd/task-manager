@@ -87,12 +87,7 @@ createSubTask.onclick = () => {
 
 //Function that'll let you edit a task
 editTask.onclick = () => {
-    
-    // let datearray: string[] = req.body.datetime.split(/[-:T]+/);
-    // let datetimeformatted: string = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
-
     let newTaskName = etaskName.value;
-
     let datearray: string[] = etaskDate.value.split(/[-:T]+/);
     let newTaskDate = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
     
@@ -129,7 +124,7 @@ editTask.onclick = () => {
         oldname: document.getElementById('taskname')?.innerHTML,
         olddate: document.getElementById('taskdate')?.innerHTML,
         newname: newTaskName,
-        newdate: newTaskDate,
+        newdate: etaskDate.value,
         comments: newComments
     }))  
 }

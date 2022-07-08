@@ -326,11 +326,19 @@ mc.connect("mongodb://localhost:27017", function (err, client) {
                         comments = t.comments;
                     }
                     for (var i = 0; i < req.body.comments.length; i++) {
+                        let author = "Anonymous";
+                        if (req.session.username) {
+                            author = req.session.username;
+                        }
+                        req.body.comments[i].author = author;
                         comments.push(req.body.comments[i]);
                     }
+                    let datearray = req.body.newdate.split(/[-:T]+/);
+                    let newDatetimeformat = monthNames[parseInt(datearray[1]) - 1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
                     tasks.updateOne({ name: t.name }, { $set: {
                             name: req.body.newname,
                             datetime: req.body.newdate,
+                            datetimeformat: newDatetimeformat,
                             comments: comments
                         } });
                     res.sendStatus(200);
@@ -353,12 +361,13 @@ mc.connect("mongodb://localhost:27017", function (err, client) {
                     else {
                         comments = t.comments;
                     }
-                    if (!req.session.username) {
-                        comments.push(req.body.comment + " - made by anonymous.");
+                    let author = "Anonymous";
+                    if (req.session.username) {
+                        author = req.session.username;
                     }
-                    else {
-                        comments.push(req.body.comment + " - made by " + req.session.username + ".");
-                    }
+                    req.body.comment.author = author;
+                    console.log(req.body.comment);
+                    comments.push(req.body.comment);
                     tasks.updateOne({ name: t.name }, { $set: {
                             comments: comments
                         } });
