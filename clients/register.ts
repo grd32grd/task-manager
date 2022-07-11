@@ -21,7 +21,7 @@ register.onclick = () =>{
         if (this.readyState == 4 && this.status == 200) {
             alert(newUser.username + " has been added as a user.");
             reset();
-            window.location.assign("/tasks");
+            window.location.assign("/tasks/icon");
 
         //Error message sent from server
         } else if (this.readyState == 4 && this.status == 404) {
