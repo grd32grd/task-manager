@@ -123,12 +123,12 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
-    //Tasks Page - Icon View
-    app.get('/tasks/icon', function(req: any, res: any){
+    //Tasks Page - card View
+    app.get('/tasks/card', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
 
-            res.render('tasks_icon.pug', { tasks : docs, session : req.session });
+            res.render('tasks_card.pug', { tasks : docs, session : req.session });
         });
     });
     //Tasks Page - List View
@@ -155,8 +155,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             next();
         });
     });
-    app.get('/tasks/icon/:tasksearch', function(req: any, res: any){
-        res.render('tasks_icon.pug', { tasks : res.searchedTasks, session : req.session });
+    app.get('/tasks/card/:tasksearch', function(req: any, res: any){
+        res.render('tasks_card.pug', { tasks : res.searchedTasks, session : req.session });
     });
     app.get('/tasks/list/:tasksearch', function(req: any, res: any){
         res.render('tasks_list.pug', { tasks : res.searchedTasks, session : req.session });
@@ -422,7 +422,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
 
-            //Finds the glossary entry to edit.
+            //Finds the task to edit.
             docs.forEach((t: Task) => {
                 if (t.name == req.body.name){
                     tasks.updateOne({ name: t.name },{ $set: {
@@ -439,7 +439,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
 
-            //Finds the glossary entry to edit.
+            //Finds the task to edit.
             docs.forEach((t: Task) => {
                 if (t.name == req.body.name){
                     tasks.updateOne({ name: t.name },{ $set: {
@@ -448,6 +448,15 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     res.sendStatus(200);
                 }
             });
+        });
+    });
+
+    //Route to delete a task.
+    app.delete('/deletetask', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            tasks.deleteOne({ name: req.body.name })
+            res.sendStatus(200);
         });
     });
 

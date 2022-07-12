@@ -20,7 +20,7 @@ html
             input#tasksearch(type='text' name='task-search')
             span
                 button#tasksearchbutton(type='button')= "Search"
-                a(href="/tasks/icon" style="margin-left: 50%; color: grey")= "[ Icon View ]"
+                a(href="/tasks/card" style="margin-left: 50%; color: grey")= "[ Card View ]"
                 a(href="/tasks/list" style="margin-left: 1%")="[ List View ]" 
             
             #tasksdiv
@@ -74,7 +74,7 @@ html
 
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){
-                let link = "/tasks/icon/" + document.getElementById("tasksearch").value;
+                let link = "/tasks/card/" + document.getElementById("tasksearch").value;
                 window.location.assign(link);
             });
 
