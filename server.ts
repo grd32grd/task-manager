@@ -42,7 +42,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     let tasks = client.db('taskmanager').collection('tasks');
     let glossaryentries = client.db('taskmanager').collection('glossaryentries');
 
-    //Front Page
+    //Tasks Page - card View
     app.get('/', function(req: any, res: any){
         if (req.session.loggedin != true){
             req.session.loggedin = false;
@@ -51,7 +51,26 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             req.session._id = undefined;
             req.session.lightmode = true;
         }
-        res.render('frontpage.pug', {session : req.session});
+        tasks.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+            res.render('tasks_card.pug', { tasks : docs, session : req.session });
+        });
+    });
+    app.get('/tasks/card', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+
+            res.render('tasks_card.pug', { tasks : docs, session : req.session });
+        });
+    });
+    
+    //Tasks Page - List View
+    app.get('/tasks/list', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+
+            res.render('tasks_list.pug', { tasks : docs, session : req.session });
+        });
     });
 
     //Route to get to a full comments page.
@@ -120,23 +139,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             if (err) throw err;
 
             res.render('createtask.pug', { users : docs, session : req.session });
-        });
-    });
-
-    //Tasks Page - card View
-    app.get('/tasks/card', function(req: any, res: any){
-        tasks.find().toArray(function(err: any, docs : any){
-            if (err) throw err;
-
-            res.render('tasks_card.pug', { tasks : docs, session : req.session });
-        });
-    });
-    //Tasks Page - List View
-    app.get('/tasks/list', function(req: any, res: any){
-        tasks.find().toArray(function(err: any, docs : any){
-            if (err) throw err;
-
-            res.render('tasks_list.pug', { tasks : docs, session : req.session });
         });
     });
 
