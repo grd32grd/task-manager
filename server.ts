@@ -50,6 +50,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             req.session.password = undefined;
             req.session._id = undefined;
             req.session.lightmode = true;
+        } else {
+            res.redirect(req.session.href);
         }
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
@@ -57,6 +59,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
     app.get('/tasks/card', function(req: any, res: any){
+        req.session.href = '/tasks/card';
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
             res.render('tasks_card.pug', { tasks : docs, session : req.session });
@@ -65,6 +68,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Tasks Page - List View
     app.get('/tasks/list', function(req: any, res: any){
+        req.session.href = '/tasks/list';
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
             res.render('tasks_list.pug', { tasks : docs, session : req.session });
@@ -73,11 +77,13 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Route to get to a full comments page.
     app.get('/comments', function(req: any, res: any){
-            res.render('comments.pug', {session : req.session});
+        req.session.href = '/comments';
+        res.render('comments.pug', {session : req.session});
     });
 
     //Glossary Page
     app.get('/glossary', function(req: any, res: any){
+        req.session.href = '/glossary';
         glossaryentries.find().toArray(function(err: any, docs : any){
             if (err) throw err;
             res.render('glossary.pug', {session : req.session, glossaryentries : docs.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)});
@@ -104,6 +110,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Create Glossary Entry Page
     app.get('/createentry', function(req: any, res: any){
+        req.session.href = '/createentry';
         users.find().toArray(function(err: any, docs : any){
             if (err) throw err;
             res.render('createentry.pug', { users : docs, session : req.session });
@@ -112,11 +119,13 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Register page
     app.get('/register', function(req: any, res: any){
+        req.session.href = '/register';
         res.render('register.pug', { session : req.session });
     });
 
     //Route to log a logged in user out.
     app.get('/logout', function(req: any, res: any){
+        req.session.href = '/tasks/card';
         req.session.loggedin = false;
         req.session.username = undefined;
         req.session.password = undefined;
@@ -129,6 +138,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Create Task Page
     app.get('/createtask', function(req: any, res: any){
+        req.session.href = '/createtask';
         users.find().toArray(function(err: any, docs : any){
             if (err) throw err;
             res.render('createtask.pug', { users : docs, session : req.session });
@@ -137,6 +147,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Feedback Page
     app.get('/feedback', function(req: any, res: any){
+        req.session.href = '/feedback';
         res.render('feedback.pug', {session : req.session });
     });
 
@@ -259,7 +270,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     req.session.username = u.username;
                     req.session.password = u.password;
                     req.session._id = u._id;
-                    res.status(200).send(JSON.stringify(u._id));
+                    res.sendStatus(200);
                 }
             });
         });
@@ -311,7 +322,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     }); 
 
     //Route to add assign newly created sub task to a parent task.
-    app.put('/createsubtask', function(req: any,res: any){
+    app.put('/createsubtask', function(req: any, res: any){
 
         //Error checking to determine if date has already passed - only checks if year has passed for now.
         let date:string = req.body.subtask.datetime.split("-");
@@ -375,6 +386,17 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             });  
         });
     });
+
+    app.put('/feedback', function(req: any, res: any){
+        console.log("Hi")
+        var fso = new ActiveXObject("Scripting.FileSystemObject");
+        var a = fso.CreateTextFile("testfile.txt", true);
+        a.WriteLine("This is a test.");
+        a.Close();
+        res.sendStatus(200);
+    });
+
+
 
     //Route to edit a task.
     app.post('/edittask', function(req: any,res: any){

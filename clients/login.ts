@@ -25,8 +25,9 @@ login.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert(user.username + " has been logged in.");
             resetLoginInput();
-            let id = (JSON.parse(x.responseText));
             window.location.reload();
+        } else if (this.readyState == 4 && this.status == 405){
+            alert("Incorrect username or password.")
         }
     }
     
