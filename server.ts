@@ -458,7 +458,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     let author = "Anonymous";
                     if (req.session.username){ author = req.session.username}
                     req.body.comment.author = author;
-                    console.log(req.body.comment)
 
                     comments.push(req.body.comment)
                     //Find way to uniquely identify

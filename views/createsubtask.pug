@@ -29,23 +29,23 @@ html
                 input#etaskname(type='text' name='etaskname' value=task.name)
                 label(for='etaskdate')= 'Task Date:'
                 input#etaskdate(type='datetime-local' name='etaskdate' value=task.datetime)
-                button#edittask(type='button')='Submit'
+                button.button#edittask(type='button')='Submit'
 
                 h4 Create Sub Task:
                 label(for='subtaskname')= 'Sub Task Name:'
                 input#createsubtaskname(type='text' name='subtaskname')
                 label(for='subtaskdate')= 'Sub Task Date:'
                 input#createsubtaskdate(type='datetime-local' name='subtaskdate')
-                button#createsubtask(type='button')='Create'
+                button.button#createsubtask(type='button')='Create'
 
                 h4 Add Comment:
                 textarea#comment(style='margin-left: 7px' rows='5' cols='68')
-                button#addcomment(type='button')='Add'
+                button.button#addcomment(type='button')='Add'
 
             div#show(style='float: left; width: 400px; overflow: hidden;')
                 if (task.comments)
                     label(style="font-size: 16px; font-weight: bold") Comments: 
-                    button(onclick="window.location.assign('/comments')")#allcomments See All Comments
+                    button.button(onclick="window.location.assign('/comments')")#allcomments See All Comments
                     - let i = 0;
                     ul
                         for c in task.comments

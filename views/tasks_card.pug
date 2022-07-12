@@ -24,7 +24,7 @@ html
             br
             label(for='task-search')= "Search: "
             input#tasksearch(type='text' name='task-search')
-            button#tasksearchbutton(type='button')= "Search"
+            button.button#tasksearchbutton(type='button')= "Search"
  
         
             #tasksdiv
@@ -32,9 +32,9 @@ html
                     h4(style="text-align: center") Created
                     for t in tasks.filter(function (task) {if (task.status == "Created" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
-                            button(style='margin-top: 10px') X
+                            button.button(style='margin-top: 10px') X
                         a(href="/starttask/" + t._id)
-                            button(style='margin-top: 10px') Start
+                            button.button(style='margin-top: 10px') Start
                         a(href="/" + t._id style="text-decoration: none; z-index: 0")
                             .taskcard
                                 if (t.priority == "High")
@@ -52,9 +52,9 @@ html
                     h4(style="text-align: center") Active
                     for t in tasks.filter(function (task) {if (task.status == "Active" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
-                            button(style='margin-top: 10px') X
+                            button.button(style='margin-top: 10px') X
                         a(href="/completetask/" + t._id)
-                            button(style='margin-top: 10px') Complete
+                            button.button(style='margin-top: 10px') Complete
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
                                 if (t.priority == "High")
@@ -71,7 +71,7 @@ html
                     h4(style="text-align: center") Closed
                     for t in tasks.filter(function (task) {if (task.status == "Closed" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
-                            button(style='margin-top: 10px') X
+                            button.button(style='margin-top: 10px') X
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
                                 if (t.priority == "High")
