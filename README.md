@@ -16,5 +16,5 @@ task-manager
 - Run this command to then setup the server"
     "node server.js"
 
-- The application will then run locally on localhost:4000
+- The application will then run locally on localhost:3000
   
