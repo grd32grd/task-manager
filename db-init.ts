@@ -1,6 +1,6 @@
 //Initial User Setup
 type CommentType = {
-	type: 'user-comment' | 'modification';
+	type: 'user-comment' | 'modification' | 'feedback';
 	comment: string;
 	replies?: CommentType[];
 	author?: string

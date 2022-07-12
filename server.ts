@@ -41,6 +41,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     let users = client.db('taskmanager').collection('users');
     let tasks = client.db('taskmanager').collection('tasks');
     let glossaryentries = client.db('taskmanager').collection('glossaryentries');
+    let feedback = client.db('taskmanager').collection('feedback');
 
     //Tasks Page - card View
     app.get('/', function(req: any, res: any){
@@ -242,6 +243,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.get('/starttask/:taskid', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
+            //Find way to uniquely identify
             tasks.updateOne({ _id: res.task._id  },{ $set: {
                 status: 'Active'
             }});
@@ -253,6 +255,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.get('/completetask/:taskid', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
+            //Find way to uniquely identify
             tasks.updateOne({ _id: res.task._id  },{ $set: {
                 status: 'Closed'
             }});
@@ -388,11 +391,17 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     });
 
     app.put('/feedback', function(req: any, res: any){
-        console.log("Hi")
-        var fso = new ActiveXObject("Scripting.FileSystemObject");
-        var a = fso.CreateTextFile("testfile.txt", true);
-        a.WriteLine("This is a test.");
-        a.Close();
+    
+        feedback.insertOne({
+            type: req.body.type,
+            comment: req.body.comment
+        })
+        if (req.session.username){
+            //Find way to uniquely identify
+            feedback.updateOne({comment: req.body.comment},{ $set: {
+                author: req.session.username
+            }});
+        }
         res.sendStatus(200);
     });
 
@@ -420,6 +429,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     let datearray: string[] = req.body.newdate.split(/[-:T]+/);
                     let newDatetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
 
+                    //Find way to uniquely identify
                     tasks.updateOne({ name: t.name },{ $set: {
                         name: req.body.newname,
                         datetime: req.body.newdate,
@@ -450,6 +460,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     console.log(req.body.comment)
 
                     comments.push(req.body.comment)
+                    //Find way to uniquely identify
                     tasks.updateOne({ name: t.name },{ $set: {
                         comments: comments
                     }});
@@ -467,6 +478,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             //Finds the glossary entry to edit.
             docs.forEach((g: GlossaryEntry) => {
                 if (g.name == req.body.name){
+                    //Find way to uniquely identify
                     glossaryentries.updateOne({ name: g.name },{ $set: {
                         acronym: req.body.acronym,
                         definition: req.body.definition
