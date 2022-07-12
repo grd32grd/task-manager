@@ -347,6 +347,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                         let datearray: string[] = req.body.subtask.datetime.split(/[-:T]+/);
                         req.body.subtask.datetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
                         subtasks[subtasks.length] = req.body.subtask
+                        //Find way to uniquely identify
                         tasks.updateOne({ name: t.name },{
                             $set: {
                                 name: t.name,
