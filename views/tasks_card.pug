@@ -29,7 +29,8 @@ html
                     for t in tasks.filter(function (task) {if (task.status == "Created" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button(style='margin-top: 10px') X
-                        button(style='margin-top: 10px') Start
+                        a(href="/starttask/" + t._id)
+                            button(style='margin-top: 10px') Start
                         a(href="/" + t._id style="text-decoration: none; z-index: 0")
                             .taskcard
                                 if (t.priority == "High")
@@ -48,7 +49,8 @@ html
                     for t in tasks.filter(function (task) {if (task.status == "Active" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button(style='margin-top: 10px') X
-                        button(style='margin-top: 10px') Complete
+                        a(href="/completetask/" + t._id)   
+                            button(style='margin-top: 10px') Complete
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
                                 if (t.priority == "High")

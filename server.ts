@@ -206,6 +206,49 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
+    //Parameter used to find the task with the given id
+    app.param('taskid', function(req: any, res: any, next: any, value: any) {
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            docs.forEach((t: Task) => {
+                if (t._id == value) {
+                    res.task = t;
+                    next();
+                }
+            });
+        });
+    });
+    //Route to delete a task.
+    app.get('/deletetask/:taskid', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            tasks.deleteOne({ _id: res.task._id })
+            res.redirect('back');
+        });
+    });
+
+    //Route to start a task.
+    app.get('/starttask/:taskid', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            tasks.updateOne({ _id: res.task._id  },{ $set: {
+                status: 'Active'
+            }});
+            res.redirect('back');
+        });
+    });
+
+    //Route to complete a task.
+    app.get('/completetask/:taskid', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            tasks.updateOne({ _id: res.task._id  },{ $set: {
+                status: 'Closed'
+            }});
+            res.redirect('back');
+        });
+    });
+
     //Route to get a user logged in
     app.put('/login', function(req: any,res: any){
         users.find().toArray(function(err: any, docs: any){
@@ -409,69 +452,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     res.sendStatus(200);
                 }
             });
-        });
-    });
-
-    //Route to change a task's status from created to active.
-    app.post('/starttask', function(req: any,res: any){
-        tasks.find().toArray(function(err: any, docs: any){
-            if (err) throw err;
-
-            //Finds the task to edit.
-            docs.forEach((t: Task) => {
-                if (t.name == req.body.name){
-                    tasks.updateOne({ name: t.name },{ $set: {
-                        status: 'Active'
-                    }});
-                    res.sendStatus(200);
-                }
-            });
-        });
-    }); 
-
-    //Route to change a task's status from active to closed.
-    app.post('/completetask', function(req: any, res: any){
-        tasks.find().toArray(function(err: any, docs: any){
-            if (err) throw err;
-
-            //Finds the task to edit.
-            docs.forEach((t: Task) => {
-                if (t.name == req.body.name){
-                    tasks.updateOne({ name: t.name },{ $set: {
-                        status: 'Closed'
-                    }});
-                    res.sendStatus(200);
-                }
-            });
-        });
-    });
-
-    //Route to delete a task.
-    app.delete('/deletetask', function(req: any, res: any){
-        tasks.find().toArray(function(err: any, docs: any){
-            if (err) throw err;
-            tasks.deleteOne({ name: req.body.name })
-            res.sendStatus(200);
-        });
-    });
-
-    //Parameter used to find the task with the given id
-    app.param('dtaskid', function(req: any, res: any, next: any, value: any) {
-        tasks.find().toArray(function(err: any, docs: any){
-            if (err) throw err;
-            docs.forEach((t: Task) => {
-                if (t._id == value) {
-                    res.task = t;
-                    next();
-                }
-            });
-        });
-    });
-    app.get('/deletetask/:dtaskid', function(req: any, res: any){
-        tasks.find().toArray(function(err: any, docs: any){
-            if (err) throw err;
-            tasks.deleteOne({ _id: res.task._id })
-            res.redirect('back');
         });
     });
 

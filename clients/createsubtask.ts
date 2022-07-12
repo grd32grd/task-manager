@@ -7,42 +7,8 @@ let etaskDate: any = document.getElementById('etaskdate');
 let editTask: any = document.getElementById('edittask');
 let comment: any = document.getElementById('comment');
 let addComment: any = document.getElementById('addcomment');
-let startTask: any = document.getElementById('starttask');
-let completeTask: any = document.getElementById('completetask');
 
 //Main Methods
-
-//Function that'll let you start a task and move it's category to active
-startTask.onclick = () => {
-    let a = new XMLHttpRequest();
-    a.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert("Task has been started.");
-            window.location.assign("/tasks/card");
-        }
-    }
-    a.open("POST", "/starttask");
-    a.setRequestHeader("Content-Type", "application/json");    
-    a.send(JSON.stringify({
-        name: document.getElementById('taskname')?.innerHTML
-    }))  
-}
-
-//Function that'll let you complete a task and move it's category to closed
-completeTask.onclick = () => {
-    let b = new XMLHttpRequest();
-    b.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert("Task has been completed.");
-            window.location.assign("/tasks/card");
-        }
-    }
-    b.open("POST", "/completetask");
-    b.setRequestHeader("Content-Type", "application/json");    
-    b.send(JSON.stringify({
-        name: document.getElementById('taskname')?.innerHTML
-    }))    
-}
 
 //Function that'll clear the input fields
 function resetInput(){
