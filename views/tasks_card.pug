@@ -27,6 +27,9 @@ html
                 #created(style= "width:25%; float: left;")
                     h4(style="text-align: center") Created
                     for t in tasks.filter(function (task) {if (task.status == "Created" && (session.username == task.username || !task.privacy)) {return task}})
+                        a(href="/deletetask/" + t._id)
+                            button(style='margin-top: 10px') X
+                        button(style='margin-top: 10px') Start
                         a(href="/" + t._id style="text-decoration: none; z-index: 0")
                             .taskcard
                                 if (t.priority == "High")
@@ -35,14 +38,17 @@ html
                                     p(style="background-color: #ffc800; color: #ffc800; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
                                 else
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
-                                p(style='text-decoration: none')= t.name 
+
+                                p(style='text-decoration: none; margin-right: 0px')= t.name 
                                 p= "Assigned to: " + t.username
                                 p= "Due: " + t.datetimeformat
-
 
                 #active(style= "margin-left: 5%; width:25%; float: left") 
                     h4(style="text-align: center") Active
                     for t in tasks.filter(function (task) {if (task.status == "Active" && (session.username == task.username || !task.privacy)) {return task}})
+                        a(href="/deletetask/" + t._id)
+                            button(style='margin-top: 10px') X
+                        button(style='margin-top: 10px') Complete
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
                                 if (t.priority == "High")
@@ -58,6 +64,8 @@ html
                 #closed(style= "margin-left: 5%; width:25%; float: left")
                     h4(style="text-align: center") Closed
                     for t in tasks.filter(function (task) {if (task.status == "Closed" && (session.username == task.username || !task.privacy)) {return task}})
+                        a(href="/deletetask/" + t._id)
+                            button(style='margin-top: 10px') X
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
                                 if (t.priority == "High")

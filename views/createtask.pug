@@ -11,7 +11,7 @@ html
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug    
         else
-            p(style="font-weight: bold")= "User: " + session.username
+            p(style='font-weight: bold')= "User: " + session.username
             include ../includes/loggedin.pug
         
         div#main
@@ -22,21 +22,27 @@ html
             label(for='taskdate')= 'Task Date:'
             input#createtaskdate(type='datetime-local' name='taskdate')
             button#createtask(type='button')='Create Task'
+
+            br
+            br
+            label Priority:
+            input(style='margin-left: 10px' type='radio' id='low' name='priority' value='LOW' checked='true')
+            label(for='low' style='margin-right: 7px')='Low'
+            input(type='radio' id='medium' name='priority' value='MEDIUM')
+            label(for='medium' style='margin-right: 7px' )='Medium'
+            input(type='radio' id='high' name='priority' value='HIGH')
+            label(for='high')='High'
             
-            p Priority:
-                input(type='radio' id='low' name='priority' value='LOW' checked='true')
-                label(for='low' style='margin-right: 7px')='Low'
-                input(type='radio' id='medium' name='priority' value='MEDIUM')
-                label(for='medium' style='margin-right: 7px' )='Medium'
-                input(type='radio' id='high' name='priority' value='HIGH')
-                label(for='high')='High'
-            
-            p Privacy:
-                input(type='radio' id='public' name='privacy' value='PUBLIC' checked='true')
+            br 
+            br
+            label Privacy:
+                input(style='margin-left: 7px' type='radio' id='public' name='privacy' value='PUBLIC' checked='true')
                 label(for='public' style='margin-right: 7px')='Public'
                 input(type='radio' id='private' name='privacy' value='PRIVATE')
                 label(for='private')='Private'
             
+            br 
+            br
             label(for='userselect')='Assigned To:'
             select(id='userselect')
                 for u in users

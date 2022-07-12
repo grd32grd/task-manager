@@ -59,16 +59,14 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.get('/tasks/card', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
-
             res.render('tasks_card.pug', { tasks : docs, session : req.session });
         });
     });
-    
+
     //Tasks Page - List View
     app.get('/tasks/list', function(req: any, res: any){
         tasks.find().toArray(function(err: any, docs : any){
             if (err) throw err;
-
             res.render('tasks_list.pug', { tasks : docs, session : req.session });
         });
     });
@@ -91,7 +89,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         let searchedEntries: GlossaryEntry[] = [];
         glossaryentries.find().toArray(function(err: any, docs: any){
             if (err) throw err;
-
             docs.forEach((g: GlossaryEntry) => {
                 if (g.name.toUpperCase().includes(value.toUpperCase())) {
                     searchedEntries.push(g);
@@ -109,14 +106,8 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.get('/createentry', function(req: any, res: any){
         users.find().toArray(function(err: any, docs : any){
             if (err) throw err;
-
             res.render('createentry.pug', { users : docs, session : req.session });
         });
-    });
-
-    app.post('/switchmode', function(req: any, res: any){
-        req.session.lightmode = !req.session.lightmode
-        res.render('frontpage.pug', {session : req.session});
     });
 
     //Register page
@@ -130,16 +121,23 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         req.session.username = undefined;
         req.session.password = undefined;
         req.session._id = undefined;
-        res.render('frontpage.pug', {session : req.session});
+        tasks.find().toArray(function(err: any, docs : any){
+            if (err) throw err;
+            res.render('tasks_card.pug', { tasks : docs, session : req.session });
+        });
     });
 
     //Create Task Page
     app.get('/createtask', function(req: any, res: any){
         users.find().toArray(function(err: any, docs : any){
             if (err) throw err;
-
             res.render('createtask.pug', { users : docs, session : req.session });
         });
+    });
+
+    //Feedback Page
+    app.get('/feedback', function(req: any, res: any){
+        res.render('feedback.pug', {session : req.session });
     });
 
     //Parameter used to search for specific tasks
@@ -147,7 +145,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         let searchedTasks: Task[] = [];
         tasks.find().toArray(function(err: any, docs: any){
             if (err) throw err;
-
             docs.forEach((t: Task) => {
                 if (t.name.toUpperCase().includes(value.toUpperCase())) {
                     searchedTasks.push(t)
@@ -168,7 +165,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.param('profileid', function(req: any, res: any, next: any, value: any) {
         users.find().toArray(function(err: any, docs: any){
             if (err) throw err;
-
             docs.forEach((u: User) => {
                 if (u._id == value) {
                     res.userprofile = u;
@@ -178,7 +174,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         });
     });
 
-    //Parameter used to find the glossary entry corresponding with the name
+    //Parameter used to find the glossary entry corresponding with the id
     app.param('entryid', function(req: any, res: any, next: any, value: any) {
         glossaryentries.find().toArray(function(err: any, docs: any){
             if (err) throw err;
@@ -214,7 +210,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     app.put('/login', function(req: any,res: any){
         users.find().toArray(function(err: any, docs: any){
             if (err) throw err;
-
             docs.forEach((u: User) => {
                 if (u.username == req.body.username && u.password == req.body.password){
                     req.session.loggedin = true;
@@ -248,7 +243,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         else {
             users.find().toArray(function(err: any, docs: any){
                 if (err) throw err;
-    
                 docs.forEach((u: User) => {
                     if (u.username == req.session.username && u.password == req.session.password){
                         
@@ -328,7 +322,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         //Set's session's _id parameter to the newly created ObjectID
         users.find().toArray(function(err: any, docs: any){
             if (err) throw err;
-
             docs.forEach((u: { username: any; _id: any; }) => {
                 if (u.username == req.body.username){
                     req.session._id = u._id;
@@ -459,6 +452,26 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             if (err) throw err;
             tasks.deleteOne({ name: req.body.name })
             res.sendStatus(200);
+        });
+    });
+
+    //Parameter used to find the task with the given id
+    app.param('dtaskid', function(req: any, res: any, next: any, value: any) {
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            docs.forEach((t: Task) => {
+                if (t._id == value) {
+                    res.task = t;
+                    next();
+                }
+            });
+        });
+    });
+    app.get('/deletetask/:dtaskid', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            tasks.deleteOne({ _id: res.task._id })
+            res.redirect('back');
         });
     });
 

@@ -9,7 +9,6 @@ let comment: any = document.getElementById('comment');
 let addComment: any = document.getElementById('addcomment');
 let startTask: any = document.getElementById('starttask');
 let completeTask: any = document.getElementById('completetask');
-let deleteTask: any = document.getElementById('deletetask');
 
 //Main Methods
 
@@ -41,36 +40,6 @@ completeTask.onclick = () => {
     b.open("POST", "/completetask");
     b.setRequestHeader("Content-Type", "application/json");    
     b.send(JSON.stringify({
-        name: document.getElementById('taskname')?.innerHTML
-    }))    
-}
-
-completeTask.onclick = () => {
-    let b = new XMLHttpRequest();
-    b.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert("Task has been completed.");
-            window.location.assign("/tasks/card");
-        }
-    }
-    b.open("POST", "/completetask");
-    b.setRequestHeader("Content-Type", "application/json");    
-    b.send(JSON.stringify({
-        name: document.getElementById('taskname')?.innerHTML
-    }))    
-}
-
-deleteTask.onclick = () => {
-    let c = new XMLHttpRequest();
-    c.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert("Task has been deleted.");
-            window.location.assign("/tasks/card");
-        }
-    }
-    c.open("DELETE", "/deletetask");
-    c.setRequestHeader("Content-Type", "application/json");    
-    c.send(JSON.stringify({
         name: document.getElementById('taskname')?.innerHTML
     }))    
 }
