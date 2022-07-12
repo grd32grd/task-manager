@@ -16,6 +16,10 @@ html
         div#main
             h1 Glossary
 
+            a(href='/createentry')
+                button.button + New Entry   
+            br
+            br
             label(for='glossary-search')= "Search for Entries: "
             input#glossarysearch(type='text' name='glossary-search')
             button#glossarysearchbutton(type='button')= "Search"

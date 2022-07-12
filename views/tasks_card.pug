@@ -16,13 +16,17 @@ html
         #main
             h1 Tasks
 
-            label(for='task-search')= "Search for Tasks: "
+            a(href='/createtask')
+                button.button + New Task
+            a(href="/tasks/card" style="margin-left: 65%; color: grey")= "[ Card View ]"
+            a(href="/tasks/list" style="margin-left: 1%")="[ List View ]"
+            br
+            br
+            label(for='task-search')= "Search: "
             input#tasksearch(type='text' name='task-search')
-            span
-                button#tasksearchbutton(type='button')= "Search"
-                a(href="/tasks/card" style="margin-left: 50%; color: grey")= "[ Card View ]"
-                a(href="/tasks/list" style="margin-left: 1%")="[ List View ]" 
-            
+            button#tasksearchbutton(type='button')= "Search"
+ 
+        
             #tasksdiv
                 #created(style= "width:25%; float: left;")
                     h4(style="text-align: center") Created
@@ -49,7 +53,7 @@ html
                     for t in tasks.filter(function (task) {if (task.status == "Active" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button(style='margin-top: 10px') X
-                        a(href="/completetask/" + t._id)   
+                        a(href="/completetask/" + t._id)
                             button(style='margin-top: 10px') Complete
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
