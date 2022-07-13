@@ -28,9 +28,9 @@ html
  
         
             #tasksdiv
-                #created(style= "width:25%; float: left;")
-                    h4(style="text-align: center") Created
-                    for t in tasks.filter(function (task) {if (task.status == "Created" && (session.username == task.username || !task.privacy)) {return task}})
+                #backlog(style= "width:25%; float: left;")
+                    h4(style="text-align: center") Backlog
+                    for t in tasks.filter(function (task) {if (task.status == "Backlog" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
                         a(href="/starttask/" + t._id)
@@ -48,9 +48,9 @@ html
                                 p= "Assigned to: " + t.username
                                 p= "Due: " + t.datetimeformat
 
-                #active(style= "margin-left: 5%; width:25%; float: left") 
-                    h4(style="text-align: center") Active
-                    for t in tasks.filter(function (task) {if (task.status == "Active" && (session.username == task.username || !task.privacy)) {return task}})
+                #inprogress(style= "margin-left: 5%; width:25%; float: left") 
+                    h4(style="text-align: center") In Progress
+                    for t in tasks.filter(function (task) {if (task.status == "In Progress" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
                         a(href="/completetask/" + t._id)
@@ -67,9 +67,9 @@ html
                                 p= "Assigned to: " + t.username
                                 p= "Due: " + t.datetimeformat
                     
-                #closed(style= "margin-left: 5%; width:25%; float: left")
-                    h4(style="text-align: center") Closed
-                    for t in tasks.filter(function (task) {if (task.status == "Closed" && (session.username == task.username || !task.privacy)) {return task}})
+                #completed(style= "margin-left: 5%; width:25%; float: left")
+                    h4(style="text-align: center") Completed
+                    for t in tasks.filter(function (task) {if (task.status == "Completed" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
                         a(href="/" + t._id style="text-decoration: none")

@@ -245,7 +245,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             if (err) throw err;
             //Find way to uniquely identify
             tasks.updateOne({ _id: res.task._id  },{ $set: {
-                status: 'Active'
+                status: 'In Progress'
             }});
             res.redirect('back');
         });
@@ -257,7 +257,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             if (err) throw err;
             //Find way to uniquely identify
             tasks.updateOne({ _id: res.task._id  },{ $set: {
-                status: 'Closed'
+                status: 'Completed'
             }});
             res.redirect('back');
         });
