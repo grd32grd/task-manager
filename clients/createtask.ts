@@ -15,6 +15,12 @@ function resetTaskInput(){
 
 //Function that'll create a task for the user who is logged in
 createTask.onclick = () => {
+    let selectedUsers = [];
+    for ( var i = 0; i < assignedUser.selectedOptions.length; i++) {
+        selectedUsers.push(assignedUser.selectedOptions[i].value);
+        
+    }
+
     let newTaskPriority: 'High' | 'Medium' | 'Low';
     let low: any = document.getElementById('low');
     let medium: any = document.getElementById('medium');
