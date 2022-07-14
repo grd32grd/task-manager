@@ -20,7 +20,9 @@ html
             
             div#edit(style='float: left; width: 700px')
                 h3
-                    span= "Assigned to: " + task.username
+                    span= "Assigned to: "
+                    for u in task.users
+                        span(style='font-weight: bold')= u + ", "
                     span= " / Due on "
                     span#taskdate= task.datetimeformat
             

@@ -34,7 +34,7 @@ createTask.onclick = () => {
     } 
 
     let newTask:Task = {
-        username: assignedUser.value,
+        users: selectedUsers,
         name: taskName.value,
         datetime: taskDate.value,
         priority: newTaskPriority,

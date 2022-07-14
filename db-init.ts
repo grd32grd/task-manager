@@ -8,7 +8,7 @@ type CommentType = {
 
 type Task = {
     _id?: any;
-	username?: string;
+	users?: string[];
     name: string;
     datetime: string;
 	datetimeformat?: string;
@@ -32,9 +32,9 @@ type GlossaryEntry = {
 }
 
 let tasks = [
-	{username: "Guled", name: "Finish Task Manager Demo", datetime:"2022-07-14T14:00", datetimeformat: "July 14 2022 @ 14:00", priority: "High", status: "In Progress" },
-	{username: "Chris", name: "Anaylze Task Manager Demo Code", datetime:"2022-07-14T14:30", datetimeformat: "July 14 2022 @ 14:30", priority: "Medium", status: "Backlog"},
-	{username: "Phil", name: "Critique Task Manager Demo", datetime:"2022-07-14T14:30", datetimeformat: "July 14 2022 @ 14:30", priority: "Medium", status: ""}
+	{users: ["Guled"], name: "Finish Task Manager Demo", datetime:"2022-07-14T14:00", datetimeformat: "July 14 2022 @ 14:00", priority: "High", status: "In Progress" },
+	{users: ["Chris"], name: "Anaylze Task Manager Demo Code", datetime:"2022-07-14T14:30", datetimeformat: "July 14 2022 @ 14:30", priority: "Medium", status: "Backlog"},
+	{users: ["Phil", "Chris"], name: "Critique Task Manager Demo", datetime:"2022-07-14T14:30", datetimeformat: "July 14 2022 @ 14:30", priority: "Medium", status: "Backlog"}
 ]
 
 let glossaryentries = [
