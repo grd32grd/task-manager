@@ -60,6 +60,8 @@ html
                 if (task.subtasks)
                     ul
                         for s in task.subtasks
-                            p= ' ' + s.name + ' - Due: ' + s.datetimeformat
+                            .subtaskcard
+                                p(style='text-decoration: none')= s.name
+                                p= "Due: " + s.datetimeformat
         
         script(src='../clients/createsubtask.js')

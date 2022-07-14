@@ -1,16 +1,19 @@
-//Section that'll allow user to login.
-div#logindiv(style='border-bottom: 1.5px solid black; padding-bottom: 5px; margin-bottom: 10px')
-    label(for='username')= 'Username:'
+div(style='border-bottom: 1.5px solid black; padding-bottom: 5px; margin-bottom: 10px')
+    label#openmenu(onclick='openNav()' style='text-decoration: underline') Menu
+
+    label(for='username' style='margin-left:27%')= 'Username:'
     input#loginusername(type='text' name='username')
     label(for='password')= ' Password:'
     input#loginpassword(type='password' name='password')
     button.button#login(type='button') Login
-    br
+
+    img(src='/includes/DSP.png' height='30' width='30' style='margin-left:20%')
+    label(style='font-size: 20px; font-weight: bold') Task Manager
+
 script(src='../clients/login.js')
 
-div
-    img(src='/includes/DSP.png' height='40' width='40')
-    p#openmenu(onclick='openNav()' style='text-decoration: underline') Menu
+div(style="width: 10%; display: inline-block")
+
 
 div#menu(style= 'width: 10%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s')
     a(onclick='closeNav()' style='margin-left: 7px; text-decoration: none') X

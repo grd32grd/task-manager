@@ -14,14 +14,17 @@ html
             include ../includes/loggedin.pug
         
         #main
-            h1 Tasks
+            h1(style='display: inline-block; margin-right: 10px') Tasks
 
-            label(for='task-search')= "Search for Tasks: "
-            input#tasksearch(type='text' name='task-search')
-            span
-                button#tasksearchbutton(type='button')= "Search"
-                a(href="/tasks/card" style="margin-left: 50%")= "[ Card View ]"
-                a(href="/tasks/list" style="margin-left: 1%; color: grey")="[ List View ]" 
+            a(href='/createtask')
+                button.button + New Task
+            a(href="/tasks/card" style="margin-left: 60%")= "[ Card View ]"
+            a(href="/tasks/list" style="margin-left: 1%; color: grey")="[ List View ]"
+            br
+            br
+            input#tasksearch(style='margin-left: 7px' type='text' name='task-search' size=50)
+            button.button#tasksearchbutton(type='button') Search For Tasks
+            br
 
             h4(style= "width: 15%; float: left;") Name
             h4(style= "width: 15%; margin-left: 2.5%; float: left") Users
