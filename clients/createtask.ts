@@ -19,7 +19,6 @@ createTask.onclick = () => {
     let low: any = document.getElementById('low');
     let medium: any = document.getElementById('medium');
 
-
     if (low.checked){
         newTaskPriority = 'Low';
     } else if (medium.checked){
@@ -44,10 +43,18 @@ createTask.onclick = () => {
         if (this.readyState == 4 && this.status == 200) {
             alert("New task has been created.");
             resetTaskInput();
-            window.location.assign("/tasks");
+            window.location.assign("/tasks/card");
         }
         else if (this.readyState == 4 && this.status == 404){
             alert("This date has already passed!")
+            resetTaskInput();
+        }
+        else if (this.readyState == 4 && this.status == 405){
+            alert("No user has been assigned to this task.")
+            resetTaskInput();
+        }
+        else if (this.readyState == 4 && this.status == 406){
+            alert("No date has been assigned to this task.")
             resetTaskInput();
         }
     }

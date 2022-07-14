@@ -4,7 +4,7 @@ div(style='border-bottom: 1.5px solid black; padding-bottom: 5px; margin-bottom:
     img(src='/includes/DSP.png' height='30' width='30' style='margin-left:83.6%')
     label(style='font-size: 20px; font-weight: bold') Task Manager
     
-div#menu(style= 'width: 10%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s')
+div#menu(style= 'width: 8%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s; margin-right: 2%')
     a(onclick='closeNav()' style='margin-left: 7px; text-decoration: none') X
     p
         a(href='/tasks/card')= 'Tasks'
@@ -16,6 +16,6 @@ div#menu(style= 'width: 10%; height: 100%; float: left; overflow-x: hidden; tran
         a(href='/logout')= 'Log Out'
     
 script.
-    function openNav() {document.getElementById("menu").style.width = '10%';}
+    function openNav() {document.getElementById("menu").style.width = '8%';}
     function closeNav() {document.getElementById("menu").style.width = '0%';}
 

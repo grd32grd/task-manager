@@ -20,18 +20,16 @@ html
                 button.button + New Entry   
             br
             br
-            label(for='glossary-search')= "Search for Entries: "
-            input#glossarysearch(type='text' name='glossary-search')
-            button.button#glossarysearchbutton(type='button')= "Search"
+            input#glossarysearch(type='text' name='glossary-search' size=50)
+            button.button#glossarysearchbutton(type='button') Search For Entries
 
             if (glossaryentries.length == 0)
                 p No glossary entries found...
-
-            ul  
-                for g in glossaryentries
-                    a.glossarylink(href='glossaryentry/' + g._id style='text-decoration: none')
-                        h4(id=g.name[0])= g.name + " (" + g.acronym + ")"
-                        i(style='font-size: 12px')= g.definition
+ 
+            for g in glossaryentries
+                a.glossarylink(href='glossaryentry/' + g._id style='text-decoration: none')
+                    h4(id=g.name[0] style='padding-left: 7px')= g.name + " (" + g.acronym + ")"
+                    i(style='font-size: 12px')= g.definition
                 
         script.
             let line = document.createElement('p');

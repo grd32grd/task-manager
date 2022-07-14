@@ -44,7 +44,9 @@ html
             br 
             br
             label(for='userselect')='Assigned To:'
-            select(id='userselect')
+            br
+            br
+            select(id='userselect' multiple='' style='margin-left: 7px')
                 for u in users
                     option(id=u.username)= u.username
 
