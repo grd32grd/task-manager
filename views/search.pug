@@ -1,0 +1,16 @@
+html
+    head
+        title Task Manager / Search
+    body
+        if (session.lightmode)
+            include ../includes/csslight.pug
+        else 
+            include ../includes/cssdark.pug
+        
+        if (session == undefined || session.loggedin == undefined || !session.loggedin)
+            include ../includes/loggedout.pug
+        else
+            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
+            include ../includes/loggedin.pug
+        
+        #main

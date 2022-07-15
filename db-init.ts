@@ -1,11 +1,10 @@
-//Initial User Setup
+//Type Aliases
 type CommentType = {
 	type: 'user-comment' | 'modification' | 'feedback';
 	comment: string;
 	replies?: CommentType[];
 	author?: string
-}
-
+};
 type Task = {
     _id?: any;
 	users?: string[];
@@ -15,7 +14,7 @@ type Task = {
 	privacy?: boolean;
 	comments?: CommentType[];
 	subtasks?: Task[];
-	status: 'Backlog' | 'In Progress' | 'Completed';
+	status: 'Backlog' | 'In Progress' | 'On Hold' | 'Completed';
 	priority: 'High' | 'Medium' | 'Low'
 };
 type User = {
@@ -29,8 +28,9 @@ type GlossaryEntry = {
 	acronym: string;
 	definition: string;
 	category?: string
-}
+};
 
+//Variables
 let tasks = [
 	{users: ["Guled"], name: "Finish Task Manager Demo", datetime:"2022-07-14T14:00", datetimeformat: "July 14 2022 @ 14:00", priority: "High", status: "In Progress" },
 	{users: ["Chris"], name: "Anaylze Task Manager Demo Code", datetime:"2022-07-14T14:30", datetimeformat: "July 14 2022 @ 14:30", priority: "Medium", status: "Backlog"},
@@ -43,6 +43,11 @@ let glossaryentries = [
 	{acronym: 'AG', name: 'Access Governance', definition: 'An aspect of information technology security management that seeks to reduce the risks associated with end users who have unnecessary access privileges.'},
 	{acronym: 'IBS', name: 'Internal Boundary System', definition: 'A gateway that connects two or more Internetworks within a Network Security Zone.'},
 	{acronym: 'DOM', name: 'Document Object Model', definition: 'A programming interface specification that lets a programmer create and modify HTML pages and XML documents as program elements.'}
+]
+
+let prioritylevels = [
+	{level: 1, color: "#FF00FB"}, {level: 2, color: "#9500FF"}, {level: 3, color: "#1500FF"}, {level: 4, color: "#007BFF"}, {level: 5, color: "#00FFFB"},
+	{level: 6, color: "#51FF00"}, {level: 7, color: "#EAFF00"}, {level: 8, color: "#FFC800"}, {level: 9, color: "#FF5E00"}, {level: 10, color: "#FF0000"}
 ]
 
 let usernames = ["Guled", "Chris", "Phil"];

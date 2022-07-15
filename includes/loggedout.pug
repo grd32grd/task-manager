@@ -1,22 +1,23 @@
-div(style='border-bottom: 1.5px solid black; padding-bottom: 5px; margin-bottom: 10px')
-    label#openmenu(onclick='openNav()' style='text-decoration: underline') Menu
+div#logo(style='padding-bottom: 5px; margin-bottom: 10px')
+    img(src='/includes/DSP.png' height='25' width='25' style='position: absolute')
+    span(style='font-size: 20px; font-weight: bold; position: absolute; left: 2.5%') Task Manager
 
-    label(for='username' style='margin-left:27%')= 'Username:'
-    input#loginusername(type='text' name='username')
-    label(for='password')= ' Password:'
-    input#loginpassword(type='password' name='password')
-    button.button#login(type='button') Login
+    div(style='text-align: center')
+        label(for='username')= 'Username:'
+        input#loginusername(type='text' name='username')
+        label(for='password')= ' Password:'
+        input#loginpassword(type='password' name='password')
+        button.button#login(type='button') Login
 
-    img(src='/includes/DSP.png' height='30' width='30' style='margin-left:20%')
-    label(style='font-size: 20px; font-weight: bold') Task Manager
-
-script(src='../clients/login.js')
-
-div(style="width: 10%; display: inline-block")
+div#searchbar(style='border-bottom: 1.5px solid black; padding-bottom: 5px; margin-bottom: 10px')
+    span#openmenu(onclick='openNav()' style='text-decoration: underline; position: absolute; margin-left: 7px') Menu
+    div(style='text-align: center')
+        input(type='text' size=100)
+        button.button Search
 
 
 div#menu(style= 'width: 8%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s; margin-right: 2%')
-    a(onclick='closeNav()' style='margin-left: 7px; text-decoration: none') X
+    button.button(onclick='closeNav()' style='margin-left: 7px') X
     p
         a(href='/tasks/card')= 'Tasks'
     p
@@ -37,3 +38,5 @@ script.
         document.getElementById("menu").style.width = '0%';
         document.getElementById("main").style.width = '100%';
     }
+
+script(src='../clients/login.js')
