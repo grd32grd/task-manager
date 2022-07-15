@@ -27,5 +27,13 @@ div#menu(style= 'width: 8%; height: 100%; float: left; overflow-x: hidden; trans
         a(href='/register')= 'Register'
     
 script.
-    function openNav() {document.getElementById("menu").style.width = '8%';}
-    function closeNav() {document.getElementById("menu").style.width = '0%';}
+    function openNav() {
+        document.getElementById("menu").style.marginRight = '2%';
+        document.getElementById("menu").style.width = '8%';
+        document.getElementById("main").style.width = '90%';
+    }
+    function closeNav() {
+        document.getElementById("menu").style.marginRight = '0%';
+        document.getElementById("menu").style.width = '0%';
+        document.getElementById("main").style.width = '100%';
+    }

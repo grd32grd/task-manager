@@ -15,17 +15,22 @@ html
 
         br
         
-        div#main
-            h1#taskname= task.name
+        div#main(style="width: 90%")
+            div#taskmaininfo(style="float: left; width: 50%")
+                h1#taskname= task.name
             
-            div#edit(style='float: left; width: 700px')
-                h3
-                    span= "Assigned to: "
-                    for u in task.users
-                        span(style='font-weight: bold')= u + ", "
-                    span= " / Due on "
-                    span#taskdate= task.datetimeformat
+            div#tasksubinfo(style="float: left; width: 50%")
+                span(style="margin-left: 7px; font-weight: bold; font-size: 22px")= "Due: "
+                span#taskdate(style="font-weight: bold; font-size: 22px")= task.datetimeformat
+                br
+                span(style="margin-left: 7px; font-weight: bold; font-size: 22px")= "Assigned to: "
+                - for (var i = 0; i < task.users.length; i++)
+                    span(style="margin-left: 7px; font-size: 22px")= task.users[i]
+                    - if (i != task.users.length - 1)
+                        span(style="font-size: 22px")= ","
+
             
+            div#edit(style='float: left; width: 50%')
                 h4 Edit Task:
                 label(for='etaskname')= 'Task Name:'
                 input#etaskname(type='text' name='etaskname' value=task.name)
@@ -44,7 +49,7 @@ html
                 textarea#comment(style='margin-left: 7px' rows='5' cols='68')
                 button.button#addcomment(type='button')='Add'
 
-            div#show(style='float: left; width: 400px; overflow: hidden;')
+            div#show(style='float: left; width: 50%; overflow: hidden')
                 if (task.comments)
                     label(style="font-size: 16px; font-weight: bold") Comments: 
                     button.button(onclick="window.location.assign('/comments')")#allcomments See All Comments
