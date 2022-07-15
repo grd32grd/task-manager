@@ -7,8 +7,9 @@ type CommentType = {
 };
 type Task = {
     _id?: any;
+	name: string;
 	users?: string[];
-    name: string;
+	description?: string;
     datetime: string;
 	datetimeformat?: string;
 	privacy?: boolean;

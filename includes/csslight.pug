@@ -3,7 +3,7 @@ style.
         background-color: hsl(0, 0%, 100%);
         font-family: Helvetica, Georgia, Times, 'Times New Roman', serif
     }
-    div{
+    div {
         margin:0;
         padding:0;
     }
@@ -18,21 +18,21 @@ style.
     a, span {
         color: black
     }
+
     .small {
         font-size: 11px
     }
-
     .button {
-        border-radius: 12px;
+        border-radius: 10px;
         background-color: hsl(0, 0%, 100%);
-        border: none;
+        border: 2px solid hsl(0, 0%, 90%);
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        height: 22.5px
+        height: 25px
     }
-    .taskcard{
+    .taskcard {
         border: 2px solid hsl(0, 0%, 90%);
         border-radius: 15px;
         padding: 10px;
@@ -41,7 +41,14 @@ style.
         width: 90%; 
         height: 150px
     }
-    .subtaskcard{
+    .taskcard:hover {
+        background-color: hsl(0, 0%, 90%);
+        transition: 0.3s;
+    }
+    .taskcard p, span {
+        color: hsla(210, 100%, 50%)
+    }
+    .subtaskcard {
         border: 2px solid hsl(0, 0%, 90%);
         border-radius: 15px;
         padding: 5px;
@@ -55,15 +62,11 @@ style.
         width:20%; 
         float: left;
     }
-
     .glossarylink h4:hover, #menu a:hover, #openmenu:hover {
         color: grey;
         transition: 0.3s;
     }
-    .taskcard:hover {
-        background-color: hsl(0, 0%, 90%);
-        transition: 0.3s;
-    }
+
 
     #main {
         float: left;
