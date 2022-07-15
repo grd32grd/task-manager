@@ -15,7 +15,8 @@ html
             include ../includes/loggedin.pug
         
         div#main
-            h1 Create Task:
+            #subtitle
+                h3(style='display: inline-block; margin-right: 10px; color: white') Create Task
 
             label(for='taskname')= 'Task Name:'
             input#createtaskname(type='text' name='taskname')

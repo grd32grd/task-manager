@@ -9,7 +9,9 @@ html
         include ../includes/loggedout.pug
         
         div#main
-            h1 Register
+            #subtitle
+                h3(style='display: inline-block; margin-right: 10px; color: white') Register
+            br
             
             label(for='username')= 'Username:'
             input#username(type='text' name='username')

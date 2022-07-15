@@ -14,12 +14,13 @@ html
             include ../includes/loggedin.pug
         
         div#main
-            h1(style='display: inline-block; margin-right: 10px') Glossary
-
-            a(href='/createentry')
-                button.button + New Entry   
+            #subtitle
+                h3(style='display: inline-block; margin-right: 10px; color: white') Glossary
+                a(href='/createentry')
+                    button.button + New Entry
+                
             br
-            br
+            
             input#glossarysearch(type='text' name='glossary-search' size=50)
             button.button#glossarysearchbutton(type='button') Search For Entries
 

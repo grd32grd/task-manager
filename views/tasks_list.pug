@@ -14,31 +14,31 @@ html
             include ../includes/loggedin.pug
         
         #main
-            h1(style='display: inline-block; margin-right: 10px') Tasks
+            #subtitle
+                h3(style='display: inline-block; margin-right: 10px; color: white') Tasks
+                a(href='/createtask')
+                    button.button + New Task
+                a(href="/tasks/card" style="margin-left: 60%; color: white")= "[ Card View ]"
+                a(href="/tasks/list" style="margin-left: 1%; color: hsla(0, 0%, 80%)")="[ List View ]"
+            br
 
-            a(href='/createtask')
-                button.button + New Task
-            a(href="/tasks/card" style="margin-left: 60%")= "[ Card View ]"
-            a(href="/tasks/list" style="margin-left: 1%; color: grey")="[ List View ]"
-            br
-            br
             input#tasksearch(style='margin-left: 7px' type='text' name='task-search' size=50)
             button.button#tasksearchbutton(type='button') Search For Tasks
             br
 
-            h4(style= "width: 15%; float: left;") Name
-            h4(style= "width: 15%; margin-left: 2.5%; float: left") Users
-            h4(style= "width: 15%; margin-left: 2.5%; float: left") Due Date
-            h4(style= "width: 15%; margin-left: 2.5%; float: left") Status
-            h4(style= "width: 15%; margin-left: 2.5%; float: left") Priority
+            h4(style= "width: 17%; float: left;") Name
+            h4(style= "width: 17%; margin-left: 2.5%; float: left") Users
+            h4(style= "width: 17%; margin-left: 2.5%; float: left") Due Date
+            h4(style= "width: 17%; margin-left: 2.5%; float: left") Status
+            h4(style= "width: 17%; margin-left: 2.5%; float: left") Priority
 
             for t in tasks
                 span
-                    a(href="/" + t._id style= "height: 30px; width: 15%; float: left; margin-top: 16px; margin-left: 7px")= t.name
-                    p(style= "height: 30px; width: 15%; margin-left: 2.5%; float: left")= t.username
-                    p(style= "height: 30px; width: 15%; margin-left: 2.5%; float: left")= t.datetimeformat
-                    p(style= "height: 30px; width: 15%; margin-left: 2.5%; float: left")= t.status
-                    p(style= "height: 30px; width: 15%; margin-left: 2.5%; float: left")= t.priority
+                    a(href="/" + t._id style= "height: 30px; width: 17%; float: left; margin-top: 16px; margin-left: 7px")= t.name
+                    p(style= "height: 30px; width: 17%; margin-left: 2.5%; float: left")= t.users[0]
+                    p(style= "height: 30px; width: 17%; margin-left: 2.5%; float: left")= t.datetimeformat
+                    p(style= "height: 30px; width: 17%; margin-left: 2.5%; float: left")= t.status
+                    p(style= "height: 30px; width: 17%; margin-left: 2.5%; float: left")= t.priority
     
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){

@@ -15,7 +15,8 @@ html
             include ../includes/loggedin.pug
         
         div#main
-            h1 Create Entry:
+            #subtitle
+                h3(style='display: inline-block; margin-right: 10px; color: white') Glossary
 
             label(for='entryname')= 'Entry Name:'
             input#createentryname(type='text' name='entryname')
