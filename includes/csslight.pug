@@ -1,6 +1,6 @@
 style. 
     body { 
-        background-color: rgba(214, 237, 255); 
+        background-color: hsl(0, 0%, 100%);
         font-family: Helvetica, Georgia, Times, 'Times New Roman', serif
     }
     div{
@@ -33,15 +33,16 @@ style.
         height: 22.5px
     }
     .taskcard{
+        border: 2px solid hsl(0, 0%, 90%);
         border-radius: 15px;
         padding: 10px;
         margin-bottom: 5px; 
         background-color: hsl(0, 0%, 100%);
-        fa0box-shadow: 0px 0px 4px 4px #ebafa0; 
-        width: 100%; 
+        width: 90%; 
         height: 150px
     }
     .subtaskcard{
+        border: 2px solid hsl(0, 0%, 90%);
         border-radius: 15px;
         padding: 5px;
         margin-bottom: 5px; 
@@ -49,6 +50,10 @@ style.
         fa0box-shadow: 0px 0px 4px 4px #ebafa0; 
         width: 90%; 
         height: 75px
+    }
+    .status{
+        width:20%; 
+        float: left;
     }
 
     .glossarylink h4:hover, #menu a:hover, #openmenu:hover {
@@ -67,5 +72,9 @@ style.
     }
     #menu{
         transition: 0.5s
+    }
+    #subtitle{
+        background-color: hsla(210, 100%, 50%);
+        border-radius: 15px
     }
 

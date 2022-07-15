@@ -11,7 +11,7 @@ html
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug    
         else
-            p(style='font-weight: bold')= "User: " + session.username
+            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
             include ../includes/loggedin.pug
         
         div#main
