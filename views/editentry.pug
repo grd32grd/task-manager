@@ -15,7 +15,9 @@ html
             include ../includes/loggedin.pug
         
         div#main
-            h1#gname= glossaryentry.name
+            #subtitle
+                h3(style='display: inline-block; margin-right: 10px; color: white')= glossaryentry.name
+            br
 
             label(for='entryacronym')= 'Entry Acronym:'
             input#editentryacronym(type='text' name='entryacronym' value=glossaryentry.acronym)
