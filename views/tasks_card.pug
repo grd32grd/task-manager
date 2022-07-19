@@ -16,10 +16,12 @@ html
         #main
             #subtitle
                 h3(style='display: inline-block; margin-right: 10px; color: white') Tasks
-                a(href='/createtask')
+                a(href='/createtask' style='width: 10%')
                     button.button + New Task
-                a(href="/tasks/card" style="margin-left: 60%; color: hsla(0, 0%, 80%")= "[ Card View ]"
-                a(href="/tasks/list" style="margin-left: 1%; color: white")="[ List View ]"
+                h5(style='color: white; margin-left: 75%; display: inline-block') List View
+                label.switch
+                    input(onclick="listViewOn()" type="checkbox")
+                    span.slider
             br
 
             input#tasksearch(style='margin-left: 7px' type='text' name='task-search' size=50)
@@ -27,7 +29,7 @@ html
  
             #tasksdiv
                 .status
-                    h4(style="text-align: center") Backlog
+                    h4(style="background-color: rgb(190, 40, 27); color: white") Backlog
                     for t in tasks.filter(function (task) {if (task.status == "Backlog" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
@@ -49,7 +51,7 @@ html
                                 p=t.datetimeformat
 
                 .status(style= "margin-left: 5%") 
-                    h4(style="text-align: center") In Progress
+                    h4(style="background-color: rgb(255, 255, 84)") In Progress
                     for t in tasks.filter(function (task) {if (task.status == "In Progress" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
@@ -71,7 +73,7 @@ html
                                 p=t.datetimeformat
                 
                 .status(style= "margin-left: 5%") 
-                    h4(style="text-align: center") On Hold
+                    h4(style="background-color: rgb(190, 110, 198); color: white") On Hold
                     for t in tasks.filter(function (task) {if (task.status == "On Hold" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
@@ -93,7 +95,7 @@ html
                                 p=t.datetimeformat                
                     
                 .status(style= "margin-left: 5%")
-                    h4(style="text-align: center") Completed
+                    h4(style="background-color: rgb(61, 154, 42); color: white") Completed
                     for t in tasks.filter(function (task) {if (task.status == "Completed" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
@@ -116,9 +118,12 @@ html
 
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){
-                let link = "/tasks/card/" + document.getElementById("tasksearch").value;
-                window.location.assign(link);
+                window.location.assign("/tasks/card/" + document.getElementById("tasksearch").value);
             });
+
+            function listViewOn(){
+                window.location.assign("/tasks/list")
+            }
 
 
         

@@ -16,10 +16,12 @@ html
         #main
             #subtitle
                 h3(style='display: inline-block; margin-right: 10px; color: white') Tasks
-                a(href='/createtask')
+                a(href='/createtask' style='width: 10%')
                     button.button + New Task
-                a(href="/tasks/card" style="margin-left: 60%; color: white")= "[ Card View ]"
-                a(href="/tasks/list" style="margin-left: 1%; color: hsla(0, 0%, 80%)")="[ List View ]"
+                h5(style='color: white; margin-left: 75%; display: inline-block') List View
+                label.switch
+                    input(onclick="listViewOff()" type='checkbox' checked='')
+                    span.slider
             br
 
             input#tasksearch(style='margin-left: 7px' type='text' name='task-search' size=50)
@@ -42,6 +44,9 @@ html
     
         script.
             document.getElementById('tasksearchbutton').addEventListener("click", function(){
-                let link = "/tasks/list/" + document.getElementById("tasksearch").value;
-                window.location.assign(link);
+                window.location.assign("/tasks/list/" + document.getElementById("tasksearch").value);
             });
+
+             function listViewOff(){
+                window.location.assign("/tasks/card")
+            }

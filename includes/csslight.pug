@@ -58,25 +58,81 @@ style.
         width: 90%; 
         height: 75px
     }
-    .status{
+    .status {
         width:20%; 
         float: left;
+    }
+    .status h4 {
+        text-align: center; 
+        padding: 5px; 
+        border-radius: 10px
     }
     .glossarylink h4:hover, #menu a:hover, #openmenu:hover {
         color: grey;
         transition: 0.3s;
     }
 
+    .switch {
+        margin-top: 14px;
+        position: absolute;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+    .switch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        border-radius: 34px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        border-radius: 50%;
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: #cccccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+    }
+
+    input:checked + .slider:before {
+        background-color: hsla(210, 100%, 50%);
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
 
     #main {
         float: left;
         width: 90%;
         transition: 0.5s
     }
-    #menu{
+    #menu {
         transition: 0.5s
     }
-    #subtitle{
+    #subtitle {
         background-color: hsla(210, 100%, 50%);
         border-radius: 15px
     }
