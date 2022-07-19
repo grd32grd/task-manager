@@ -1,12 +1,9 @@
 html
     head
         title Task Manager / Users
-    body
-        if (session.lightmode)
-            include ../includes/csslight.pug
-        else 
-            include ../includes/cssdark.pug
+        include ../includes/css.pug
         
+    body 
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
@@ -45,7 +42,7 @@ html
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
 
                                 p(style='display: inline-block; text-decoration: none; font-weight: bold; width: 70%')= t.name 
-                                p.profileinitial(style='color: white')=t.users[0][0]
+                                p.profile_initial(style='color: white')=t.users[0][0]
                                 p=t.description                               
                                 p=t.datetimeformat
                                 
@@ -67,7 +64,7 @@ html
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
 
                                 p(style='display: inline-block; text-decoration: none; font-weight: bold; width: 70%')= t.name 
-                                p.profileinitial(style='color: white')=t.users[0][0]
+                                p.profile_initial(style='color: white')=t.users[0][0]
                                 p=t.description                               
                                 p=t.datetimeformat
                 
@@ -88,7 +85,7 @@ html
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
 
                                 p(style='display: inline-block; text-decoration: none; font-weight: bold; width: 70%')= t.name 
-                                p.profileinitial(style='color: white')=t.users[0][0]
+                                p.profile_initial(style='color: white')=t.users[0][0]
                                 p=t.description
                                 p=t.datetimeformat                
                     
@@ -107,7 +104,7 @@ html
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
 
                                 p(style='display: inline-block; text-decoration: none; font-weight: bold; width: 70%')= t.name 
-                                p.profileinitial(style='color: white')=t.users[0][0]
+                                p.profile_initial(style='color: white')=t.users[0][0]
                                 p=t.description
                                 p=t.datetimeformat
                 

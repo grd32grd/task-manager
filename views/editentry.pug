@@ -1,13 +1,8 @@
 html 
     head
         title= "Task Manager / " + glossaryentry.name
-        
+        include ../includes/css.pug
     body
-        if (session.lightmode)
-            include ../includes/csslight.pug
-        else 
-            include ../includes/cssdark.pug
-        
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug    
         else

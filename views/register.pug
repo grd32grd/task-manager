@@ -1,13 +1,10 @@
 html
     head
         title Task Manager / Register
-    body
-        if (session.lightmode)
-            include ../includes/csslight.pug
-        else 
-            include ../includes/cssdark.pug
+        include ../includes/css.pug
         include ../includes/loggedout.pug
         
+    body
         div#main
             #subtitle
                 h3(style='display: inline-block; margin-right: 10px; color: white') Register
