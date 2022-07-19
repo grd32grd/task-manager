@@ -300,7 +300,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         else if (!req.body.datetime) {res.sendStatus(406);}
         else {   
             let datearray: string[] = req.body.datetime.split(/[-:T]+/);
-            let datetimeformatted = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
+            let datetimeformatted = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + ", " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
 
             tasks.insertOne({
                 username: req.body.username,
@@ -337,7 +337,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                         }
 
                         let datearray: string[] = req.body.subtask.datetime.split(/[-:T]+/);
-                        req.body.subtask.datetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
+                        req.body.subtask.datetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + ", " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
                         subtasks[subtasks.length] = req.body.subtask
                         //Find way to uniquely identify
                         tasks.updateOne({ name: t.name },{
@@ -420,7 +420,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                     }
                     
                     let datearray: string[] = req.body.newdate.split(/[-:T]+/);
-                    let newDatetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + " " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
+                    let newDatetimeformat = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + ", " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4];
 
                     //Find way to uniquely identify
                     tasks.updateOne({ name: t.name },{ $set: {

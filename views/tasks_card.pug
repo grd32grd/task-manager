@@ -44,11 +44,11 @@ html
                                 else
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
 
-                                p(style='text-decoration: none')= t.name 
-                                span(style='margin-left: 7px')= "Assigned to: " + t.users[0]
-                                if (t.users.length > 1)
-                                    span= " + others"
+                                p(style='display: inline-block; text-decoration: none; font-weight: bold; width: 70%')= t.name 
+                                p.profileinitial(style='color: white')=t.users[0][0]
+                                p=t.description                               
                                 p=t.datetimeformat
+                                
 
                 .status(style= "margin-left: 5%") 
                     h4(style="background-color: rgb(255, 255, 84)") In Progress
@@ -66,10 +66,9 @@ html
                                 else
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
 
-                                p(style='text-decoration: none')= t.name 
-                                span(style='margin-left: 7px')= "Assigned to: " + t.users[0]
-                                if (t.users.length > 1)
-                                    span= " + others"
+                                p(style='display: inline-block; text-decoration: none; font-weight: bold; width: 70%')= t.name 
+                                p.profileinitial(style='color: white')=t.users[0][0]
+                                p=t.description                               
                                 p=t.datetimeformat
                 
                 .status(style= "margin-left: 5%") 
@@ -88,10 +87,9 @@ html
                                 else
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
 
-                                p(style='text-decoration: none')= t.name 
-                                span(style='margin-left: 7px')= "Assigned to: " + t.users[0]
-                                if (t.users.length > 1)
-                                    span= " + others"
+                                p(style='display: inline-block; text-decoration: none; font-weight: bold; width: 70%')= t.name 
+                                p.profileinitial(style='color: white')=t.users[0][0]
+                                p=t.description
                                 p=t.datetimeformat                
                     
                 .status(style= "margin-left: 5%")
@@ -108,10 +106,9 @@ html
                                 else
                                     p(style="background-color: #00b324; color: #00b324; border-radius: 30px; width: 25%; height: 5px; margin: 0px")
 
-                                p(style='text-decoration: none')= t.name 
-                                span(style='margin-left: 7px')= "Assigned to: " + t.users[0]
-                                if (t.users.length > 1)
-                                    span= " + others"
+                                p(style='display: inline-block; text-decoration: none; font-weight: bold; width: 70%')= t.name 
+                                p.profileinitial(style='color: white')=t.users[0][0]
+                                p=t.description
                                 p=t.datetimeformat
                 
 
