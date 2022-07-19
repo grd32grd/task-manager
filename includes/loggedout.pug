@@ -17,10 +17,14 @@ div#searchbar(style='border-bottom: 1.5px solid black; padding-bottom: 5px; marg
 
 div#menu(style= 'width: 8%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s; margin-right: 2%')
     button.button(onclick='closeNav()' style='margin-left: 7px') X
-    p
-        a(href='/tasks/card')= 'Tasks'
-    p
-        a(href='/glossary')= 'Glossary'
+    br
+    br
+    a(href='/tasks/card')
+        include ../includes/task-management.svg
+    br
+    br
+    a(href='/glossary')
+        include ../includes/editor.svg
     p
         a(href='/feedback')= 'Feedback'
     p
