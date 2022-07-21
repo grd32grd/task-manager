@@ -9,7 +9,7 @@ editEntry.onclick = () => {
     let x = new XMLHttpRequest();
     x.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            alert("Glossary entry has been created.");
+            alert("Glossary entry has been edited.");
             window.location.assign("/glossary");
         }
     }

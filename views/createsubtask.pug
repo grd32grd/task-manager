@@ -13,43 +13,55 @@ html
         br
         
         #main(style="width: 90%")
-            div#subtitle(style="float: left; width: 50%")
-                h1#taskname(style="color: white")= task.name
+            div#subtitle(style="float: left; width: 50%; height: 10%")
+                h3#taskname(style="color: white; display: inline-block")= task.name
             
-            div#tasksubinfo(style="float: left; width: 50%")
-                span(style="margin-left: 7px; font-weight: bold; font-size: 22px")= "Due: "
-                span#taskdate(style="font-weight: bold; font-size: 22px")= task.datetimeformat
+            div(style="float: left; width: 50%; height: 10%")
+                span#taskdate(style="margin-left: 7px;font-weight: bold; font-size: 22px")= task.datetimeformat
                 br
                 span(style="margin-left: 7px; font-weight: bold; font-size: 22px")= "Assigned to: "
                 - for (var i = 0; i < task.users.length; i++)
                     span(style="margin-left: 7px; font-size: 22px")= task.users[i]
                     - if (i != task.users.length - 1)
                         span(style="font-size: 22px")= ","
-
             
-            div#edit(style='float: left; width: 50%')
-                h4 Edit Task:
-                label(for='etaskname')= 'Task Name:'
-                input#etaskname(type='text' name='etaskname' value=task.name)
-                label(for='etaskdate')= 'Task Date:'
-                input#etaskdate(type='datetime-local' name='etaskdate' value=task.datetime)
-                button.button#edittask(type='button')='Submit'
+            div(style="float: left; width: 100%")
+                p(style='color: hsla(210, 100%, 50%); font-style: italic')=task.description
+            
+            div(style='float: left; width: 50%')
+                div(style='height: 30%; border-bottom: 2px solid black')
+                    h4 Edit Task:
+                    label(for='etaskname')= 'Task Name:'
+                    input#etaskname(type='text' name='etaskname' value=task.name)
+                    label(for='etaskdate')= 'Task Date:'
+                    input#etaskdate(type='datetime-local' name='etaskdate' value=task.datetime)
+                    button.button#edittask(type='button')='Submit'
 
-                h4 Create Sub Task:
-                label(for='subtaskname')= 'Sub Task Name:'
-                input#createsubtaskname(type='text' name='subtaskname')
-                label(for='subtaskdate')= 'Sub Task Date:'
-                input#createsubtaskdate(type='datetime-local' name='subtaskdate')
-                button.button#createsubtask(type='button')='Create'
+                    h4 Create Sub Task:
+                    label(for='subtaskname')= 'Sub Task Name:'
+                    input#createsubtaskname(type='text' name='subtaskname')
+                    label(for='subtaskdate')= 'Sub Task Date:'
+                    input#createsubtaskdate(type='datetime-local' name='subtaskdate')
+                    button.button#createsubtask(type='button')='Create'
+            
+                h4 Sub Tasks:
+                if (task.subtasks)
+                    ul
+                        for s in task.subtasks
+                            .subtaskcard
+                                p(style='text-decoration: none')= s.name
+                                p= s.datetimeformat
 
-                h4 Add Comment:
-                textarea#comment(style='margin-left: 7px' rows='5' cols='68')
-                button.button#addcomment(type='button')='Add'
+            div(style='float: left; width: 50%; overflow: hidden')
+                div(style='height: 30%; border-bottom: 2px solid black')
+                    h4 Add Comment:
+                    textarea#comment(style='margin-left: 7px' rows='5' cols='68')
+                    br
+                    button.button#addcomment(type='button')='Add'
 
-            div#show(style='float: left; width: 50%; overflow: hidden')
+                h4(style="font-size: 16px; font-weight: bold; float: left") Comments: 
                 if (task.comments)
-                    label(style="font-size: 16px; font-weight: bold") Comments: 
-                    button.button(onclick="window.location.assign('/comments')")#allcomments See All Comments
+                    button.button(style='margin-top: 15px; margin-bottom: 10px' onclick="window.location.assign('/comments')")#allcomments See All Comments
                     - let i = 0;
                     ul
                         for c in task.comments
@@ -60,12 +72,6 @@ html
                                 p= "..."
 
                 
-                h4 Sub Tasks:
-                if (task.subtasks)
-                    ul
-                        for s in task.subtasks
-                            .subtaskcard
-                                p(style='text-decoration: none')= s.name
-                                p= "Due: " + s.datetimeformat
+
         
         script(src='../clients/createsubtask.js')

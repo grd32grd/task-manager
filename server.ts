@@ -152,6 +152,12 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         res.render('feedback.pug', {session : req.session });
     });
 
+    //Search Page
+    app.get('/search', function(req: any, res: any){
+        req.session.href = '/search';
+        res.render('search.pug', {session : req.session });
+    });
+
     //Parameter used to search for specific tasks
     app.param('tasksearch', function(req: any, res: any, next: any, value: any) {
         let searchedTasks: Task[] = [];
