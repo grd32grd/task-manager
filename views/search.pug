@@ -16,9 +16,8 @@ html
             br
 
             p=search
-            p#type(style='float: left; margin-top: 0px; margin-right: 10px') Search Type
-            select
-                option#all All
+            p(style='float: left; margin-top: 0px; margin-right: 10px') Search Type
+            select#type
                 option#tasks Tasks
                 option#glossary Glossary
             br
@@ -29,14 +28,16 @@ html
             br
             br
             button.button Filter
-            button#search.button Search
+            button#searchbutton.button Search
 
-            h2(style='margin-bottom: 0px; color: hsla(210, 100%, 50%)') Tasks:
-            h4(style= "width: 17%; float: left;") Name
-            h4(style= "width: 17%; margin-left: 2.5%; float: left") Users
-            h4(style= "width: 17%; margin-left: 2.5%; float: left") Due Date
-            h4(style= "width: 17%; margin-left: 2.5%; float: left") Status
-            h4(style= "width: 17%; margin-left: 2.5%; float: left") Priority
+
+            if (tasks.length > 0)
+                h2(style='margin-bottom: 0px; color: hsla(210, 100%, 50%)') Tasks:
+                h4(style= "width: 17%; float: left;") Name
+                h4(style= "width: 17%; margin-left: 2.5%; float: left") Users
+                h4(style= "width: 17%; margin-left: 2.5%; float: left") Due Date
+                h4(style= "width: 17%; margin-left: 2.5%; float: left") Status
+                h4(style= "width: 17%; margin-left: 2.5%; float: left") Priority
             for t in tasks
                 span
                     a(href="/" + t._id style= "height: 30px; width: 17%; float: left; margin-top: 16px; margin-left: 7px")= t.name
@@ -45,14 +46,23 @@ html
                     p(style= "height: 30px; width: 17%; margin-left: 2.5%; float: left")= t.status
                     p(style= "height: 30px; width: 17%; margin-left: 2.5%; float: left")= t.priority
 
-            h2(style='color: hsla(210, 100%, 50%)') Glossary Entries:
+            if (glossaryentries.length > 0)
+                h2(style='color: hsla(210, 100%, 50%)') Glossary Entries:
             for g in glossaryentries
                 a.glossarylink(href='glossaryentry/' + g._id style='text-decoration: none')
                     h4(id=g.name[0])= g.name + " (" + g.acronym + ")"
                     p(style='font-size: 12px')= g.definition
         
         script.
-            document.getElementById('search').addEventListener("click", function(){
-                console.log("hi")
-                window.location.assign("/search/" + document.getElementById("keywords").value);
+            document.getElementById('searchbutton').addEventListener("click", function(){
+                if (!document.getElementById("keywords").value){
+                    document.getElementById("keywords").value == "";
+                }
+
+                if (document.getElementById("type").value == "Tasks"){
+                    window.location.assign("/search/tasks/" + document.getElementById("keywords").value);
+                } else if (document.getElementById("type").value == "Glossary"){
+                    window.location.assign("/search/glossary/" + document.getElementById("keywords").value);
+                }
+                
             });

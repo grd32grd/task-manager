@@ -45,17 +45,30 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
 
     //Search Page
     app.get('/search', function(req: any, res: any){
-        tasks.find().toArray(function(err: any, docs_t : any){
-            glossaryentries.find().toArray(function(err: any, docs_g : any){
-                if (err) throw err;
-                res.render('search.pug', { tasks : docs_t, glossaryentries: docs_g, session : req.session });
-            });
-        });
+        res.render('search.pug', { tasks : {}, glossaryentries: {}, session : req.session });
     });
 
-    //Filtered Search Page
-    app.param('searchfilter', function(req: any, res: any, next: any, value: any) {
+    //Filtered Tasks Search Page
+    app.param('taskfilter', function(req: any, res: any, next: any, value: any) {
         let filteredTasks: Task[] = [];
+
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            docs.forEach((t: Task) => {
+                if (t.name.toUpperCase().includes(value.toUpperCase())) {
+                    filteredTasks.push(t);
+                }
+            });
+            res.filteredTasks = filteredTasks;
+            next();
+        });
+    });
+    app.get('/search/tasks/:taskfilter', function(req: any, res: any){
+        res.render('search.pug', { tasks : res.filteredTasks, glossaryentries: {}, session : req.session });
+    });
+
+    //Filtered Glossary Entries Search Page
+    app.param('glossaryfilter', function(req: any, res: any, next: any, value: any) {
         let filteredEntries: GlossaryEntry[] = [];
 
         glossaryentries.find().toArray(function(err: any, docs: any){
@@ -66,21 +79,11 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                 }
             });
             res.filteredEntries = filteredEntries;
+            next();
         });
-        tasks.find().toArray(function(err: any, docs: any){
-            if (err) throw err;
-            docs.forEach((t: Task) => {
-                if (t.name.toUpperCase().includes(value.toUpperCase())) {
-                    filteredTasks.push(t);
-                }
-            });
-            res.filteredTasks = filteredTasks;
-        });
-        next();
     });
-    app.get('/search/:searchfilter', function(req: any, res: any){
-        console.log('test')
-        //res.render('search.pug', { tasks : res.filteredTasks, glossaryentries: res.filteredEntries, session : req.session });
+    app.get('/search/glossary/:glossaryfilter', function(req: any, res: any){
+        res.render('search.pug', { tasks : {}, glossaryentries: res.filteredEntries, session : req.session });
     });
     
     //Tasks Page - card View
