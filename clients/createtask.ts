@@ -18,7 +18,6 @@ createTask.onclick = () => {
     let selectedUsers = [];
     for ( var i = 0; i < assignedUser.selectedOptions.length; i++) {
         selectedUsers.push(assignedUser.selectedOptions[i].value);
-        
     }
 
     let newTaskPriority: 'High' | 'Medium' | 'Low';

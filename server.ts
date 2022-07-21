@@ -296,14 +296,14 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         //Error checking to determine if date has already passed - only checks if year has passed for now.
         let date:string = req.body.datetime.split("-");
         if (parseInt(date[0]) < 2022) {res.sendSatus(404);}
-        else if (!req.body.username) {res.sendStatus(405);}
+        else if (!req.body.users) {res.sendStatus(405);}
         else if (!req.body.datetime) {res.sendStatus(406);}
         else {   
             let datearray: string[] = req.body.datetime.split(/[-:T]+/);
             let datetimeformatted = monthNames[parseInt(datearray[1])-1] + " " + datearray[2] + ", " + datearray[0] + " @ " + datearray[3] + ":" + datearray[4]
 
             tasks.insertOne({
-                username: req.body.username,
+                users: req.body.users,
                 name: req.body.name,
                 datetime: req.body.datetime,
                 datetimeformat: datetimeformatted,
@@ -311,6 +311,7 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
                 privacy: req.body.privacy,
                 status: req.body.status
             });
+
             tasks[tasks.length] = req.body;
             res.sendStatus(200);
         }
