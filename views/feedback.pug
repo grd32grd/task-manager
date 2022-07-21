@@ -7,15 +7,15 @@ html
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
-            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
             include ../includes/loggedin.pug
+            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
         
         div#main
             #subtitle
                 h3(style='display: inline-block; margin-right: 10px; color: white') Feedback
 
             p Input any feedback below:
-            textarea#feedbackinput(style='margin-left: 7px' rows='10' cols='100')
+            textarea#feedbackinput(style='margin-left: 7px; border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px' rows='10' cols='100')
             br
             button.button#feedbackbutton Submit
         

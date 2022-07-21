@@ -7,31 +7,24 @@ html
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
-            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
             include ../includes/loggedin.pug
+            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
         
         div#main
             #subtitle
                 h3(style='display: inline-block; margin-right: 10px; color: white') Glossary
                 a(href='/createentry')
-                    button.button + New Entry
-                
+                    button.button + New Entry    
             br
-            
-            input#glossarysearch(type='text' name='glossary-search' size=50)
-            button.button#glossarysearchbutton(type='button') Search For Entries
-
-            if (glossaryentries.length == 0)
-                p No glossary entries found...
  
             for g in glossaryentries
                 a.glossarylink(href='glossaryentry/' + g._id style='text-decoration: none')
-                    h4(id=g.name[0] style='padding-left: 7px')= g.name + " (" + g.acronym + ")"
-                    i(style='font-size: 12px')= g.definition
+                    h4(id=g.name[0])= g.name + " (" + g.acronym + ")"
+                    p(style='font-size: 12px')= g.definition
                 
         script.
             let line = document.createElement('p');
-            line.innerHTML = "________"
+            line.innerHTML = '________';
             document.getElementById('menu').appendChild(line);
             const alpha = Array.from(Array(26)).map((e, i) => i + 65);
             for (i = 0; i < 26; i++){
@@ -40,14 +33,9 @@ html
                 let letter = document.createElement('a');
                 letter.innerHTML = (i+10).toString(36).toUpperCase();
                 letter.href = '#' + (i+10).toString(36).toUpperCase();
-                paragraph.style.fontWeight = 'bold'
+                letter.style.textDecoration = 'none';
+                paragraph.style.fontWeight = 'bold';
                 paragraph.append(letter);
                 document.getElementById('menu').appendChild(paragraph);
             }
-
-            document.getElementById('glossarysearchbutton').addEventListener("click", function(){
-                let link = "/glossary/" + document.getElementById("glossarysearch").value;
-                window.location.assign(link);
-            });
-            
 

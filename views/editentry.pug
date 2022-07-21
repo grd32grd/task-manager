@@ -6,10 +6,10 @@ html
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug    
         else
-            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
             include ../includes/loggedin.pug
+            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
         
-        div#main
+        #main
             #subtitle
                 h3#gname(style='display: inline-block; margin-right: 10px; color: white')= glossaryentry.name
             br

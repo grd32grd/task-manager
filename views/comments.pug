@@ -4,12 +4,11 @@ html
         include ../includes/css.pug
         
     body
-
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
-            pp(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
             include ../includes/loggedin.pug
+            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
         
         div#main
             #subtitle

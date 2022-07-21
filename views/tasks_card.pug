@@ -1,14 +1,14 @@
 html
     head
-        title Task Manager / Users
+        title Task Manager / Tasks
         include ../includes/css.pug
         
     body 
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
-            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
             include ../includes/loggedin.pug
+            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
         
         #main
             #subtitle
@@ -19,14 +19,10 @@ html
                 label.switch
                     input(onclick="listViewOn()" type="checkbox")
                     span.slider
-            br
-
-            input#tasksearch(style='margin-left: 7px' type='text' name='task-search' size=50)
-            button.button#tasksearchbutton(type='button') Search For Tasks
  
             #tasksdiv
                 .status
-                    h4(style="background-color: rgb(190, 40, 27); color: white") Backlog
+                    h4(style="background-color: rgb(190, 40, 27); color: white; border: 2px solid grey") Backlog
                     for t in tasks.filter(function (task) {if (task.status == "Backlog" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
@@ -48,12 +44,12 @@ html
                                 
 
                 .status(style= "margin-left: 5%") 
-                    h4(style="background-color: rgb(255, 255, 84)") In Progress
+                    h4(style="background-color: rgb(255, 255, 84); border: 2px solid grey") In Progress
                     for t in tasks.filter(function (task) {if (task.status == "In Progress" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
-                        a(href="/completetask/" + t._id)
-                            button.button(style='margin-top: 10px') Complete
+                        a(href="/puttaskonhold/" + t._id)
+                            button.button(style='margin-top: 10px') Put On Hold
                         a(href="/" + t._id style="text-decoration: none")
                             .taskcard
                                 if (t.priority == "High")
@@ -69,7 +65,7 @@ html
                                 p=t.datetimeformat
                 
                 .status(style= "margin-left: 5%") 
-                    h4(style="background-color: rgb(190, 110, 198); color: white") On Hold
+                    h4(style="background-color: rgb(190, 110, 198); color: white; border: 2px solid grey") On Hold
                     for t in tasks.filter(function (task) {if (task.status == "On Hold" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
@@ -90,7 +86,7 @@ html
                                 p=t.datetimeformat                
                     
                 .status(style= "margin-left: 5%")
-                    h4(style="background-color: rgb(61, 154, 42); color: white") Completed
+                    h4(style="background-color: rgb(61, 154, 42); color: white; border: 2px solid grey") Completed
                     for t in tasks.filter(function (task) {if (task.status == "Completed" && (session.username == task.username || !task.privacy)) {return task}})
                         a(href="/deletetask/" + t._id)
                             button.button(style='margin-top: 10px') X
@@ -111,10 +107,6 @@ html
 
 
         script.
-            document.getElementById('tasksearchbutton').addEventListener("click", function(){
-                window.location.assign("/tasks/card/" + document.getElementById("tasksearch").value);
-            });
-
             function listViewOn(){
                 window.location.assign("/tasks/list")
             }

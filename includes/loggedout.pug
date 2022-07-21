@@ -1,12 +1,13 @@
 div#logo(style='height: 5%')
     img(src='/includes/DSP_logo.png' style='height: 50px; weight: 50px')
-    input.menu_input(type='text' size=65 style='left: 6%')
+    input#search.text_input(type='text' size=65 style='left: 6%')
     select(id='searchtype' style='position: fixed; left: 39%')
+        option#all All
         option#tasks Tasks
         option#glossary Glossary
     a(href='/search')
         include ../includes/svg_files/search.svg
-    input.menu_input(type='text' size=73.5 style='left: 47.5%')
+    input.text_input(type='text' size=73.5 style='left: 57.5%')
     a(href='/register')
         include ../includes/svg_files/circle.svg
         include ../includes/svg_files/semicircle.svg
@@ -26,7 +27,6 @@ div#menu(style='float: left; overflow-x: hidden; transition: 0.5s; margin-right:
         include ../includes/svg_files/comment.svg
     br
     br
-
     
 script.
     function openNav() {
@@ -40,4 +40,12 @@ script.
         document.getElementById("main").style.width = '100%';
     }
 
-//script(src='../clients/login.js')
+    function search() {
+        let search = document.getElementById("search");
+        let searchtype = document.getElementById("searchtype");
+        let x = new XMLHttpRequest();
+        let link = "/search/" + search.value;
+        console.log(link)
+        x.open("GET", link );
+        x.setRequestHeader("Content-Type", "application/json"); 
+    }

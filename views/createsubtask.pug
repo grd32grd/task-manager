@@ -7,13 +7,12 @@ html
         if (session == undefined || session.loggedin == undefined || !session.loggedin)
             include ../includes/loggedout.pug
         else
-            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
             include ../includes/loggedin.pug
-
+            p(style="font-weight: bold; text-align: center; display: inline")= "User: " + session.username
         br
         
         #main(style="width: 90%")
-            div#subtitle(style="float: left; width: 50%; height: 10%")
+            div#subtitle(style="float: left; width: 50%")
                 h3#taskname(style="color: white; display: inline-block")= task.name
             
             div(style="float: left; width: 50%; height: 10%")
@@ -31,17 +30,17 @@ html
             div(style='float: left; width: 50%')
                 div(style='height: 30%; border-bottom: 2px solid black')
                     h4 Edit Task:
-                    label(for='etaskname')= 'Task Name:'
-                    input#etaskname(type='text' name='etaskname' value=task.name)
-                    label(for='etaskdate')= 'Task Date:'
-                    input#etaskdate(type='datetime-local' name='etaskdate' value=task.datetime)
+                    label(for='etaskname')= 'Name:'
+                    input#etaskname(type='text' name='etaskname' size=40 value=task.name style='border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px')
+                    label(for='etaskdate')= 'Date:'
+                    input#etaskdate(type='datetime-local' name='etaskdate' value=task.datetime style='border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px')
                     button.button#edittask(type='button')='Submit'
 
                     h4 Create Sub Task:
-                    label(for='subtaskname')= 'Sub Task Name:'
-                    input#createsubtaskname(type='text' name='subtaskname')
-                    label(for='subtaskdate')= 'Sub Task Date:'
-                    input#createsubtaskdate(type='datetime-local' name='subtaskdate')
+                    label(for='subtaskname')= 'Name:'
+                    input#createsubtaskname(type='text' name='subtaskname' size=40 style='border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px')
+                    label(for='subtaskdate')= 'Date:'
+                    input#createsubtaskdate(type='datetime-local' name='subtaskdate' style='border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px')
                     button.button#createsubtask(type='button')='Create'
             
                 h4 Sub Tasks:
@@ -55,7 +54,7 @@ html
             div(style='float: left; width: 50%; overflow: hidden')
                 div(style='height: 30%; border-bottom: 2px solid black')
                     h4 Add Comment:
-                    textarea#comment(style='margin-left: 7px' rows='5' cols='68')
+                    textarea#comment(style='margin-left: 7px; border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px' rows='5' cols='68')
                     br
                     button.button#addcomment(type='button')='Add'
 

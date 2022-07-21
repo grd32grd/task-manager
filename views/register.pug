@@ -11,12 +11,8 @@ html
             br
             
             label(for='username')= 'Username:'
-            input#username(type='text' name='username')
+            input#username(type='text' name='username' style='border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px')
             label(for='password')= ' Password:'
-            input#password(type='password' name='password')
+            input#password(type='password' name='password' style='border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px')
             button.button#register(type='button') Register 
             script(src='../clients/register.js')
-    
-    script.
-        document.getElementById('logindiv').innerHTML = "";
-        document.getElementById('logindiv').style.borderBottom = "0px"

@@ -1,25 +1,30 @@
-div#logo(style='padding-bottom: 5px; margin-bottom: 10px; margin-top: 10px')
-    img(src='/includes/DSP_logo.png' height='50' width='50' style='position: absolute')
+div#logo(style='height: 5%')
+    img(src='/includes/DSP_logo.png' style='height: 50px; weight: 50px')
+    input#search.text_input(type='text' size=65 style='left: 6%')
+    select(id='searchtype' style='position: fixed; left: 39%')
+        option#all All
+        option#tasks Tasks
+        option#glossary Glossary
+    a(href='/search')
+        include ../includes/svg_files/search.svg
+    input.text_input(type='text' size=73.5 style='left: 57.5%')
+
+div#menu(style='float: left; overflow-x: hidden; transition: 0.5s; margin-right: 2%')
     br
-
-div#searchbar(style='border-bottom: 1.5px solid black; padding-bottom: 5px; margin-bottom: 10px')
-    button.button(onclick='openNav()' style='position: absolute; margin-left: 7px; color: black') Menu
-    div(style='text-align: center')
-        input(type='text' size=100)
-        button.button Search
-
-
-div#menu(style= 'width: 8%; height: 100%; float: left; overflow-x: hidden; transition: 0.5s; margin-right: 2%')
-    button.button(onclick='closeNav()' style='margin-left: 7px') X
-    p
-        a(href='/tasks/card')= 'Tasks'
-    p
-        a(href='/glossary')= 'Glossary'
-    p
-        a(href='/feedback')= 'Feedback'
-    p
-        a(href='/logout')= 'Logout'
-    
+    br
+    a(href='/tasks/card')
+        include ../includes/svg_files/task-management.svg
+    br
+    br
+    a(href='/glossary')
+        include ../includes/svg_files/editor.svg
+    br
+    br
+    a(href='/feedback')
+        include ../includes/svg_files/comment.svg
+    br
+    br
+  
 script.
     function openNav() {
         document.getElementById("menu").style.marginRight = '2%';
@@ -32,4 +37,10 @@ script.
         document.getElementById("main").style.width = '100%';
     }
 
-script(src='../clients/login.js')
+    function search() {
+        let search = document.getElementById("search");
+        let x = new XMLHttpRequest();
+        x.open("GET", "/search");
+        x.setRequestHeader("Content-Type", "application/json");
+        x.send(JSON.stringify({search: search.value}));   
+    }

@@ -34,7 +34,7 @@ type GlossaryEntry = {
 //Variables
 let tasks = [
 	{users: ["Guled"], name: "Finish Task Manager Demo", description: "Create the application.", datetime:"2022-07-14T14:00", datetimeformat: "July 14, 2022 @ 14:00", priority: "High", status: "In Progress" },
-	{users: ["Chris"], name: "Anaylze Task Manager Demo Code", description: "Go over snippets of the application's code.", datetime:"2022-07-14T14:30", datetimeformat: "July 14, 2022 @ 14:30", priority: "Medium", status: "Backlog"},
+	{users: ["Chris"], name: "Analyze Task Manager Demo Code", description: "Go over snippets of the application's code.", datetime:"2022-07-14T14:30", datetimeformat: "July 14, 2022 @ 14:30", priority: "Medium", status: "Backlog"},
 	{users: ["Phil"], name: "Critique Task Manager Demo", description: "Come up with a list of improvements.", datetime:"2022-07-14T14:30", datetimeformat: "July 14, 2022 @ 14:30", priority: "Medium", status: "Backlog"}
 ]
 

@@ -43,6 +43,46 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
     let glossaryentries = client.db('taskmanager').collection('glossaryentries');
     let feedback = client.db('taskmanager').collection('feedback');
 
+    //Search Page
+    app.get('/search', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs_t : any){
+            glossaryentries.find().toArray(function(err: any, docs_g : any){
+                if (err) throw err;
+                res.render('search.pug', { tasks : docs_t, glossaryentries: docs_g, session : req.session });
+            });
+        });
+    });
+
+    //Filtered Search Page
+    app.param('searchfilter', function(req: any, res: any, next: any, value: any) {
+        let filteredTasks: Task[] = [];
+        let filteredEntries: GlossaryEntry[] = [];
+
+        glossaryentries.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            docs.forEach((g: GlossaryEntry) => {
+                if (g.name.toUpperCase().includes(value.toUpperCase())) {
+                    filteredEntries.push(g);
+                }
+            });
+            res.filteredEntries = filteredEntries;
+        });
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            docs.forEach((t: Task) => {
+                if (t.name.toUpperCase().includes(value.toUpperCase())) {
+                    filteredTasks.push(t);
+                }
+            });
+            res.filteredTasks = filteredTasks;
+        });
+        next();
+    });
+    app.get('/search/:searchfilter', function(req: any, res: any){
+        console.log('test')
+        //res.render('search.pug', { tasks : res.filteredTasks, glossaryentries: res.filteredEntries, session : req.session });
+    });
+    
     //Tasks Page - card View
     app.get('/', function(req: any, res: any){
         if (req.session.loggedin != true){
@@ -152,12 +192,6 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         res.render('feedback.pug', {session : req.session });
     });
 
-    //Search Page
-    app.get('/search', function(req: any, res: any){
-        req.session.href = '/search';
-        res.render('search.pug', {session : req.session });
-    });
-
     //Parameter used to search for specific tasks
     app.param('tasksearch', function(req: any, res: any, next: any, value: any) {
         let searchedTasks: Task[] = [];
@@ -252,6 +286,18 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
             //Find way to uniquely identify
             tasks.updateOne({ _id: res.task._id  },{ $set: {
                 status: 'In Progress'
+            }});
+            res.redirect('back');
+        });
+    });
+
+    //Route to put a task on hold.
+    app.get('/puttaskonhold/:taskid', function(req: any, res: any){
+        tasks.find().toArray(function(err: any, docs: any){
+            if (err) throw err;
+            //Find way to uniquely identify
+            tasks.updateOne({ _id: res.task._id  },{ $set: {
+                status: 'On Hold'
             }});
             res.redirect('back');
         });
