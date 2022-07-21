@@ -48,6 +48,11 @@ mc.connect("mongodb://localhost:27017", function(err : any, client : any) {
         res.render('search.pug', { tasks : {}, glossaryentries: {}, session : req.session });
     });
 
+    //Login Page
+    app.get('/login', function(req: any, res: any){
+        res.render('login.pug', { session : req.session });
+    });
+
     //Filtered Tasks Search Page
     app.param('taskfilter', function(req: any, res: any, next: any, value: any) {
         let filteredTasks: Task[] = [];

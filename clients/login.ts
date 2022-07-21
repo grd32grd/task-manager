@@ -1,6 +1,6 @@
 //HTML Variables
-let loginUsernameInput:any = document.getElementById('loginusername');
-let loginPasswordInput:any = document.getElementById('loginpassword');
+let loginUsernameInput:any = document.getElementById('username');
+let loginPasswordInput:any = document.getElementById('password');
 let login:any = document.getElementById('login');
 
 //Main Methods

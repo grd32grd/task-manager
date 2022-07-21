@@ -1,1 +1,1 @@
-<svg class="profile" style="position: fixed; left: 95%; height: 20px; weight: 20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" fill="none" r="8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg class="profile" style="height: 20px; weight: 20px; color: black" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" fill="none" r="8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>

@@ -1,23 +1,19 @@
 html
     head
-        title Task Manager / Register
+        title Task Manager / Login
         include ../includes/css.pug
         include ../includes/loggedout.pug
         
     body
         div#main
             #subtitle
-                h3(style='display: inline-block; margin-right: 10px; color: white') Register
+                h3(style='display: inline-block; margin-right: 10px; color: white') Login
             br
             
             label(for='username')= 'Username:'
             input#username(type='text' name='username' style='border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px')
             label(for='password')= ' Password:'
             input#password(type='password' name='password' style='border: 2px solid grey; border-radius: 10px; padding-left: 2px; padding-right: 2px')
-            button.button#register(type='button') Register 
+            button.button#login(type='button') Login
 
-            br
-            br
-            a(href='login' style='margin-left: 7px; color: hsla(210, 100%, 50%); font-style: italic; text-decoration: underline') or login.
-
-            script(src='../clients/register.js')
+            script(src='../clients/login.js')
